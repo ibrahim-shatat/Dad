@@ -1,0 +1,192 @@
+export type UserRole = 'director' | 'assistant' | 'admin'
+
+export interface User {
+  id: string
+  email: string
+  full_name: string
+  role: UserRole
+  is_active: boolean
+  created_at: string
+}
+
+export type ApprovalItemType = 'email_draft' | 'presentation_export' | 'document_share' | 'dummy'
+export type ApprovalStatus = 'pending' | 'approved' | 'rejected'
+
+export interface ApprovalQueueItem {
+  id: string
+  item_type: ApprovalItemType
+  reference_id: string
+  preview_text: string
+  requested_by_id: string
+  status: ApprovalStatus
+  reviewed_by_id: string | null
+  reviewed_at: string | null
+  created_at: string
+}
+
+export type DocumentStatus =
+  | 'uploaded'
+  | 'extracting'
+  | 'extracted'
+  | 'reviewing'
+  | 'reviewed'
+  | 'failed'
+
+export interface RiskFlag {
+  category: string
+  description: string
+  severity: 'low' | 'medium' | 'high'
+}
+
+export interface DocumentReview {
+  id: string
+  executive_summary: string
+  risk_flags: RiskFlag[]
+  suggested_rewrite: string
+  disclaimer_ack: boolean
+  model_used: string
+  created_at: string
+}
+
+// Named DocumentItem, not Document, to avoid colliding with the DOM's global Document type.
+export interface DocumentItem {
+  id: string
+  filename: string
+  mime_type: string
+  file_size: number
+  instructions: string | null
+  status: DocumentStatus
+  failure_reason: string | null
+  created_at: string
+  review: DocumentReview | null
+}
+
+export type PresentationStatus = 'draft' | 'generating' | 'ready' | 'approved' | 'failed'
+export type SlideLayout = 'section_header' | 'bullets' | 'two_column' | 'chart'
+
+export interface SlideChart {
+  categories: string[]
+  values: number[]
+  series_name: string
+}
+
+export interface SlideContent {
+  layout: SlideLayout
+  title: string
+  bullets: string[]
+  left_column: string[]
+  right_column: string[]
+  chart: SlideChart | null
+  speaker_notes: string
+}
+
+export interface PresentationOutline {
+  title: string
+  slides: SlideContent[]
+}
+
+export interface PresentationItem {
+  id: string
+  source_document_id: string | null
+  title: string | null
+  instructions: string | null
+  structured_content: PresentationOutline | null
+  status: PresentationStatus
+  failure_reason: string | null
+  created_at: string
+}
+
+export type MeetingStatus = 'processing' | 'processed' | 'failed'
+export type ActionItemStatus = 'open' | 'in_progress' | 'done'
+export type DecisionStatus = 'pending' | 'decided' | 'deferred'
+export type EmailDraftStatus = 'pending_approval' | 'approved' | 'rejected' | 'sent'
+
+export interface ActionItem {
+  id: string
+  description: string
+  owner: string
+  due_date: string | null
+  status: ActionItemStatus
+  created_at: string
+}
+
+export interface Decision {
+  id: string
+  description: string
+  decided_by: string
+  status: DecisionStatus
+  deadline: string | null
+  created_at: string
+}
+
+export interface EmailDraft {
+  id: string
+  source_meeting_id: string | null
+  account_id: string | null
+  source_message_id: string | null
+  to_addresses: string[]
+  cc_addresses: string[]
+  subject: string
+  body: string
+  status: EmailDraftStatus
+  sent_at: string | null
+  created_at: string
+}
+
+export type EmailProvider = 'gmail' | 'outlook'
+export type EmailUrgency = 'low' | 'medium' | 'high'
+
+export interface EmailAccount {
+  id: string
+  provider: EmailProvider
+  email_address: string
+  last_synced_at: string | null
+  created_at: string
+}
+
+export interface EmailMessageItem {
+  id: string
+  account_id: string
+  provider_message_id: string
+  thread_id: string | null
+  sender: string
+  subject: string
+  snippet: string
+  received_at: string
+  is_unread: boolean
+  ai_urgency: EmailUrgency | null
+  ai_summary: string | null
+}
+
+export interface MeetingItem {
+  id: string
+  title: string
+  meeting_date: string
+  instructions: string | null
+  summary: string | null
+  status: MeetingStatus
+  failure_reason: string | null
+  action_items: ActionItem[]
+  decisions: Decision[]
+  email_drafts: EmailDraft[]
+  created_at: string
+}
+
+export interface UpcomingDeadline {
+  type: 'action_item' | 'decision'
+  id: string
+  description: string
+  owner: string
+  due_date: string
+  meeting_id: string
+  meeting_title: string
+}
+
+export interface DashboardSummary {
+  pending_approvals: ApprovalQueueItem[]
+  documents_awaiting_review: number
+  presentations_in_progress: number
+  open_action_items: number
+  upcoming_deadlines: UpcomingDeadline[]
+  unread_urgent_emails: number
+}

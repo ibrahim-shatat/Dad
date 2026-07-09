@@ -1,0 +1,49 @@
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    # Anthropic
+    anthropic_api_key: str = ""
+    claude_model_fast: str = "claude-haiku-4-5-20251001"
+    claude_model_smart: str = "claude-sonnet-5"
+
+    # Auth
+    jwt_secret: str = "change-me"
+    jwt_algorithm: str = "HS256"
+    access_token_expire_minutes: int = 30
+    refresh_token_expire_days: int = 7
+
+    # Token encryption (for stored OAuth tokens)
+    token_encryption_key: str = ""
+
+    # Database
+    database_url: str = "postgresql+asyncpg://dad:dad@db:5432/dad"
+
+    # Redis / arq
+    redis_url: str = "redis://redis:6379/0"
+
+    # Storage
+    storage_backend: str = "local"
+    upload_dir: str = "/data/uploads"
+
+    # Email OAuth (Phase 4)
+    gmail_client_id: str = ""
+    gmail_client_secret: str = ""
+    ms_client_id: str = ""
+    ms_client_secret: str = ""
+
+    # Used to build OAuth redirect URIs and the post-connect redirect back to the SPA.
+    api_base_url: str = "http://localhost:8000"
+    frontend_url: str = "http://localhost:5173"
+
+    # CORS
+    cors_origins: str = "http://localhost:5173"
+
+    @property
+    def cors_origin_list(self) -> list[str]:
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+
+
+settings = Settings()

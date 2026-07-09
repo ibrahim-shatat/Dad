@@ -1,0 +1,33 @@
+# Auto-loaded by `docker-compose up` for local development.
+# Adds hot-reload, bind mounts, and exposed ports not wanted in production.
+services:
+  db:
+    ports:
+      - "5433:5432"
+
+  backend:
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./backend/app:/app/app
+      - ./backend/alembic:/app/alembic
+      - upload_data:/data/uploads
+    ports:
+      - "8000:8000"
+
+  worker:
+    command: watchfiles --filter python "arq app.tasks.worker.WorkerSettings" /app/app
+    volumes:
+      - ./backend/app:/app/app
+      - ./backend/alembic:/app/alembic
+      - upload_data:/data/uploads
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    command: npm run dev -- --host 0.0.0.0 --port 5173
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/index.html:/app/index.html
+    ports:
+      - "5173:5173"
