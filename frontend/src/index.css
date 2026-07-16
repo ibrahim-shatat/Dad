@@ -3,37 +3,40 @@
 @tailwind utilities;
 
 @layer base {
+  /* Design system: "Reliable Clarity" — Deep Indigo primary on calm, faintly
+     lavender-tinted neutrals; hairline borders; light + dark. (from Stitch DESIGN.md) */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    --background: 264 100% 99%;
+    --foreground: 230 13% 12%;
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
-    --primary: 222 47% 11%;
-    --primary-foreground: 210 40% 98%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 222 47% 11%;
+    --card-foreground: 230 13% 12%;
+    --muted: 251 60% 97%;
+    --muted-foreground: 240 6% 42%;
+    --primary: 243 75% 59%;
+    --primary-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 249 22% 88%;
+    --input: 249 22% 88%;
+    --ring: 243 75% 59%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 14%;
-    --card-foreground: 210 40% 98%;
-    --muted: 217 33% 20%;
-    --muted-foreground: 215 20% 65%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222 47% 11%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 24%;
-    --input: 217 33% 24%;
-    --ring: 213 27% 84%;
+    --background: 240 15% 5%;
+    --foreground: 250 40% 96%;
+    --card: 240 11% 10%;
+    --card-foreground: 250 40% 96%;
+    --muted: 240 8% 16%;
+    --muted-foreground: 250 12% 72%;
+    --primary: 243 75% 64%;
+    --primary-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 9% 20%;
+    --input: 240 9% 22%;
+    --ring: 243 75% 64%;
+    --radius: 0.5rem;
   }
 
   * {
@@ -43,5 +46,8 @@
   body {
     @apply bg-background text-foreground;
     margin: 0;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 }

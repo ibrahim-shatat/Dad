@@ -11,10 +11,27 @@ import {
   ClipboardCheck,
   Sparkles,
   ShieldCheck,
+  Bot,
   LogOut,
   Menu,
   X,
 } from 'lucide-react'
+
+function BrandMark({ withText = true }: { withText?: boolean }) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <div className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-soft">
+        <Bot className="size-5" />
+      </div>
+      {withText && (
+        <div className="leading-tight">
+          <p className="text-base font-bold tracking-tight text-primary">Dad</p>
+          <p className="text-[11px] text-muted-foreground">AI Executive Assistant</p>
+        </div>
+      )}
+    </div>
+  )
+}
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -65,7 +82,7 @@ export default function AppShell() {
         >
           <Menu className="size-5" />
         </button>
-        <p className="text-sm font-semibold">AI Executive Assistant</p>
+        <BrandMark />
         <div className="ml-auto">
           <NotificationBell />
         </div>
@@ -88,7 +105,7 @@ export default function AppShell() {
         )}
       >
         <div className="flex items-center justify-between border-b p-4">
-          <p className="text-sm font-semibold">AI Executive Assistant</p>
+          <BrandMark />
           <button
             type="button"
             onClick={() => setOpen(false)}
