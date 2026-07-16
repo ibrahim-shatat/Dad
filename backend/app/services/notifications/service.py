@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.notification import Notification, NotificationType
 from app.models.user import User, UserRole
+from app.services.push.service import send_push_to_user
 
 
 async def create_notification(
@@ -26,6 +27,8 @@ async def create_notification(
     )
     db.add(notification)
     await db.flush()
+    # Best-effort phone push (no-op if the user has no subscriptions / VAPID not configured).
+    await send_push_to_user(db, user_id, title=title, body=body, url=link)
     return notification
 
 

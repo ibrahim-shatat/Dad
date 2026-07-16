@@ -29,6 +29,13 @@ services:
         value: /tmp/uploads
       - key: JWT_SECRET
         generateValue: true          # Render generates a strong random value
+      # --- Web Push (VAPID). Public key + subject are not secret; private key is. ---
+      - key: VAPID_PUBLIC_KEY
+        value: BBnjYpzuqclXyi6K0_N85-11b7I33eqKFQVmh4MMPWuKbmXtuzvSmVpUckv0OWEqXYtpSHXVGguHq3VuhHbcClw
+      - key: VAPID_SUBJECT
+        value: mailto:ibrahimshatat02@gmail.com
+      - key: VAPID_PRIVATE_KEY
+        sync: false
       # --- Secrets to paste in the dashboard (Environment tab) ---
       - key: ANTHROPIC_API_KEY        # rotate the key used in local dev
         sync: false

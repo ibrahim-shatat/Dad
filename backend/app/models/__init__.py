@@ -18,4 +18,5 @@ from app.models.meeting import (  # noqa: F401
 )
 from app.models.notification import Notification, NotificationType  # noqa: F401
 from app.models.presentation import Presentation, PresentationStatus  # noqa: F401
+from app.models.push import PushSubscription  # noqa: F401
 from app.models.user import User, UserRole  # noqa: F401

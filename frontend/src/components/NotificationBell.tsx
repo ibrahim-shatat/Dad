@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Bell } from 'lucide-react'
+import { Bell, BellRing } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import type { Notification } from '@/types'
@@ -11,6 +11,7 @@ import {
   markAllNotificationsRead,
   markNotificationRead,
 } from '@/api/notifications'
+import { disablePush, enablePush, isPushEnabled, pushSupported } from '@/lib/push'
 
 function relativeTime(iso: string): string {
   const diff = Date.now() - new Date(iso).getTime()
@@ -49,6 +50,33 @@ export default function NotificationBell() {
 
   const readMutation = useMutation({ mutationFn: markNotificationRead, onSuccess: invalidate })
   const readAllMutation = useMutation({ mutationFn: markAllNotificationsRead, onSuccess: invalidate })
+
+  const [pushOn, setPushOn] = useState(false)
+  const [pushBusy, setPushBusy] = useState(false)
+  const supported = pushSupported()
+
+  useEffect(() => {
+    if (open) isPushEnabled().then(setPushOn)
+  }, [open])
+
+  const togglePush = async () => {
+    setPushBusy(true)
+    try {
+      if (pushOn) {
+        await disablePush()
+        setPushOn(false)
+      } else {
+        const result = await enablePush()
+        if (result === 'enabled') setPushOn(true)
+        else if (result === 'denied')
+          alert('Notifications are blocked. Enable them for this site in your browser settings.')
+      }
+    } catch {
+      alert('Could not update push notifications. Please try again.')
+    } finally {
+      setPushBusy(false)
+    }
+  }
 
   // Close on outside click.
   useEffect(() => {
@@ -131,6 +159,24 @@ export default function NotificationBell() {
               ))
             )}
           </div>
+
+          {supported && (
+            <div className="border-t px-4 py-2.5">
+              <button
+                type="button"
+                onClick={togglePush}
+                disabled={pushBusy}
+                className="flex w-full items-center justify-center gap-2 rounded-md py-1.5 text-xs font-medium text-primary hover:bg-muted disabled:opacity-60"
+              >
+                <BellRing className="size-3.5" />
+                {pushBusy
+                  ? 'Working…'
+                  : pushOn
+                    ? 'Phone push on — tap to turn off'
+                    : 'Enable phone notifications'}
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

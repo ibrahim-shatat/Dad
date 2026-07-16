@@ -32,6 +32,11 @@ class Settings(BaseSettings):
     storage_backend: str = "local"
     upload_dir: str = "/data/uploads"
 
+    # Web Push (VAPID). If keys are empty, push is disabled (in-app notifications still work).
+    vapid_public_key: str = ""
+    vapid_private_key: str = ""
+    vapid_subject: str = "mailto:admin@dad.app"
+
     # Email OAuth (Phase 4)
     gmail_client_id: str = ""
     gmail_client_secret: str = ""
