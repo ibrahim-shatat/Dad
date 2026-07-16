@@ -64,7 +64,7 @@ export default function ApprovalQueueList({ limit, compact }: Props) {
   return (
     <div className="flex flex-col gap-4">
       {!compact && (
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 rounded-xl border bg-muted/30 p-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap gap-1 rounded-lg bg-muted p-1">
             {STATUS_TABS.map((tab) => (
               <button
@@ -85,7 +85,7 @@ export default function ApprovalQueueList({ limit, compact }: Props) {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value as ApprovalItemType | 'all')}
-            className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+            className="h-9 rounded-md border border-input bg-card px-3 text-sm"
           >
             {TYPE_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -105,7 +105,7 @@ export default function ApprovalQueueList({ limit, compact }: Props) {
           {compact || statusTab === 'pending' ? 'Nothing pending approval.' : 'No items here.'}
         </p>
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className={cn('grid gap-3', !compact && 'lg:grid-cols-2')}>
           {items.map((item) => (
             <ApprovalQueueItemCard
               key={item.id}
