@@ -2,22 +2,21 @@ import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { FileText, Upload } from 'lucide-react'
+import { Check, FileText, Loader2, Upload, X } from 'lucide-react'
 
 import { Button, buttonVariants } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
 import { listDocuments, uploadDocument } from '@/api/documents'
-import type { DocumentStatus } from '@/types'
+import type { DocumentItem, DocumentStatus } from '@/types'
 
 const STATUS_LABELS: Record<DocumentStatus, string> = {
   uploaded: 'Uploaded',
-  extracting: 'Extracting…',
+  extracting: 'Extracting',
   extracted: 'Extracted',
-  reviewing: 'Reviewing…',
+  reviewing: 'Reviewing',
   reviewed: 'Reviewed',
   failed: 'Failed',
 }
@@ -28,6 +27,69 @@ const IN_PROGRESS_STATUSES = new Set<DocumentStatus>([
   'extracted',
   'reviewing',
 ])
+
+function formatSize(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
+
+function StatusBadge({ status }: { status: DocumentStatus }) {
+  if (status === 'reviewed') {
+    return (
+      <span className="flex items-center gap-1 rounded-full bg-green-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-green-600 dark:text-green-500">
+        <Check className="size-3" /> Reviewed
+      </span>
+    )
+  }
+  if (status === 'failed') {
+    return (
+      <span className="flex items-center gap-1 rounded-full bg-red-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-red-600 dark:text-red-500">
+        <X className="size-3" /> Failed
+      </span>
+    )
+  }
+  return (
+    <span className="flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold text-primary">
+      <Loader2 className="size-3 animate-spin" /> {STATUS_LABELS[status]}
+    </span>
+  )
+}
+
+function DocumentCard({ doc }: { doc: DocumentItem }) {
+  const inProgress = IN_PROGRESS_STATUSES.has(doc.status)
+  return (
+    <Link to={`/documents/${doc.id}`}>
+      <Card className="flex h-full flex-col gap-3 p-4 transition-colors hover:bg-muted/40">
+        <div className="flex items-start justify-between gap-2">
+          <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <FileText className="size-5" />
+          </div>
+          <StatusBadge status={doc.status} />
+        </div>
+        <div className="min-w-0">
+          <p className="truncate font-semibold">{doc.filename}</p>
+          <p className="text-xs text-muted-foreground">
+            {formatSize(doc.file_size)} · {new Date(doc.created_at).toLocaleDateString()}
+          </p>
+        </div>
+        {inProgress && (
+          <div className="h-1 overflow-hidden rounded-full bg-muted">
+            <div className="h-full w-2/3 animate-pulse rounded-full bg-primary" />
+          </div>
+        )}
+        {doc.review && (
+          <p className="line-clamp-2 border-l-2 border-primary/60 bg-muted/40 py-1.5 pl-2.5 text-xs italic text-muted-foreground">
+            {doc.review.executive_summary}
+          </p>
+        )}
+        {doc.status === 'failed' && doc.failure_reason && (
+          <p className="line-clamp-2 text-xs text-destructive">{doc.failure_reason}</p>
+        )}
+      </Card>
+    </Link>
+  )
+}
 
 export default function Documents() {
   const queryClient = useQueryClient()
@@ -70,7 +132,12 @@ export default function Documents() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Documents</h1>
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight">Documents</h1>
+          <p className="text-sm text-muted-foreground">
+            Upload a contract, report, or memo for an AI review.
+          </p>
+        </div>
         <label className={cn(buttonVariants(), 'cursor-pointer')}>
           <Upload className="size-4" />
           Upload document
@@ -91,7 +158,8 @@ export default function Documents() {
           <CardContent className="flex flex-col gap-3">
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="instructions">
-                Anything specific to focus on? <span className="text-muted-foreground">(optional)</span>
+                Anything specific to focus on?{' '}
+                <span className="text-muted-foreground">(optional)</span>
               </Label>
               <Textarea
                 id="instructions"
@@ -119,33 +187,19 @@ export default function Documents() {
       )}
 
       {!documents || documents.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed p-12 text-center">
-          <FileText className="size-8 text-muted-foreground" />
+        <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed p-12 text-center">
+          <div className="flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
+            <FileText className="size-6" />
+          </div>
           <p className="max-w-md text-sm text-muted-foreground">
-            Upload a contract, report, memo, or proposal to get an executive summary, risk flags,
-            and a suggested rewrite.
+            No documents yet. Upload a contract, report, memo, or proposal to get an executive
+            summary, risk flags, and a suggested rewrite.
           </p>
         </div>
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {documents.map((doc) => (
-            <Link key={doc.id} to={`/documents/${doc.id}`}>
-              <Card className="transition-colors hover:bg-muted/50">
-                <CardHeader className="flex-row items-center justify-between gap-2 space-y-0">
-                  <CardTitle className="text-base">{doc.filename}</CardTitle>
-                  <Badge variant={doc.status === 'failed' ? 'destructive' : 'muted'}>
-                    {STATUS_LABELS[doc.status]}
-                  </Badge>
-                </CardHeader>
-                {doc.review && (
-                  <CardContent>
-                    <p className="line-clamp-2 text-sm text-muted-foreground">
-                      {doc.review.executive_summary}
-                    </p>
-                  </CardContent>
-                )}
-              </Card>
-            </Link>
+            <DocumentCard key={doc.id} doc={doc} />
           ))}
         </div>
       )}
