@@ -10,7 +10,9 @@ from app.db.base import Base
 from app.models import *  # noqa: F401,F403 — registers all models on Base.metadata
 
 config = context.config
-config.set_main_option("sqlalchemy.url", settings.database_url)
+# Escape '%' as '%%' — set_main_option runs the value through ConfigParser interpolation, which
+# would otherwise choke on URL-encoded chars in the password (e.g. '%40' for '@' in Supabase URLs).
+config.set_main_option("sqlalchemy.url", settings.database_url.replace("%", "%%"))
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
