@@ -21,12 +21,18 @@ services:
         value: claude-haiku-4-5-20251001
       - key: CLAUDE_MODEL_SMART
         value: claude-sonnet-5
+      # Durable object storage so uploaded docs / generated .pptx survive restarts (Render's free
+      # disk is ephemeral). Set STORAGE_BACKEND=supabase and fill the two secrets below.
       - key: STORAGE_BACKEND
-        value: local
-      # NOTE: Render's free filesystem is ephemeral — uploaded docs / generated .pptx do
-      # not survive restarts or deploys. Fine for a demo; swap to object storage later.
+        value: supabase
       - key: UPLOAD_DIR
         value: /tmp/uploads
+      - key: SUPABASE_STORAGE_BUCKET
+        value: dad-files
+      - key: SUPABASE_URL             # https://<project-ref>.supabase.co
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY  # Supabase → Settings → API → service_role key (secret)
+        sync: false
       - key: JWT_SECRET
         generateValue: true          # Render generates a strong random value
       # --- Web Push (VAPID). Public key + subject are not secret; private key is. ---

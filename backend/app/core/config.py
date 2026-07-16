@@ -31,9 +31,13 @@ class Settings(BaseSettings):
     # Brute-force rate limiting on auth endpoints (disabled in tests).
     rate_limit_enabled: bool = True
 
-    # Storage
+    # Storage: "local" (filesystem, ephemeral on free hosts) or "supabase" (durable object storage)
     storage_backend: str = "local"
     upload_dir: str = "/data/uploads"
+    # Supabase Storage (used when storage_backend == "supabase")
+    supabase_url: str = ""  # e.g. https://<project-ref>.supabase.co
+    supabase_service_role_key: str = ""  # secret — server-side only
+    supabase_storage_bucket: str = "dad-files"
 
     # Web Push (VAPID). If keys are empty, push is disabled (in-app notifications still work).
     vapid_public_key: str = ""
