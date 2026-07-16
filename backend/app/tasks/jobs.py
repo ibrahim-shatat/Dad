@@ -1,6 +1,6 @@
 import re
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from sqlalchemy import select
@@ -8,12 +8,14 @@ from sqlalchemy import select
 from app.core.config import settings
 from app.db.session import async_session_maker
 from app.models.approval import ApprovalItemType
+from app.models.calendar import CalendarEvent
 from app.models.document import Document, DocumentReview, DocumentStatus
 from app.models.email import EmailAccount, EmailDraft, EmailMessage
 from app.models.meeting import ActionItem, Decision, DecisionStatus, Meeting, MeetingStatus
 from app.models.notification import NotificationType
 from app.models.presentation import Presentation, PresentationStatus
 from app.services.ai.client import claude_client
+from app.services.ai.prompts import calendar as calendar_prompts
 from app.services.ai.prompts import email as email_prompts
 from app.services.ai.prompts import meeting as meeting_prompts
 from app.services.ai.prompts import presentation as presentation_prompts
@@ -22,10 +24,13 @@ from app.services.ai.schemas import (
     DocumentReviewResult,
     EmailReplyDraft,
     EmailSummary,
+    FollowUpEmailDraft,
     MeetingExtraction,
+    MeetingPrepBrief,
     PresentationOutline,
 )
 from app.services.approvals.service import create_approval_item
+from app.services.calendar.base import get_calendar_connector
 from app.services.documents.extraction import extract_text
 from app.services.documents.storage import get_storage_backend
 from app.services.email.base import get_connector
@@ -379,3 +384,165 @@ async def sync_all_email_accounts(ctx: dict[str, Any]) -> None:
 
     for account_id in account_ids:
         await sync_email_account(ctx, str(account_id))
+
+
+# --- Calendar (M6) ---
+
+_CALENDAR_PAST_WINDOW = timedelta(days=2)
+_CALENDAR_FUTURE_WINDOW = timedelta(days=14)
+
+
+def _format_prep_brief(brief: MeetingPrepBrief) -> str:
+    parts = [brief.context]
+    if brief.talking_points:
+        parts.append("Talking points:\n" + "\n".join(f"• {p}" for p in brief.talking_points))
+    if brief.questions_to_ask:
+        parts.append("Questions to ask:\n" + "\n".join(f"• {q}" for q in brief.questions_to_ask))
+    if brief.suggested_actions:
+        parts.append("Prepare beforehand:\n" + "\n".join(f"• {a}" for a in brief.suggested_actions))
+    return "\n\n".join(parts)
+
+
+async def sync_calendar_account(ctx: dict[str, Any], account_id: str) -> None:
+    acc_id = uuid.UUID(account_id)
+
+    async with async_session_maker() as db:
+        account = await db.get(EmailAccount, acc_id)
+        if account is None:
+            return
+
+        connector = get_calendar_connector(account.provider)
+        now = datetime.now(timezone.utc)
+        try:
+            events = await connector.list_upcoming_events(
+                db,
+                account,
+                time_min=now - _CALENDAR_PAST_WINDOW,
+                time_max=now + _CALENDAR_FUTURE_WINDOW,
+            )
+        except Exception:
+            # Transient failure or missing calendar scope (account connected before M6) — the next
+            # sync retries. Not surfaced anywhere; nothing is silently corrupted.
+            return
+
+        for data in events:
+            existing = await db.execute(
+                select(CalendarEvent).where(
+                    CalendarEvent.account_id == account.id,
+                    CalendarEvent.provider_event_id == data.provider_event_id,
+                )
+            )
+            event = existing.scalar_one_or_none()
+            if event is None:
+                db.add(
+                    CalendarEvent(
+                        account_id=account.id,
+                        provider_event_id=data.provider_event_id,
+                        title=data.title,
+                        description=data.description,
+                        location=data.location,
+                        start_time=data.start_time,
+                        end_time=data.end_time,
+                        is_all_day=data.is_all_day,
+                        organizer=data.organizer,
+                        attendees=data.attendees,
+                    )
+                )
+            else:
+                # Refresh mutable fields in case the event was edited (keep any generated prep).
+                event.title = data.title
+                event.description = data.description
+                event.location = data.location
+                event.start_time = data.start_time
+                event.end_time = data.end_time
+                event.is_all_day = data.is_all_day
+                event.organizer = data.organizer
+                event.attendees = data.attendees
+
+        await db.commit()
+
+
+async def sync_all_calendars(ctx: dict[str, Any]) -> None:
+    async with async_session_maker() as db:
+        result = await db.execute(select(EmailAccount.id))
+        account_ids = [row[0] for row in result.all()]
+
+    for account_id in account_ids:
+        await sync_calendar_account(ctx, str(account_id))
+
+
+async def generate_event_prep(ctx: dict[str, Any], event_id: str) -> None:
+    ev_id = uuid.UUID(event_id)
+
+    async with async_session_maker() as db:
+        event = await db.get(CalendarEvent, ev_id)
+        if event is None:
+            return
+
+        try:
+            brief = await claude_client.structured_call(
+                system=calendar_prompts.PREP_SYSTEM_PROMPT,
+                user=calendar_prompts.build_prep_prompt(
+                    title=event.title,
+                    description=event.description,
+                    location=event.location,
+                    start_time=event.start_time.isoformat(),
+                    organizer=event.organizer,
+                    attendees=event.attendees or [],
+                ),
+                output_model=MeetingPrepBrief,
+                model=settings.claude_model_fast,
+                max_tokens=1024,
+            )
+        except Exception:
+            return
+
+        event.prep_brief = _format_prep_brief(brief)
+        event.prep_generated_at = datetime.now(timezone.utc)
+        await db.commit()
+
+
+async def draft_event_follow_up(ctx: dict[str, Any], event_id: str) -> None:
+    ev_id = uuid.UUID(event_id)
+
+    async with async_session_maker() as db:
+        event = await db.get(CalendarEvent, ev_id)
+        if event is None:
+            return
+        account = await db.get(EmailAccount, event.account_id)
+        if account is None:
+            return
+
+        try:
+            follow_up = await claude_client.structured_call(
+                system=calendar_prompts.FOLLOW_UP_SYSTEM_PROMPT,
+                user=calendar_prompts.build_follow_up_prompt(
+                    title=event.title,
+                    description=event.description,
+                    attendees=event.attendees or [],
+                ),
+                output_model=FollowUpEmailDraft,
+            )
+        except Exception:
+            return
+
+        # Don't email the organizer's own address back to themselves.
+        recipients = [a for a in (event.attendees or []) if a and a != account.email_address]
+        draft = EmailDraft(
+            created_by_id=account.user_id,
+            account_id=account.id,
+            to_addresses=recipients,
+            subject=follow_up.subject,
+            body=follow_up.body,
+        )
+        db.add(draft)
+        await db.flush()
+
+        await create_approval_item(
+            db,
+            item_type=ApprovalItemType.email_draft,
+            reference_id=draft.id,
+            preview_text=f"Follow-up email: {follow_up.subject}",
+            requested_by_id=account.user_id,
+        )
+        await db.commit()

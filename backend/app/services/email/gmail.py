@@ -23,6 +23,8 @@ GMAIL_SCOPES = [
     "https://www.googleapis.com/auth/gmail.readonly",
     "https://www.googleapis.com/auth/gmail.send",
     "https://www.googleapis.com/auth/userinfo.email",
+    # Calendar read (Phase 4 / M6): a connected Google account also powers the calendar.
+    "https://www.googleapis.com/auth/calendar.readonly",
 ]
 
 _TOKEN_URI = "https://oauth2.googleapis.com/token"

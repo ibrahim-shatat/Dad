@@ -4,7 +4,7 @@ risks) and lets Claude write a short narrative over it. Item state ('handled') i
 briefing; the item list itself is recomputed live so it always reflects current data."""
 
 import json
-from datetime import date, datetime, timezone
+from datetime import date, datetime, time, timezone
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
 from app.models.approval import ApprovalQueueItem, ApprovalStatus
 from app.models.briefing import Briefing
+from app.models.calendar import CalendarEvent
 from app.models.document import Document, DocumentReview
 from app.models.email import EmailAccount, EmailMessage, EmailUrgency
 from app.models.meeting import ActionItem, ActionItemStatus, Meeting
@@ -59,8 +60,31 @@ async def assemble_sections(db: AsyncSession, user: User, today: date) -> list[S
         )
     sections.append(emails)
 
-    # --- Meetings scheduled today ---
+    # --- Meetings today: calendar events + processed meeting notes dated today ---
     meetings = Section("meetings_today", "Meetings today")
+    day_start = datetime.combine(today, time.min, tzinfo=timezone.utc)
+    day_end = datetime.combine(today, time.max, tzinfo=timezone.utc)
+    calendar_rows = await db.execute(
+        select(CalendarEvent)
+        .join(EmailAccount, CalendarEvent.account_id == EmailAccount.id)
+        .where(
+            EmailAccount.user_id == user.id,
+            CalendarEvent.start_time >= day_start,
+            CalendarEvent.start_time <= day_end,
+        )
+        .order_by(CalendarEvent.start_time.asc())
+    )
+    for ev in calendar_rows.scalars().all():
+        when = "All day" if ev.is_all_day else ev.start_time.strftime("%H:%M")
+        meetings.items.append(
+            {
+                "key": f"calendar_event:{ev.id}",
+                "title": ev.title,
+                "subtitle": f"{when}" + (f" · {ev.location}" if ev.location else ""),
+                "detail": ev.prep_brief.split("\n")[0] if ev.prep_brief else ev.description,
+                "link": "/calendar",
+            }
+        )
     meeting_rows = await db.execute(
         select(Meeting)
         .where(Meeting.meeting_date == today)
@@ -71,7 +95,7 @@ async def assemble_sections(db: AsyncSession, user: User, today: date) -> list[S
             {
                 "key": f"meeting:{m.id}",
                 "title": m.title,
-                "subtitle": "Meeting today",
+                "subtitle": "Meeting notes",
                 "detail": m.summary,
                 "link": f"/meetings/{m.id}",
             }

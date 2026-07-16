@@ -26,6 +26,7 @@ from app.core.config import settings  # noqa: E402
 
 _TABLES_TO_TRUNCATE = [
     "briefings",
+    "calendar_events",
     "email_drafts",
     "email_messages",
     "email_accounts",

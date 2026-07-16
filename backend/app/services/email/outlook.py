@@ -19,7 +19,8 @@ from app.services.email.oauth import decrypt_token, encrypt_token
 MS_AUTHORITY = "https://login.microsoftonline.com/common"
 # msal treats offline_access (along with openid/profile) as a reserved scope it adds itself for
 # confidential-client auth-code flow — passing it explicitly raises ValueError.
-MS_SCOPES = ["Mail.Read", "Mail.Send", "User.Read"]
+# Calendars.Read (M6): the same connected account also powers the calendar.
+MS_SCOPES = ["Mail.Read", "Mail.Send", "User.Read", "Calendars.Read"]
 GRAPH_BASE = "https://graph.microsoft.com/v1.0"
 
 

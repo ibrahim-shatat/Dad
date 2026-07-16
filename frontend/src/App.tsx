@@ -7,6 +7,7 @@ import InstallPrompt from '@/components/InstallPrompt'
 import Login from '@/pages/Auth/Login'
 import Dashboard from '@/pages/Dashboard/Dashboard'
 import Briefing from '@/pages/Briefing/Briefing'
+import Calendar from '@/pages/Calendar/Calendar'
 import Documents from '@/pages/Documents/Documents'
 import DocumentDetail from '@/pages/Documents/DocumentDetail'
 import Presentations from '@/pages/Presentations/Presentations'
@@ -86,6 +87,7 @@ export default function App() {
         <Route path="/email" element={<Email />} />
         <Route path="/meetings" element={<Meetings />} />
         <Route path="/meetings/:id" element={<MeetingDetail />} />
+        <Route path="/calendar" element={<Calendar />} />
         <Route path="/approvals" element={<Approvals />} />
       </Route>
       <Route path="*" element={<Navigate to="/dashboard" replace />} />

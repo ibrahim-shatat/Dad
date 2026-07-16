@@ -47,11 +47,12 @@ Wire M2 events to real phone push on the installed PWA.
 - [x] Claude-written executive summary + top priorities
 - [x] Mark briefing items handled (persistent, with progress bar)
 
-## M6 — Phase 4: Calendar Integration
-- [ ] Google + Outlook calendar OAuth
-- [ ] Show upcoming meetings
-- [ ] Meeting-prep briefs; link notes to events
-- [ ] Post-meeting follow-up tasks/emails
+## M6 — Phase 4: Calendar Integration  ✅ shipped
+- [x] Google + Outlook calendar OAuth (reuses the email account connection + calendar scopes)
+- [x] Show upcoming meetings (synced, grouped by day; also feeds the daily briefing)
+- [x] Meeting-prep briefs (Claude, on demand)
+- [x] Post-meeting follow-up emails → approval queue
+- Note: existing connected accounts must reconnect once to grant the new calendar scope.
 
 ## M7 — Phase 5: Workspace Search / Chat
 - [ ] Search across documents, meetings, emails, presentations

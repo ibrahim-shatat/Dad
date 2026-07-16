@@ -7,6 +7,7 @@ import {
   Presentation,
   Mail,
   CalendarCheck,
+  CalendarClock,
   ClipboardCheck,
   LogOut,
   Menu,
@@ -26,6 +27,7 @@ const NAV_ITEMS = [
   { to: '/presentations', label: 'Presentations', icon: Presentation },
   { to: '/email', label: 'Email', icon: Mail },
   { to: '/meetings', label: 'Meetings', icon: CalendarCheck },
+  { to: '/calendar', label: 'Calendar', icon: CalendarClock },
   { to: '/approvals', label: 'Approvals', icon: ClipboardCheck },
 ]
 

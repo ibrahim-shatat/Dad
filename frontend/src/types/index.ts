@@ -45,6 +45,22 @@ export interface ApprovalQueueItem {
   created_at: string
 }
 
+export interface CalendarEvent {
+  id: string
+  account_id: string
+  title: string
+  description: string | null
+  location: string | null
+  start_time: string
+  end_time: string | null
+  is_all_day: boolean
+  organizer: string | null
+  attendees: string[]
+  prep_brief: string | null
+  prep_generated_at: string | null
+  created_at: string
+}
+
 export interface BriefingItem {
   key: string
   title: string

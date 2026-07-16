@@ -146,6 +146,25 @@ class ExecutiveBriefing(BaseModel):
     )
 
 
+class MeetingPrepBrief(BaseModel):
+    context: str = Field(
+        description="2-4 sentences on what this meeting is about and why it matters, grounded in "
+        "the title, description, and attendees provided. Do not invent details not present."
+    )
+    talking_points: list[str] = Field(
+        default_factory=list,
+        description="3-6 concise points the director should be ready to make or cover.",
+    )
+    questions_to_ask: list[str] = Field(
+        default_factory=list,
+        description="Up to 4 sharp questions worth asking in the meeting. Empty list if none obvious.",
+    )
+    suggested_actions: list[str] = Field(
+        default_factory=list,
+        description="Up to 3 things to prepare or bring beforehand. Empty list if none needed.",
+    )
+
+
 class EmailReplyDraft(BaseModel):
     subject: str = Field(description="Reply subject line, typically 'Re: ' plus the original subject.")
     body: str = Field(
