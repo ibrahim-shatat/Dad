@@ -43,3 +43,5 @@ class ApprovalQueueItem(UUIDPrimaryKeyMixin, CreatedAtMixin, Base):
         UUID(as_uuid=True), ForeignKey("users.id"), nullable=True
     )
     reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # Reviewer's note — required on reject (the reason), optional on approve.
+    review_note: Mapped[str | None] = mapped_column(Text, nullable=True)

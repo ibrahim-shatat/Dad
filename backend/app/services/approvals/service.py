@@ -65,7 +65,9 @@ async def create_approval_item(
     return item
 
 
-async def approve_item(db: AsyncSession, item: ApprovalQueueItem, reviewer: User) -> ApprovalQueueItem:
+async def approve_item(
+    db: AsyncSession, item: ApprovalQueueItem, reviewer: User, note: str | None = None
+) -> ApprovalQueueItem:
     handler = _HANDLERS.get(item.item_type)
     if handler is None:
         raise ValueError(f"No approval handler registered for item_type={item.item_type}")
@@ -75,13 +77,14 @@ async def approve_item(db: AsyncSession, item: ApprovalQueueItem, reviewer: User
     item.status = ApprovalStatus.approved
     item.reviewed_by_id = reviewer.id
     item.reviewed_at = datetime.now(timezone.utc)
+    item.review_note = note
 
     await create_notification(
         db,
         user_id=item.requested_by_id,
         type=NotificationType.approval_approved,
         title="Your request was approved",
-        body=item.preview_text,
+        body=note or item.preview_text,
         link="/approvals",
     )
     await db.commit()
@@ -89,7 +92,9 @@ async def approve_item(db: AsyncSession, item: ApprovalQueueItem, reviewer: User
     return item
 
 
-async def reject_item(db: AsyncSession, item: ApprovalQueueItem, reviewer: User) -> ApprovalQueueItem:
+async def reject_item(
+    db: AsyncSession, item: ApprovalQueueItem, reviewer: User, reason: str
+) -> ApprovalQueueItem:
     handler = _HANDLERS.get(item.item_type)
     if handler is not None:
         await handler.on_reject(db, item.reference_id)
@@ -97,13 +102,14 @@ async def reject_item(db: AsyncSession, item: ApprovalQueueItem, reviewer: User)
     item.status = ApprovalStatus.rejected
     item.reviewed_by_id = reviewer.id
     item.reviewed_at = datetime.now(timezone.utc)
+    item.review_note = reason
 
     await create_notification(
         db,
         user_id=item.requested_by_id,
         type=NotificationType.approval_rejected,
         title="Your request was rejected",
-        body=item.preview_text,
+        body=f"Reason: {reason}",
         link="/approvals",
     )
     await db.commit()

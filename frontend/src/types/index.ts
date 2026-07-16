@@ -36,9 +36,12 @@ export interface ApprovalQueueItem {
   reference_id: string
   preview_text: string
   requested_by_id: string
+  requested_by_name: string | null
   status: ApprovalStatus
   reviewed_by_id: string | null
+  reviewed_by_name: string | null
   reviewed_at: string | null
+  review_note: string | null
   created_at: string
 }
 

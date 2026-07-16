@@ -1,5 +1,22 @@
 import { apiClient } from '@/api/client'
-import type { EmailAccount, EmailMessageItem } from '@/types'
+import type { EmailAccount, EmailDraft, EmailMessageItem } from '@/types'
+
+export interface EmailDraftUpdate {
+  to_addresses?: string[]
+  cc_addresses?: string[]
+  subject?: string
+  body?: string
+}
+
+export async function getEmailDraft(id: string): Promise<EmailDraft> {
+  const response = await apiClient.get<EmailDraft>(`/email/drafts/${id}`)
+  return response.data
+}
+
+export async function updateEmailDraft(id: string, patch: EmailDraftUpdate): Promise<EmailDraft> {
+  const response = await apiClient.patch<EmailDraft>(`/email/drafts/${id}`, patch)
+  return response.data
+}
 
 export async function listEmailAccounts(): Promise<EmailAccount[]> {
   const response = await apiClient.get<EmailAccount[]>('/email/accounts')

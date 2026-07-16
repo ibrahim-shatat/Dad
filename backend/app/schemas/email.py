@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.models.email import EmailDraftStatus, EmailProvider, EmailUrgency
 
@@ -30,6 +30,13 @@ class EmailMessageRead(BaseModel):
     is_unread: bool
     ai_urgency: EmailUrgency | None
     ai_summary: str | None
+
+
+class EmailDraftUpdate(BaseModel):
+    to_addresses: list[str] | None = None
+    cc_addresses: list[str] | None = None
+    subject: str | None = Field(default=None, max_length=255)
+    body: str | None = None
 
 
 class EmailDraftRead(BaseModel):

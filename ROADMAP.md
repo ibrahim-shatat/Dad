@@ -35,12 +35,12 @@ Wire M2 events to real phone push on the installed PWA.
 - [x] Service worker push + notificationclick handlers; "Enable phone notifications" toggle
 - [ ] Per-user notification preferences (future refinement)
 
-## M4 — Phase 2: Better Approval Flow
-- [ ] Edit an email draft before approving
-- [ ] Require a rejection reason/comment
-- [ ] Approval history + who requested / who reviewed
-- [ ] Filters by type / status / date
-- [ ] Clear post-approval behavior per item type
+## M4 — Phase 2: Better Approval Flow  ✅ shipped
+- [x] Edit an email draft before approving (review modal: to/cc/subject/body)
+- [x] Require a rejection reason/comment (stored + shown to requester)
+- [x] Approval history + who requested / who reviewed (names + review note)
+- [x] Filters by type / status
+- [x] Clear post-approval behavior per item type (draft locks once actioned)
 
 ## M5 — Phase 3: Executive Briefing
 - [ ] Daily briefing page (urgent emails, meetings, action items, approvals, document risks)

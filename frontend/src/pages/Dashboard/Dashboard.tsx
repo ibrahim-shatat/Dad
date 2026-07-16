@@ -34,7 +34,7 @@ export default function Dashboard() {
 
       <div>
         <h2 className="mb-3 text-lg font-semibold">Pending approvals</h2>
-        <ApprovalQueueList limit={5} />
+        <ApprovalQueueList limit={5} compact />
       </div>
 
       <div>

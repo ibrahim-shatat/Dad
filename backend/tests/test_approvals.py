@@ -142,11 +142,12 @@ async def test_rejecting_email_draft_never_sends(db_session, make_user, fake_con
     )
     await db_session.commit()
 
-    await reject_item(db_session, item, user)
+    await reject_item(db_session, item, user, reason="Not appropriate to send")
 
     assert fake_connector.sent_messages == []
     await db_session.refresh(draft)
     assert draft.status == EmailDraftStatus.rejected
+    assert item.review_note == "Not appropriate to send"
 
 
 async def test_approving_item_with_no_registered_handler_raises(db_session, make_user, monkeypatch):

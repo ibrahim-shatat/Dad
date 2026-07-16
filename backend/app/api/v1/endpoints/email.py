@@ -11,9 +11,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import settings
 from app.core.deps import get_current_user
 from app.db.session import get_db
-from app.models.email import EmailAccount, EmailMessage, EmailProvider
-from app.models.user import User
-from app.schemas.email import EmailAccountRead, EmailMessageRead
+from app.models.email import EmailAccount, EmailDraft, EmailDraftStatus, EmailMessage, EmailProvider
+from app.models.user import User, UserRole
+from app.schemas.email import EmailAccountRead, EmailDraftRead, EmailDraftUpdate, EmailMessageRead
 from app.services.email import approval as _email_approval  # noqa: F401 — registers the send-on-approve handler
 from app.services.email.gmail import (
     GMAIL_SCOPES,
@@ -233,6 +233,48 @@ async def get_message(
     user: User = Depends(get_current_user),
 ) -> EmailMessage:
     return await _get_owned_message(db, user, message_id)
+
+
+# --- Drafts (viewed / edited from the approval queue before approval) ---
+
+
+@router.get("/drafts/{draft_id}", response_model=EmailDraftRead)
+async def get_draft(
+    draft_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    _: User = Depends(get_current_user),
+) -> EmailDraft:
+    draft = await db.get(EmailDraft, draft_id)
+    if draft is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Draft not found")
+    return draft
+
+
+@router.patch("/drafts/{draft_id}", response_model=EmailDraftRead)
+async def update_draft(
+    draft_id: uuid.UUID,
+    payload: EmailDraftUpdate,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+) -> EmailDraft:
+    draft = await db.get(EmailDraft, draft_id)
+    if draft is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Draft not found")
+    # Only the author or an approver (director/admin) can edit, and only before it's actioned.
+    if draft.created_by_id != user.id and user.role not in (UserRole.director, UserRole.admin):
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not allowed to edit this draft")
+    if draft.status != EmailDraftStatus.pending_approval:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Draft is {draft.status.value} and can no longer be edited",
+        )
+
+    updates = payload.model_dump(exclude_unset=True)
+    for field, value in updates.items():
+        setattr(draft, field, value)
+    await db.commit()
+    await db.refresh(draft)
+    return draft
 
 
 class DraftReplyRequest(BaseModel):
