@@ -18,9 +18,15 @@ import {
   syncAccount,
   unhideMessage,
 } from '@/api/email'
-import type { EmailMessageItem, EmailUrgency } from '@/types'
+import type { EmailMessageItem, EmailProvider, EmailUrgency } from '@/types'
 
 const PROVIDER_LABELS: Record<string, string> = { gmail: 'Gmail', outlook: 'Outlook' }
+
+// Brand-tinted badge so Gmail vs Outlook messages are distinguishable at a glance.
+const PROVIDER_BADGE: Record<string, string> = {
+  gmail: 'bg-red-500/10 text-red-600 dark:text-red-400',
+  outlook: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+}
 
 const URGENCY_STYLE: Record<EmailUrgency, string> = {
   high: 'bg-red-500 text-white',
@@ -49,6 +55,7 @@ export default function Email() {
   const [instructions, setInstructions] = useState('')
   const [queuedMessageIds, setQueuedMessageIds] = useState<Set<string>>(new Set())
   const [showDismissed, setShowDismissed] = useState(false)
+  const [activeAccountId, setActiveAccountId] = useState<string>('all')
 
   const { data: accounts } = useQuery({ queryKey: ['email-accounts'], queryFn: listEmailAccounts })
   const { data: messages } = useQuery({
@@ -105,7 +112,12 @@ export default function Email() {
     setSearchParams(searchParams, { replace: true })
   }
 
-  const unreadCount = messages?.filter((m) => m.is_unread).length ?? 0
+  const accountsById = new Map((accounts ?? []).map((a) => [a.id, a]))
+  const visibleMessages =
+    activeAccountId === 'all'
+      ? messages ?? []
+      : (messages ?? []).filter((m) => m.account_id === activeAccountId)
+  const unreadCount = visibleMessages.filter((m) => m.is_unread).length
 
   return (
     <div className="flex flex-col gap-6">
@@ -216,7 +228,26 @@ export default function Email() {
                 </button>
               </div>
             </div>
-            {!messages || messages.length === 0 ? (
+
+            {accounts.length > 1 && (
+              <div className="flex flex-wrap gap-2">
+                <AccountTab
+                  label="All inboxes"
+                  active={activeAccountId === 'all'}
+                  onClick={() => setActiveAccountId('all')}
+                />
+                {accounts.map((account) => (
+                  <AccountTab
+                    key={account.id}
+                    label={`${PROVIDER_LABELS[account.provider]} · ${account.email_address}`}
+                    active={activeAccountId === account.id}
+                    onClick={() => setActiveAccountId(account.id)}
+                  />
+                ))}
+              </div>
+            )}
+
+            {visibleMessages.length === 0 ? (
               <p className="text-sm text-muted-foreground">
                 {showDismissed
                   ? 'No dismissed emails.'
@@ -224,24 +255,29 @@ export default function Email() {
               </p>
             ) : (
               <div className="flex flex-col gap-3">
-                {messages.map((message) => (
-                  <MessageCard
-                    key={message.id}
-                    message={message}
-                    isReplying={replyingTo === message.id}
-                    isQueued={queuedMessageIds.has(message.id)}
-                    instructions={instructions}
-                    setInstructions={setInstructions}
-                    isPending={draftReplyMutation.isPending}
-                    onStartReply={() => setReplyingTo(message.id)}
-                    onCancelReply={() => setReplyingTo(null)}
-                    onGenerate={() =>
-                      draftReplyMutation.mutate({ messageId: message.id, text: instructions })
-                    }
-                    onHide={() => hideMutation.mutate(message.id)}
-                    onUnhide={() => unhideMutation.mutate(message.id)}
-                  />
-                ))}
+                {visibleMessages.map((message) => {
+                  const account = accountsById.get(message.account_id)
+                  return (
+                    <MessageCard
+                      key={message.id}
+                      message={message}
+                      provider={account?.provider}
+                      accountEmail={account?.email_address}
+                      isReplying={replyingTo === message.id}
+                      isQueued={queuedMessageIds.has(message.id)}
+                      instructions={instructions}
+                      setInstructions={setInstructions}
+                      isPending={draftReplyMutation.isPending}
+                      onStartReply={() => setReplyingTo(message.id)}
+                      onCancelReply={() => setReplyingTo(null)}
+                      onGenerate={() =>
+                        draftReplyMutation.mutate({ messageId: message.id, text: instructions })
+                      }
+                      onHide={() => hideMutation.mutate(message.id)}
+                      onUnhide={() => unhideMutation.mutate(message.id)}
+                    />
+                  )
+                })}
               </div>
             )}
           </div>
@@ -251,8 +287,35 @@ export default function Email() {
   )
 }
 
+function AccountTab({
+  label,
+  active,
+  onClick,
+}: {
+  label: string
+  active: boolean
+  onClick: () => void
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        'rounded-full border px-3 py-1 text-xs font-medium transition-colors',
+        active
+          ? 'border-primary bg-primary text-primary-foreground'
+          : 'border-border text-muted-foreground hover:text-foreground'
+      )}
+    >
+      {label}
+    </button>
+  )
+}
+
 interface MessageCardProps {
   message: EmailMessageItem
+  provider?: EmailProvider
+  accountEmail?: string
   isReplying: boolean
   isQueued: boolean
   instructions: string
@@ -267,6 +330,8 @@ interface MessageCardProps {
 
 function MessageCard({
   message,
+  provider,
+  accountEmail,
   isReplying,
   isQueued,
   instructions,
@@ -282,7 +347,18 @@ function MessageCard({
   return (
     <Card className={cn('p-4', high && 'border-red-500/30 bg-red-500/5', message.is_hidden && 'opacity-70')}>
       <div className="flex items-start justify-between gap-2">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {provider && (
+            <span
+              className={cn(
+                'rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide',
+                PROVIDER_BADGE[provider]
+              )}
+              title={accountEmail}
+            >
+              {PROVIDER_LABELS[provider]}
+            </span>
+          )}
           {message.ai_urgency && <UrgencyPill urgency={message.ai_urgency} />}
           {message.is_unread && <span className="size-2 rounded-full bg-primary" />}
         </div>

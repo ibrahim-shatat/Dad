@@ -42,6 +42,20 @@ services:
         value: mailto:ibrahimshatat02@gmail.com
       - key: VAPID_PRIVATE_KEY
         sync: false
+      # --- Email/Calendar OAuth (both providers). Set these in the dashboard. ---
+      # Google (Gmail + Google Calendar): Google Cloud Console → APIs & Services → Credentials.
+      # Redirect URI: https://<this-service>.onrender.com/api/v1/email/gmail/callback
+      - key: GMAIL_CLIENT_ID
+        sync: false
+      - key: GMAIL_CLIENT_SECRET
+        sync: false
+      # Microsoft (Outlook mail + Outlook/Microsoft 365 calendar): Azure Portal → Entra ID →
+      # App registrations. Multi-tenant + personal accounts. Add a Web redirect URI:
+      # https://<this-service>.onrender.com/api/v1/email/outlook/callback
+      - key: MS_CLIENT_ID
+        sync: false
+      - key: MS_CLIENT_SECRET
+        sync: false
       # --- Secrets to paste in the dashboard (Environment tab) ---
       - key: ANTHROPIC_API_KEY        # rotate the key used in local dev
         sync: false
