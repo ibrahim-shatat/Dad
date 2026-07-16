@@ -47,8 +47,17 @@ def build_gmail_flow(state: str | None = None):
             "redirect_uris": [gmail_redirect_uri()],
         }
     }
+    # Disable PKCE: google-auth-oauthlib turns it on by default, but our callback rebuilds the
+    # flow statelessly (identity rides in the signed `state` token), so the code_verifier
+    # generated during authorization_url() can't be preserved for the token exchange — which
+    # fails with "Missing code verifier". As a confidential web client we authenticate the token
+    # exchange with the client secret, so PKCE isn't required.
     return Flow.from_client_config(
-        client_config, scopes=GMAIL_SCOPES, redirect_uri=gmail_redirect_uri(), state=state
+        client_config,
+        scopes=GMAIL_SCOPES,
+        redirect_uri=gmail_redirect_uri(),
+        state=state,
+        autogenerate_code_verifier=False,
     )
 
 
