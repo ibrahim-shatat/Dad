@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import AppShell from '@/components/layout/AppShell'
+import InstallPrompt from '@/components/InstallPrompt'
 import Login from '@/pages/Auth/Login'
 import Dashboard from '@/pages/Dashboard/Dashboard'
 import Documents from '@/pages/Documents/Documents'
@@ -63,7 +64,9 @@ export default function App() {
   }, [setSession, setAccessToken, setBootstrapping])
 
   return (
-    <Routes>
+    <>
+      <InstallPrompt />
+      <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route
@@ -84,6 +87,7 @@ export default function App() {
         <Route path="/approvals" element={<Approvals />} />
       </Route>
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
-    </Routes>
+      </Routes>
+    </>
   )
 }
