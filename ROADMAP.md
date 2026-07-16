@@ -54,10 +54,10 @@ Wire M2 events to real phone push on the installed PWA.
 - [x] Post-meeting follow-up emails → approval queue
 - Note: existing connected accounts must reconnect once to grant the new calendar scope.
 
-## M7 — Phase 5: Workspace Search / Chat
-- [ ] Search across documents, meetings, emails, presentations
-- [ ] Chat ("What needs my approval today?", "Summarize open tasks")
-- [ ] Answers keep source links
+## M7 — Phase 5: Workspace Search / Chat  ✅ shipped
+- [x] Search across documents, meetings, emails, presentations, events, approvals
+- [x] Chat ("What needs my approval today?", "Summarize open tasks") grounded in workspace data
+- [x] Answers keep source links (cited, clickable chips)
 
 ## M8 — Phase 6: Admin & Production Readiness
 - [ ] User management UI

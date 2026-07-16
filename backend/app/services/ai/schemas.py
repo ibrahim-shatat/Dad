@@ -146,6 +146,27 @@ class ExecutiveBriefing(BaseModel):
     )
 
 
+class ChatSource(BaseModel):
+    label: str = Field(description="Short human-readable label for the cited item, e.g. its title.")
+    link: str = Field(
+        description="The in-app link for this source. Use ONLY a link that appears in the provided "
+        "workspace data — never invent one."
+    )
+
+
+class ChatAnswer(BaseModel):
+    answer: str = Field(
+        description="A direct, concise answer to the director's question, grounded only in the "
+        "provided workspace data. If the data doesn't contain the answer, say so plainly rather "
+        "than guessing."
+    )
+    sources: list[ChatSource] = Field(
+        default_factory=list,
+        description="The specific workspace items you used to answer, each with its in-app link. "
+        "Empty list if the answer used no specific item.",
+    )
+
+
 class MeetingPrepBrief(BaseModel):
     context: str = Field(
         description="2-4 sentences on what this meeting is about and why it matters, grounded in "

@@ -8,6 +8,7 @@ import Login from '@/pages/Auth/Login'
 import Dashboard from '@/pages/Dashboard/Dashboard'
 import Briefing from '@/pages/Briefing/Briefing'
 import Calendar from '@/pages/Calendar/Calendar'
+import Assistant from '@/pages/Assistant/Assistant'
 import Documents from '@/pages/Documents/Documents'
 import DocumentDetail from '@/pages/Documents/DocumentDetail'
 import Presentations from '@/pages/Presentations/Presentations'
@@ -88,6 +89,7 @@ export default function App() {
         <Route path="/meetings" element={<Meetings />} />
         <Route path="/meetings/:id" element={<MeetingDetail />} />
         <Route path="/calendar" element={<Calendar />} />
+        <Route path="/assistant" element={<Assistant />} />
         <Route path="/approvals" element={<Approvals />} />
       </Route>
       <Route path="*" element={<Navigate to="/dashboard" replace />} />

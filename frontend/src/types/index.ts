@@ -45,6 +45,32 @@ export interface ApprovalQueueItem {
   created_at: string
 }
 
+export type SearchResultType =
+  | 'document'
+  | 'meeting'
+  | 'email'
+  | 'presentation'
+  | 'event'
+  | 'approval'
+
+export interface SearchResult {
+  type: SearchResultType
+  id: string
+  title: string
+  snippet: string | null
+  link: string
+}
+
+export interface ChatSource {
+  label: string
+  link: string
+}
+
+export interface ChatResponse {
+  answer: string
+  sources: ChatSource[]
+}
+
 export interface CalendarEvent {
   id: string
   account_id: string

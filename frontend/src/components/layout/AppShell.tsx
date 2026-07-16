@@ -9,6 +9,7 @@ import {
   CalendarCheck,
   CalendarClock,
   ClipboardCheck,
+  Sparkles,
   LogOut,
   Menu,
   X,
@@ -23,6 +24,7 @@ import { logout as apiLogout } from '@/api/auth'
 const NAV_ITEMS = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/briefing', label: 'Daily briefing', icon: Sun },
+  { to: '/assistant', label: 'Assistant', icon: Sparkles },
   { to: '/documents', label: 'Documents', icon: FileText },
   { to: '/presentations', label: 'Presentations', icon: Presentation },
   { to: '/email', label: 'Email', icon: Mail },

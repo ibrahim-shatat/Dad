@@ -12,6 +12,7 @@ from app.api.v1.endpoints import (
     notifications,
     presentations,
     push,
+    search,
     users,
 )
 
@@ -27,5 +28,6 @@ api_router.include_router(email.router, prefix="/email", tags=["email"])
 api_router.include_router(dashboard.router, prefix="/dashboard", tags=["dashboard"])
 api_router.include_router(briefing.router, prefix="/briefing", tags=["briefing"])
 api_router.include_router(calendar.router, prefix="/calendar", tags=["calendar"])
+api_router.include_router(search.router, prefix="/search", tags=["search"])
 api_router.include_router(notifications.router, prefix="/notifications", tags=["notifications"])
 api_router.include_router(push.router, prefix="/push", tags=["push"])
