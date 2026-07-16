@@ -59,12 +59,12 @@ Wire M2 events to real phone push on the installed PWA.
 - [x] Chat ("What needs my approval today?", "Summarize open tasks") grounded in workspace data
 - [x] Answers keep source links (cited, clickable chips)
 
-## M8 — Phase 6: Admin & Production Readiness
-- [ ] User management UI
-- [ ] Integration settings page
-- [ ] Audit logs
-- [ ] Rate limiting + retry policies
-- [ ] Observability for failed AI jobs / syncs
+## M8 — Phase 6: Admin & Production Readiness  ✅ shipped
+- [x] User management UI (admin: list, add, change role, activate/deactivate; self-lockout guard)
+- [x] Audit logs (logins, approvals, user changes, job failures) + admin viewer
+- [x] Rate limiting on auth endpoints (in-memory sliding window; brute-force protection)
+- [x] Observability for failed AI jobs / syncs (audit trail + admin health view)
+- [ ] Integration settings page (deferred — connect flow lives on the Email page for now)
 
 ## Cross-cutting (ongoing)
 - [ ] Backend test coverage for documents / meetings / dashboard endpoints

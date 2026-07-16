@@ -30,6 +30,7 @@ from app.services.ai.schemas import (
     PresentationOutline,
 )
 from app.services.approvals.service import create_approval_item
+from app.services.audit import service as audit
 from app.services.calendar.base import get_calendar_connector
 from app.services.documents.extraction import extract_text
 from app.services.documents.storage import get_storage_backend
@@ -43,6 +44,21 @@ _EMAIL_ADDRESS_RE = re.compile(r"[\w.\-+]+@[\w\-]+\.[\w.\-]+")
 def _parse_email_address(sender: str) -> str | None:
     match = _EMAIL_ADDRESS_RE.search(sender)
     return match.group(0) if match else None
+
+
+async def _record_job_failure(db, job: str, target_id: str, exc: Exception) -> None:
+    """Log a failed background job to the audit trail so it surfaces in the admin health view.
+    Best-effort — a failure to log must never mask the original job failure."""
+    try:
+        await audit.record(
+            db,
+            action="job.failed",
+            target_type=job,
+            target_id=target_id,
+            detail=f"{type(exc).__name__}: {exc}"[:1000],
+        )
+    except Exception:
+        pass
 
 
 async def extract_document_text(ctx: dict[str, Any], document_id: str) -> None:
@@ -93,6 +109,7 @@ async def review_document(ctx: dict[str, Any], document_id: str) -> None:
         except Exception as exc:
             document.status = DocumentStatus.failed
             document.failure_reason = f"AI review failed: {exc}"
+            await _record_job_failure(db, "review_document", document_id, exc)
             await db.commit()
             return
 
@@ -148,6 +165,7 @@ async def generate_presentation(ctx: dict[str, Any], presentation_id: str) -> No
         except Exception as exc:
             presentation.status = PresentationStatus.failed
             presentation.failure_reason = f"AI outline generation failed: {exc}"
+            await _record_job_failure(db, "generate_presentation", presentation_id, exc)
             await db.commit()
             return
 
@@ -195,6 +213,7 @@ async def process_meeting(ctx: dict[str, Any], meeting_id: str) -> None:
         except Exception as exc:
             meeting.status = MeetingStatus.failed
             meeting.failure_reason = f"AI extraction failed: {exc}"
+            await _record_job_failure(db, "process_meeting", meeting_id, exc)
             await db.commit()
             return
 
@@ -263,10 +282,12 @@ async def sync_email_account(ctx: dict[str, Any], account_id: str) -> None:
         connector = get_connector(account.provider)
         try:
             messages = await connector.list_messages(db, account, since=account.last_synced_at)
-        except Exception:
+        except Exception as exc:
             # Transient sync failure (expired grant, rate limit, network blip) — the next
-            # scheduled sync will retry. Not surfaced anywhere yet; account.last_synced_at only
-            # advances on success so nothing is silently skipped.
+            # scheduled sync will retry. account.last_synced_at only advances on success so
+            # nothing is silently skipped; the failure is logged for the admin health view.
+            await _record_job_failure(db, "sync_email_account", account_id, exc)
+            await db.commit()
             return
 
         for msg_data in messages:
@@ -420,9 +441,11 @@ async def sync_calendar_account(ctx: dict[str, Any], account_id: str) -> None:
                 time_min=now - _CALENDAR_PAST_WINDOW,
                 time_max=now + _CALENDAR_FUTURE_WINDOW,
             )
-        except Exception:
+        except Exception as exc:
             # Transient failure or missing calendar scope (account connected before M6) — the next
-            # sync retries. Not surfaced anywhere; nothing is silently corrupted.
+            # sync retries. Logged for the admin health view; nothing is silently corrupted.
+            await _record_job_failure(db, "sync_calendar_account", account_id, exc)
+            await db.commit()
             return
 
         for data in events:

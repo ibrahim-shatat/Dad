@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.approval import ApprovalItemType, ApprovalQueueItem, ApprovalStatus
 from app.models.notification import NotificationType
 from app.models.user import User, UserRole
+from app.services.audit import service as audit
 from app.services.notifications.service import create_notification, notify_roles
 
 
@@ -87,6 +88,14 @@ async def approve_item(
         body=note or item.preview_text,
         link="/approvals",
     )
+    await audit.record(
+        db,
+        action="approval.approve",
+        actor=reviewer,
+        target_type=item.item_type.value,
+        target_id=item.id,
+        detail=item.preview_text,
+    )
     await db.commit()
     await db.refresh(item)
     return item
@@ -111,6 +120,14 @@ async def reject_item(
         title="Your request was rejected",
         body=f"Reason: {reason}",
         link="/approvals",
+    )
+    await audit.record(
+        db,
+        action="approval.reject",
+        actor=reviewer,
+        target_type=item.item_type.value,
+        target_id=item.id,
+        detail=f"{item.preview_text} — reason: {reason}",
     )
     await db.commit()
     await db.refresh(item)

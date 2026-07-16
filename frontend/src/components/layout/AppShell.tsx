@@ -10,6 +10,7 @@ import {
   CalendarClock,
   ClipboardCheck,
   Sparkles,
+  ShieldCheck,
   LogOut,
   Menu,
   X,
@@ -33,11 +34,15 @@ const NAV_ITEMS = [
   { to: '/approvals', label: 'Approvals', icon: ClipboardCheck },
 ]
 
+const ADMIN_NAV_ITEM = { to: '/admin', label: 'Admin', icon: ShieldCheck }
+
 export default function AppShell() {
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
   const clearSession = useAuthStore((s) => s.clearSession)
   const [open, setOpen] = useState(false)
+
+  const navItems = user?.role === 'admin' ? [...NAV_ITEMS, ADMIN_NAV_ITEM] : NAV_ITEMS
 
   const handleLogout = async () => {
     try {
@@ -94,7 +99,7 @@ export default function AppShell() {
           </button>
         </div>
         <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-2">
-          {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
+          {navItems.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}

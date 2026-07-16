@@ -3,6 +3,9 @@ import os
 # Must happen before any `app.*` import — pydantic-settings reads env vars once, at import
 # time, so redirecting DATABASE_URL later (e.g. via monkeypatch) would be too late.
 os.environ.setdefault("DATABASE_URL", "postgresql+asyncpg://dad:dad@db:5432/dad_test")
+# The in-process rate limiter keeps state across tests (same client IP); disable it globally and
+# re-enable per-test where the limiter itself is under test.
+os.environ.setdefault("RATE_LIMIT_ENABLED", "false")
 
 import asyncio  # noqa: E402
 import sys  # noqa: E402
@@ -25,6 +28,7 @@ from sqlalchemy.ext.asyncio import create_async_engine  # noqa: E402
 from app.core.config import settings  # noqa: E402
 
 _TABLES_TO_TRUNCATE = [
+    "audit_logs",
     "briefings",
     "calendar_events",
     "email_drafts",

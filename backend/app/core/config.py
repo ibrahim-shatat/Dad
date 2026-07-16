@@ -28,6 +28,9 @@ class Settings(BaseSettings):
     # no Redis/worker — used for free/serverless deploys).
     job_mode: str = "arq"
 
+    # Brute-force rate limiting on auth endpoints (disabled in tests).
+    rate_limit_enabled: bool = True
+
     # Storage
     storage_backend: str = "local"
     upload_dir: str = "/data/uploads"

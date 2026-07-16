@@ -45,6 +45,33 @@ export interface ApprovalQueueItem {
   created_at: string
 }
 
+export interface AuditLogEntry {
+  id: string
+  created_at: string
+  actor_email: string | null
+  action: string
+  target_type: string | null
+  target_id: string | null
+  detail: string | null
+  ip: string | null
+}
+
+export interface ConnectedAccountHealth {
+  email_address: string
+  provider: string
+  last_synced_at: string | null
+}
+
+export interface SystemHealth {
+  total_users: number
+  active_users: number
+  failed_documents: number
+  failed_meetings: number
+  failed_presentations: number
+  connected_accounts: ConnectedAccountHealth[]
+  recent_job_failures: AuditLogEntry[]
+}
+
 export type SearchResultType =
   | 'document'
   | 'meeting'

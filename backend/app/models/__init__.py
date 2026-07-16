@@ -1,4 +1,5 @@
 from app.models.approval import ApprovalItemType, ApprovalQueueItem, ApprovalStatus  # noqa: F401
+from app.models.audit import AuditLog  # noqa: F401
 from app.models.briefing import Briefing  # noqa: F401
 from app.models.calendar import CalendarEvent  # noqa: F401
 from app.models.document import Document, DocumentReview, DocumentStatus  # noqa: F401
