@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate, Link } from 'react-router-dom'
-import { Presentation as PresentationIcon } from 'lucide-react'
+import { Check, Loader2, Presentation as PresentationIcon } from 'lucide-react'
 
+import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,10 +15,37 @@ import type { PresentationStatus } from '@/types'
 
 const STATUS_LABELS: Record<PresentationStatus, string> = {
   draft: 'Draft',
-  generating: 'Generating…',
+  generating: 'Generating',
   ready: 'Awaiting approval',
   approved: 'Approved',
   failed: 'Failed',
+}
+
+function PresentationStatusPill({ status }: { status: PresentationStatus }) {
+  if (status === 'approved')
+    return (
+      <span className="flex items-center gap-1 rounded-full bg-green-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-green-600 dark:text-green-500">
+        <Check className="size-3" /> Approved
+      </span>
+    )
+  if (status === 'ready')
+    return (
+      <span className="rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-amber-600 dark:text-amber-500">
+        Awaiting approval
+      </span>
+    )
+  if (status === 'failed')
+    return (
+      <span className="rounded-full bg-red-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-red-600 dark:text-red-500">
+        Failed
+      </span>
+    )
+  return (
+    <span className="flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold text-primary">
+      {status === 'generating' && <Loader2 className="size-3 animate-spin" />}
+      {STATUS_LABELS[status]}
+    </span>
+  )
 }
 
 const IN_PROGRESS_STATUSES = new Set<PresentationStatus>(['draft', 'generating'])
@@ -67,7 +94,12 @@ export default function Presentations() {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-semibold">Presentations</h1>
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight">Presentations</h1>
+        <p className="text-sm text-muted-foreground">
+          Generate a slide deck from a document or notes — the export waits for your approval.
+        </p>
+      </div>
 
       <Card>
         <CardHeader>
@@ -160,23 +192,38 @@ export default function Presentations() {
       </Card>
 
       {!presentations || presentations.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed p-12 text-center">
-          <PresentationIcon className="size-8 text-muted-foreground" />
+        <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed p-12 text-center">
+          <div className="flex size-12 items-center justify-center rounded-full bg-muted text-muted-foreground">
+            <PresentationIcon className="size-6" />
+          </div>
           <p className="max-w-md text-sm text-muted-foreground">
             Generate your first presentation from a reviewed document or pasted notes above.
           </p>
         </div>
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {presentations.map((p) => (
             <Link key={p.id} to={`/presentations/${p.id}`}>
-              <Card className="transition-colors hover:bg-muted/50">
-                <CardHeader className="flex-row items-center justify-between gap-2 space-y-0">
-                  <CardTitle className="text-base">{p.title || 'Untitled presentation'}</CardTitle>
-                  <Badge variant={p.status === 'failed' ? 'destructive' : 'muted'}>
-                    {STATUS_LABELS[p.status]}
-                  </Badge>
-                </CardHeader>
+              <Card className="flex h-full flex-col gap-3 p-4 transition-colors hover:bg-muted/40">
+                <div className="flex items-start justify-between gap-2">
+                  <div
+                    className={cn(
+                      'flex size-10 items-center justify-center rounded-lg',
+                      p.status === 'failed'
+                        ? 'bg-red-500/10 text-red-500'
+                        : 'bg-primary/10 text-primary'
+                    )}
+                  >
+                    <PresentationIcon className="size-5" />
+                  </div>
+                  <PresentationStatusPill status={p.status} />
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate font-semibold">{p.title || 'Untitled presentation'}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {new Date(p.created_at).toLocaleDateString()}
+                  </p>
+                </div>
               </Card>
             </Link>
           ))}
