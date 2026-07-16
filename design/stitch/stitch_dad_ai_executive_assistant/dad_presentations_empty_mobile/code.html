@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - Presentations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#a44100",
+                        "surface-container": "#eeedf7",
+                        "on-surface": "#1a1b22",
+                        "surface": "#fbf8ff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#0f0069",
+                        "primary-container": "#4f46e5",
+                        "surface-container-highest": "#e3e1ec",
+                        "inverse-primary": "#c3c0ff",
+                        "outline-variant": "#c7c4d8",
+                        "secondary-fixed": "#e1e0ff",
+                        "on-secondary-fixed": "#07006c",
+                        "primary": "#3525cd",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e7f1",
+                        "primary-fixed": "#e2dfff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-secondary-container": "#fffbff",
+                        "surface-bright": "#fbf8ff",
+                        "background": "#fbf8ff",
+                        "surface-variant": "#e3e1ec",
+                        "inverse-surface": "#2f3038",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "on-tertiary-fixed": "#351000",
+                        "on-primary-container": "#dad7ff",
+                        "on-background": "#1a1b22",
+                        "secondary": "#4648d4",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "tertiary": "#7e3000",
+                        "outline": "#777587",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#464555",
+                        "inverse-on-surface": "#f1effa",
+                        "surface-dim": "#dad9e3",
+                        "secondary-container": "#6063ee",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#4d44e3",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-container-low": "#f4f2fd",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-tertiary-fixed-variant": "#7b2f00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-page": "40px",
+                        "container-max": "1440px",
+                        "card-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .empty-state-card {
+            transition: transform 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- Top App Bar -->
+<header class="bg-surface dark:bg-inverse-surface w-full top-0 border-b border-outline-variant dark:border-outline shadow-sm flex justify-between items-center px-gutter h-16 w-full z-40 sticky">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary cursor-pointer active:scale-95 transition-colors">menu</span>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary dark:text-inverse-primary">Dad</h1>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container text-xs font-bold border border-primary/20 cursor-pointer active:scale-95">
+                EP
+            </div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center px-gutter pb-24">
+<!-- Empty State Container -->
+<div class="max-w-xs w-full text-center space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+<!-- Atmospheric Visual Anchor -->
+<div class="relative flex justify-center">
+<!-- Decorative Glow -->
+<div class="absolute inset-0 bg-primary/5 blur-3xl rounded-full scale-150"></div>
+<!-- Main Illustration Frame -->
+<div class="relative w-64 h-64 flex items-center justify-center">
+<div class="w-full h-full rounded-[40px] overflow-hidden border border-outline-variant/30 shadow-sm bg-surface-container-low p-6 flex flex-col gap-3">
+<div class="w-full h-32 bg-primary-fixed-dim/20 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed-dim text-6xl" style="font-variation-settings: 'FILL' 0;">present_to_all</span>
+</div>
+<div class="space-y-2">
+<div class="h-2 w-3/4 bg-outline-variant/40 rounded-full"></div>
+<div class="h-2 w-1/2 bg-outline-variant/40 rounded-full"></div>
+<div class="h-2 w-2/3 bg-outline-variant/40 rounded-full"></div>
+</div>
+<div class="mt-auto flex justify-center">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-lg transform translate-y-4">
+<span class="material-symbols-outlined text-on-primary">add</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State Text Content -->
+<div class="space-y-3">
+<h2 class="font-headline-md text-headline-md text-on-surface">No presentations yet</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Create one from a document or your notes to start your next high-impact briefing.
+                </p>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3 pt-4">
+<button class="bg-primary text-on-primary py-3 px-6 rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                    Create Presentation
+                </button>
+<button class="bg-transparent border border-outline-variant text-on-surface-variant py-3 px-6 rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 active:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">description</span>
+                    Convert Document
+                </button>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="lg:hidden fixed bottom-0 w-full z-50 rounded-t-xl border-t border-outline-variant bg-surface/90 backdrop-blur-md shadow-lg lg:hidden flex justify-around items-center pt-2 pb-6 px-4">
+<!-- Home -->
+<a class="flex flex-col items-center text-on-surface-variant transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<!-- Briefing -->
+<a class="flex flex-col items-center text-on-surface-variant transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-sm text-label-sm">Briefing</span>
+</a>
+<!-- Assistant (Center Action) -->
+<a class="flex flex-col items-center text-on-surface-variant transition-transform duration-150 active:scale-90" href="#">
+<div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center -mt-8 shadow-lg border-4 border-surface">
+<span class="material-symbols-outlined text-on-primary-container">smart_toy</span>
+</div>
+<span class="font-label-sm text-label-sm mt-1">Assistant</span>
+</a>
+<!-- Presentations (ACTIVE) -->
+<a class="flex flex-col items-center text-primary font-bold transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">present_to_all</span>
+<span class="font-label-sm text-label-sm">Present</span>
+</a>
+<!-- Docs -->
+<a class="flex flex-col items-center text-on-surface-variant transition-transform duration-150 active:scale-90" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for the central illustration
+        document.addEventListener('mousemove', (e) => {
+            const container = document.querySelector('.relative.w-64.h-64');
+            if (window.innerWidth < 1024) return; // Only for desktop-like hovers if testing
+            
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            const tiltX = (y / rect.height) * 10;
+            const tiltY = (x / rect.width) * -10;
+            
+            container.querySelector('.empty-state-card || div').style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+        });
+    </script>
+</body></html>

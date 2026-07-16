@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Meeting Detail - Failed State</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Design System Tokens -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#f1effa",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#fbf8ff",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "secondary-fixed": "#e1e0ff",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e3e1ec",
+                    "surface-tint": "#4d44e3",
+                    "on-primary-fixed": "#0f0069",
+                    "on-tertiary-fixed": "#351000",
+                    "surface-container-high": "#e8e7f1",
+                    "on-tertiary-container": "#ffd2be",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "inverse-primary": "#c3c0ff",
+                    "on-surface-variant": "#464555",
+                    "secondary": "#4648d4",
+                    "tertiary": "#7e3000",
+                    "on-secondary": "#ffffff",
+                    "surface": "#fbf8ff",
+                    "on-primary-container": "#dad7ff",
+                    "surface-container-low": "#f4f2fd",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#a44100",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "surface-container": "#eeedf7",
+                    "background": "#fbf8ff",
+                    "on-secondary-fixed": "#07006c",
+                    "primary-container": "#4f46e5",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c7c4d8",
+                    "on-surface": "#1a1b22",
+                    "secondary-container": "#6063ee",
+                    "on-secondary-container": "#fffbff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "surface-dim": "#dad9e3",
+                    "primary-fixed": "#e2dfff",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "primary": "#3525cd",
+                    "inverse-surface": "#2f3038",
+                    "surface-container-highest": "#e3e1ec",
+                    "on-background": "#1a1b22",
+                    "outline": "#777587",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "card-padding": "20px",
+                    "margin-page": "40px",
+                    "container-max": "1440px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fbf8ff;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- Navigation Drawer (Desktop Only) -->
+<aside class="hidden lg:flex flex-col border-r border-outline-variant h-screen fixed h-full w-[260px] left-0 top-0 bg-surface-container-low dark:bg-surface-container-lowest z-50">
+<div class="px-6 py-8">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed">Dad</h1>
+</div>
+<nav class="flex-1 flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Briefings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-md text-label-md">Documents</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">present_to_all</span>
+<span class="font-label-md text-label-md">Presentations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md text-label-md">Email</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary dark:text-primary-fixed font-bold border-l-4 border-primary dark:border-primary-fixed bg-surface-container-high rounded-r-lg" href="#">
+<span class="material-symbols-outlined">event</span>
+<span class="font-label-md text-label-md">Meetings</span>
+</a>
+</nav>
+<div class="mt-auto p-4 border-t border-outline-variant">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A professional headshot of a corporate executive in their late 40s, wearing a sharp navy blue suit and a soft gray tie. The lighting is warm and cinematic, set against a blurred modern office background with floor-to-ceiling windows. The image conveys leadership, trust, and a high-end corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQQaxItPH0fuekbTUImg3tC7fhLKdkuuM3fuDrOxY4ME1NvP4ql0PfoBmntSFCtIJrZ2Or9RmmuQq7AfBf5-8BSjaQ5A6ytVgdKz7BhM2kKfdRUsxIWEBPA51Xni87zYPE7ajM-lKzEuX19npI_92IF5AaRIpXnqGJEkJYMAZxvvAHuamXWQ0ByVV0e-Y0-GvXapmYzWomPnpm3_kV5BXCGDDloHmkrGfl0lGHaly5fOVG7xHckLSr"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold">Executive User</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">Professional Plan</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Top App Bar (Mobile-first) -->
+<header class="fixed top-0 w-full z-40 bg-surface dark:bg-background border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none h-16 flex items-center justify-between px-gutter lg:pl-[284px]">
+<div class="flex items-center gap-4">
+<button class="lg:hidden p-2 active:opacity-70">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed tracking-tight">Dad</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</button>
+<img class="w-8 h-8 rounded-full cursor-pointer hover:opacity-80 transition-opacity" data-alt="A stylized, minimalist avatar icon for a professional dashboard. The design uses soft gradients of indigo and slate gray, suggesting a clean, modern interface for a high-level executive tool. The background is a crisp off-white, maintaining a minimalist warmth and professional clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsLY1csXStqJ9q4ldnKhX3IcHz9MVgOdZX9t-LEjsiPkCm0j6qT-Pj88ep8PI9o4Bb6EKmew1UcBo2yGlDg5ds7tkJVCdLJQZfU0IpqYLP0pH4-3afE4kigdV15LGd9075uVNYuSbsf9Zyk3mdq6aWfitGwUGHeA_GKq6LwY8qo1PlUK-7kE5g8Ythk6-UtvmvTt7F3N_iADSViL4sAO4QO4H4yj9hYVf2J26OR13rpXHogzZjtjrZ"/>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-24 pb-20 lg:pb-8 lg:ml-[260px] min-h-screen px-4 md:px-gutter max-w-container-max mx-auto">
+<!-- Breadcrumbs & Navigation Back -->
+<div class="mb-6 flex items-center gap-2 text-on-surface-variant">
+<button class="flex items-center gap-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span class="font-label-md text-label-md">Back to Meetings</span>
+</button>
+</div>
+<!-- Meeting Title & Status Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3 flex-wrap">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Weekly Engineering Sync</h2>
+<span class="px-3 py-1 bg-error-container text-on-error-container rounded-full font-label-md text-label-md font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                        Failed
+                    </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Oct 25, 2024 • 10:00 AM - 11:00 AM</p>
+</div>
+</div>
+<!-- Failure State Content (Bento Style Layout) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Main Failure Card -->
+<div class="lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="p-card-padding flex flex-col items-center justify-center min-h-[400px] text-center">
+<div class="w-16 h-16 bg-error-container text-error flex items-center justify-center rounded-full mb-6">
+<span class="material-symbols-outlined text-[32px]">warning</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Processing Interrupted</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md mx-auto mb-8">
+                        The audio transcript provided was too short or corrupted to generate an accurate summary and action items.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+<button class="bg-primary-container text-on-primary font-body-md px-8 py-3 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">refresh</span>
+                            Retry processing
+                        </button>
+<button class="border border-outline text-primary font-body-md px-8 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">upload</span>
+                            Upload new notes
+                        </button>
+</div>
+</div>
+</div>
+<!-- Context / Sidebar Info -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Details Card -->
+<div class="bg-surface border border-outline-variant rounded-xl p-card-padding shadow-sm">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-4">Meeting Context</h4>
+<div class="flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline">group</span>
+<div>
+<p class="font-label-md text-label-md font-bold">Attendees</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Engineering Team (12 people)</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline">link</span>
+<div>
+<p class="font-label-md text-label-md font-bold">Source</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Zoom Recording Sync</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline">fingerprint</span>
+<div>
+<p class="font-label-md text-label-md font-bold">Session ID</p>
+<p class="font-body-md text-body-md text-on-surface-variant font-mono">ENG-SYNC-20241025-X82</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Support Card -->
+<div class="bg-surface-container-low border border-outline-variant border-dashed rounded-xl p-card-padding text-center">
+<span class="material-symbols-outlined text-outline mb-2">help_outline</span>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Still having issues? Our support team can look into the processing error.</p>
+<button class="text-primary font-label-md text-label-md font-bold hover:underline">Contact Support</button>
+</div>
+</div>
+<!-- Technical Logs Section (Subtle) -->
+<div class="lg:col-span-12">
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container transition-colors" id="toggle-logs">
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider text-on-surface-variant">System Log Details</span>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+<div class="hidden p-4 bg-on-background text-on-primary-container font-mono text-xs overflow-x-auto" id="log-content">
+<p class="opacity-70">[2024-10-25 10:45:01] INF: Starting AI summary engine v2.4.0</p>
+<p class="opacity-70">[2024-10-25 10:45:03] INF: Fetching audio stream from source...</p>
+<p class="opacity-70">[2024-10-25 10:45:08] INF: Audio stream received (Size: 45KB)</p>
+<p class="text-error">[2024-10-25 10:45:10] ERR: Audio duration check failed (Duration: 0.04s)</p>
+<p class="text-error">[2024-10-25 10:45:10] ERR: Metadata exception: INSUFFICIENT_DATA_FOR_SUMMARY</p>
+<p class="opacity-70">[2024-10-25 10:45:10] INF: Workflow terminated with exit code 1</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-16 px-4 bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-outline z-50 rounded-t-xl shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Brief</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">present_to_all</span>
+<span class="font-label-sm text-label-sm">Slides</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-sm text-label-sm">Email</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed font-bold active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">event</span>
+<span class="font-label-sm text-label-sm">Meet</span>
+</a>
+</nav>
+<script>
+        // Log Toggle Interaction
+        const toggleBtn = document.getElementById('toggle-logs');
+        const logContent = document.getElementById('log-content');
+        
+        toggleBtn.addEventListener('click', () => {
+            const isHidden = logContent.classList.contains('hidden');
+            if (isHidden) {
+                logContent.classList.remove('hidden');
+                toggleBtn.querySelector('.material-symbols-outlined').textContent = 'expand_less';
+            } else {
+                logContent.classList.add('hidden');
+                toggleBtn.querySelector('.material-symbols-outlined').textContent = 'expand_more';
+            }
+        });
+
+        // Simple scale interaction for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-[0.98]'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-[0.98]'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-[0.98]'));
+        });
+    </script>
+</body></html>

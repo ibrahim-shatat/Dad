@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "inverse-on-surface": "#f1effa",
+                    "background": "#fbf8ff",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#6063ee",
+                    "surface-dim": "#dad9e3",
+                    "surface-container-high": "#e8e7f1",
+                    "inverse-surface": "#2f3038",
+                    "inverse-primary": "#c3c0ff",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-primary-fixed": "#0f0069",
+                    "surface-bright": "#fbf8ff",
+                    "surface-container-highest": "#e3e1ec",
+                    "on-surface-variant": "#464555",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#dad7ff",
+                    "primary-fixed": "#e2dfff",
+                    "surface-variant": "#e3e1ec",
+                    "secondary": "#4648d4",
+                    "primary": "#3525cd",
+                    "on-background": "#1a1b22",
+                    "surface-container-low": "#f4f2fd",
+                    "on-secondary-container": "#fffbff",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#e1e0ff",
+                    "tertiary": "#7e3000",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "outline": "#777587",
+                    "surface-tint": "#4d44e3",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-tertiary-container": "#ffd2be",
+                    "on-surface": "#1a1b22",
+                    "on-secondary-fixed": "#07006c",
+                    "surface-container": "#eeedf7",
+                    "surface": "#fbf8ff",
+                    "tertiary-container": "#a44100",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c7c4d8",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-tertiary-fixed": "#351000",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "primary-container": "#4f46e5",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-page": "40px",
+                    "container-max": "1440px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "card-padding": "20px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .float-animation {
+            animation: subtle-float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- Top AppBar (from JSON) -->
+<header class="lg:hidden flex justify-between items-center px-4 h-16 w-full sticky top-0 z-40 bg-background border-b border-outline-variant">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary scale-95 active:opacity-80 transition-transform">menu</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Daily briefing</h1>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container-low text-primary border border-outline-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+<span class="font-label-md text-label-md">Regenerate</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary font-bold text-xs">EP</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col items-center justify-center px-6 relative overflow-hidden">
+<!-- Subtle background decorative element -->
+<div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[80px] -z-10"></div>
+<!-- Celebratory Empty State -->
+<div class="flex flex-col items-center text-center max-w-md w-full">
+<!-- Large Check Icon in Indigo Circle -->
+<div class="mb-8 relative">
+<div class="w-32 h-32 rounded-full bg-primary flex items-center justify-center shadow-xl shadow-primary/20 float-animation">
+<span class="material-symbols-outlined text-white text-[64px]" style="font-variation-settings: 'wght' 600;">check_circle</span>
+</div>
+<!-- Sparkle accents -->
+<span class="material-symbols-outlined absolute -top-2 -right-2 text-primary opacity-40 text-3xl">spark</span>
+<span class="material-symbols-outlined absolute bottom-4 -left-6 text-primary opacity-30 text-2xl">auto_awesome</span>
+</div>
+<!-- Content -->
+<div class="space-y-4">
+<p class="font-label-md text-label-md text-primary tracking-[0.2em] uppercase opacity-80">Friday, Oct 25</p>
+<h2 class="font-headline-xl text-headline-xl text-on-background tracking-tight">You're all clear for today.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant px-4">
+                    Everything has been handled or delegated. Enjoy your deep work time.
+                </p>
+</div>
+<!-- Action / Suggestion Card -->
+<div class="mt-12 w-full glass-card border border-outline-variant rounded-xl p-card-padding text-left">
+<div class="flex items-start gap-4">
+<div class="bg-secondary-fixed text-on-secondary-fixed-variant p-2 rounded-lg">
+<span class="material-symbols-outlined">lightbulb</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Focus Suggestion</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Your calendar is open for the next 4 hours. Would you like to start a focus timer for the "Product Strategy" document?</p>
+<button class="mt-4 px-6 py-2 bg-primary text-white rounded-full font-label-md text-label-md hover:bg-primary-container transition-all shadow-sm">
+                            Enter Deep Work
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (from JSON) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface border-t border-outline-variant shadow-sm">
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary font-bold">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">today</span>
+<span class="font-label-sm text-label-sm">Brief</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm">Chat</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">folder</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">more_horiz</span>
+<span class="font-label-sm text-label-sm">More</span>
+</div>
+</nav>
+<!-- Navigation Drawer (Desktop Placeholder - Hidden per instructions but defined for responsiveness) -->
+<aside class="hidden lg:flex flex-col py-8 px-4 gap-2 fixed left-0 top-0 h-screen w-[260px] bg-surface border-r border-outline-variant">
+<div class="px-4 mb-8">
+<span class="font-headline-lg text-headline-lg font-black text-primary tracking-tight">Dad</span>
+</div>
+<nav class="flex flex-col gap-1">
+<div class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold border-l-4 border-primary bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-md">Daily briefing</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-md">Assistant</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-md">Documents</span>
+</div>
+</nav>
+</aside>
+<script>
+        // Simple interactive feedback for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.96)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = 'scale(1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

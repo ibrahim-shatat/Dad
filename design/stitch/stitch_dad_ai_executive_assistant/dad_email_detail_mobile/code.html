@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Email Detail - Executive Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#ffb695",
+                    "secondary": "#4648d4",
+                    "on-surface": "#1a1b22",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e3e1ec",
+                    "surface-container-high": "#e8e7f1",
+                    "on-secondary-fixed": "#07006c",
+                    "inverse-primary": "#c3c0ff",
+                    "surface": "#fbf8ff",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#464555",
+                    "tertiary": "#7e3000",
+                    "inverse-on-surface": "#f1effa",
+                    "surface-tint": "#4d44e3",
+                    "surface-container": "#eeedf7",
+                    "inverse-surface": "#2f3038",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "on-background": "#1a1b22",
+                    "tertiary-container": "#a44100",
+                    "surface-dim": "#dad9e3",
+                    "secondary-container": "#6063ee",
+                    "primary-container": "#4f46e5",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-container": "#ffd2be",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "tertiary-fixed": "#ffdbcc",
+                    "background": "#fbf8ff",
+                    "on-tertiary-fixed": "#351000",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#fbf8ff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f4f2fd",
+                    "secondary-fixed": "#e1e0ff",
+                    "on-tertiary": "#ffffff",
+                    "surface-variant": "#e3e1ec",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "outline": "#777587",
+                    "on-primary-fixed": "#0f0069",
+                    "outline-variant": "#c7c4d8",
+                    "primary": "#3525cd",
+                    "on-secondary-container": "#fffbff",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-page": "40px",
+                    "container-max": "1440px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "card-padding": "20px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(227, 225, 236, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant flex justify-between items-center px-4 py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<button class="p-2 -ml-2 rounded-full hover:bg-surface-container-low transition-colors cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-primary truncate max-w-[180px]">Alex Jordan</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Today, 2:45 PM</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional high-resolution headshot of a corporate executive with salt-and-pepper hair, wearing a navy blue blazer and white shirt. The background is a blurred high-end office environment with soft natural lighting, reflecting a calm and professional modern corporate aesthetic. The lighting is crisp and clear, highlighting the subject's confident and approachable expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn8OEi7vxer_aMM2w-eJ1we4j8EvyqKtFFn1AlXvNB9Z4ykr4UEr5GzUVKoahyGm5oqIwWi-qmXuHf0wqfd2FIvkN820IGD8RvTRkd73-Eqg5l3K_OjPuM4_okIcil-hhCD6PGghYwLfaNI42pCzyoxt5vlTlKJLCwiJAzrQubvTfSTYXzA2dZXSb92UOOkPJv-bxJmi_3YKcwWLFDytiYfYZ_MO0xamS8Qy5tZRuBOwG4HaK1rqrG"/>
+</div>
+</div>
+</header>
+<main class="px-4 py-6 max-w-container-max mx-auto space-y-4">
+<!-- High Urgency Banner -->
+<div class="w-full bg-tertiary-fixed text-on-tertiary-fixed px-4 py-3 rounded-xl flex items-center gap-3 animate-pulse shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">priority_high</span>
+<span class="font-label-md text-label-md font-bold tracking-wide">HIGH URGENCY: ACTION REQUIRED BEFORE TOMORROW</span>
+</div>
+<!-- Original Content Snippet -->
+<div class="p-card-padding rounded-xl border border-outline-variant bg-surface-container-lowest shadow-sm">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">subject</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Original Email</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface mb-3">Q4 Strategy Deck - Signature Required</h1>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Hi Dad, I've just finished the final revisions on the Q4 Strategy Deck. We need your digital signature on the final approval page before we go into the board meeting tomorrow morning at 9:00 AM. 
+            </p>
+<div class="mt-4 pt-4 border-t border-outline-variant border-dashed">
+<button class="text-primary font-label-md text-label-md flex items-center gap-1 hover:underline">
+                    View full thread <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+</div>
+<!-- AI Summary Card -->
+<div class="p-card-padding rounded-xl border border-primary/20 bg-primary-container/10 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-3 opacity-20">
+<span class="material-symbols-outlined text-4xl text-primary">auto_awesome</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-widest">AI Summary</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-background font-medium">
+                Alex Jordan is asking for a signature on the Q4 strategy deck before the board meeting tomorrow.
+            </p>
+</div>
+<!-- Draft Reply Card -->
+<div class="p-card-padding rounded-xl border border-outline-variant bg-surface-container-lowest shadow-sm space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">edit_note</span>
+<span class="font-headline-md text-headline-md text-on-surface">Draft Reply</span>
+</div>
+<span class="px-2 py-1 bg-surface-container-high rounded text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">AI Assistant</span>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant ml-1" for="instructions">Instructions (optional)</label>
+<textarea class="w-full min-h-[100px] p-4 rounded-xl border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-body-md placeholder:text-outline/60" id="instructions" placeholder="e.g., Ask for 15 mins to sync first"></textarea>
+</div>
+<button class="w-full bg-primary text-on-primary py-4 rounded-xl flex items-center justify-center gap-3 shadow-md active:scale-[0.98] transition-transform group">
+<span class="material-symbols-outlined group-hover:rotate-12 transition-transform">auto_awesome</span>
+<span class="font-headline-md text-headline-md">Generate Draft</span>
+</button>
+<div class="flex items-start gap-2 px-1 opacity-70">
+<span class="material-symbols-outlined text-sm mt-0.5">info</span>
+<p class="font-label-sm text-label-sm leading-tight text-on-surface-variant">
+                    This draft will go to your Approval Queue for review before sending.
+                </p>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Filtered for relevant destination) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface border-t border-outline-variant shadow-md z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-sm text-label-sm mt-1">Briefing</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1 transition-transform scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mail</span>
+<span class="font-label-sm text-label-sm mt-1">Email</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">support_agent</span>
+<span class="font-label-sm text-label-sm mt-1">Assistant</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-sm text-label-sm mt-1">Docs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-label-sm text-label-sm mt-1">Approvals</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for the "Generate Draft" button
+        const draftBtn = document.querySelector('button.bg-primary');
+        if(draftBtn) {
+            draftBtn.addEventListener('click', () => {
+                const originalContent = draftBtn.innerHTML;
+                draftBtn.innerHTML = `
+                    <span class="material-symbols-outlined animate-spin">refresh</span>
+                    <span class="font-headline-md text-headline-md">Thinking...</span>
+                `;
+                draftBtn.classList.add('opacity-80', 'cursor-wait');
+                
+                setTimeout(() => {
+                    draftBtn.innerHTML = `
+                        <span class="material-symbols-outlined">check_circle</span>
+                        <span class="font-headline-md text-headline-md">Draft Created</span>
+                    `;
+                    draftBtn.classList.remove('bg-primary');
+                    draftBtn.classList.add('bg-secondary');
+                    
+                    setTimeout(() => {
+                        draftBtn.innerHTML = originalContent;
+                        draftBtn.classList.remove('bg-secondary', 'opacity-80', 'cursor-wait');
+                        draftBtn.classList.add('bg-primary');
+                    }, 2000);
+                }, 1500);
+            });
+        }
+    </script>
+</body></html>

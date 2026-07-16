@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Upload Document - Dad AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .blur-bg {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        /* Custom scrollbar for clean corporate look */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e3e1ec;
+            border-radius: 10px;
+        }
+        /* Glassmorphism utility */
+        .glass-card {
+            background: rgba(251, 248, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(199, 196, 216, 0.5);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#4648d4",
+                        "on-error-container": "#93000a",
+                        "surface": "#fbf8ff",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "primary-fixed": "#e2dfff",
+                        "surface-tint": "#4d44e3",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "primary-container": "#4f46e5",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#07006c",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-container-highest": "#e3e1ec",
+                        "surface-container": "#eeedf7",
+                        "surface-bright": "#fbf8ff",
+                        "surface-variant": "#e3e1ec",
+                        "surface-dim": "#dad9e3",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e8e7f1",
+                        "on-primary-container": "#dad7ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline-variant": "#c7c4d8",
+                        "secondary-container": "#6063ee",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary-container": "#fffbff",
+                        "on-surface": "#1a1b22",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-primary-fixed": "#0f0069",
+                        "inverse-on-surface": "#f1effa",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1a1b22",
+                        "tertiary": "#7e3000",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "outline": "#777587",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#464555",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "primary": "#3525cd",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f4f2fd",
+                        "secondary-fixed": "#e1e0ff",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "inverse-primary": "#c3c0ff",
+                        "tertiary-container": "#a44100",
+                        "inverse-surface": "#2f3038",
+                        "background": "#fbf8ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "card-padding": "20px",
+                        "margin-page": "40px",
+                        "unit": "4px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-hidden">
+<!-- Desktop Navigation Drawer (Hidden on Mobile) -->
+<aside class="hidden lg:flex flex-col h-screen fixed left-0 top-0 w-[260px] border-r border-outline-variant bg-surface">
+<div class="p-6">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">Dad AI</span>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary font-bold border-l-[3px] border-primary bg-surface-container-high rounded-lg" href="#">
+<span class="material-symbols-outlined">description</span> Documents
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">psychology</span> AI Insights
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span> Team Vault
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+</nav>
+<div class="p-4 border-t border-outline-variant">
+<div class="flex items-center gap-3 px-2">
+<img class="w-10 h-10 rounded-full bg-surface-container-highest object-cover" data-alt="A professional headshot of a senior male executive with grey hair and a warm, confident smile. He is wearing a dark blue tailor-made suit against a soft-focus corporate office background. The lighting is bright and professional, adhering to a high-end SaaS aesthetic with cool indigo undertones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA854yZkXPr1dcEk04A5Bc1dryYFYERdOr82d6ijLL70FCGCrBorU7khuhl7eBTRFEcl5dE5dcwhsoEW9wItuGOvJLpGhSvyh77ASp1M_NhuG5CQSco3oVSTWCxKComCv4ySoztW5v8DQX663aVdIwkuNj0PqvPQy71QhxgtqloF8Kvwmj6WVIRhYCLDd8Iy_aJ1VzE0-tKbCY2w0tjwkNvlMfs7eJKKXVkXf_st3ehJ64Deno8U8b0"/>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface font-bold">Executive User</span>
+<span class="text-[10px] text-on-surface-variant">Premium Account</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Top App Bar (Mobile Context) -->
+<header class="flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant lg:pl-[284px]">
+<div class="flex items-center gap-3">
+<button class="lg:hidden p-2 hover:bg-surface-container rounded-full">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-on-surface font-bold">Documents</h1>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-md hover:opacity-80 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span> Upload document
+        </button>
+</header>
+<!-- Main Content Canvas -->
+<main class="lg:pl-[260px] min-h-screen pb-20 lg:pb-0">
+<!-- Blurred/Dimmed Content Background -->
+<div class="p-gutter opacity-40 blur-[2px] transition-all duration-500">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Sample Document Cards -->
+<div class="bg-surface-container-lowest p-card-padding rounded-xl border border-outline-variant shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary-container/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">description</span>
+</div>
+<span class="font-label-sm text-on-surface-variant">2 mins ago</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Quarterly_Report_Q3.pdf</h3>
+<p class="text-on-surface-variant text-body-md line-clamp-2">Summary of performance metrics and strategic objectives for the third quarter...</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex gap-2">
+<span class="bg-primary-container/20 text-primary px-2 py-0.5 rounded text-[10px] font-bold">FINANCE</span>
+<span class="bg-surface-container-highest text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-bold">REVIEWED</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-card-padding rounded-xl border border-outline-variant shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary-container/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<span class="font-label-sm text-on-surface-variant">1 hour ago</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Market_Analysis_Global.docx</h3>
+<p class="text-on-surface-variant text-body-md line-clamp-2">Deep dive into competitive landscapes across EMEA and APAC regions...</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex gap-2">
+<span class="bg-primary-container/20 text-primary px-2 py-0.5 rounded text-[10px] font-bold">STRATEGY</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-card-padding rounded-xl border border-outline-variant shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary-container/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+</div>
+<span class="font-label-sm text-on-surface-variant">Yesterday</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Compliance_Audit_2024.pdf</h3>
+<p class="text-on-surface-variant text-body-md line-clamp-2">Annual regulatory compliance check and security protocols verification...</p>
+<div class="mt-4 pt-4 border-t border-outline-variant flex gap-2">
+<span class="bg-primary-container/20 text-primary px-2 py-0.5 rounded text-[10px] font-bold">LEGAL</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Overlay: Upload Document Form (The Focus) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center px-4">
+<div class="absolute inset-0 bg-on-surface/20 blur-bg backdrop-blur-sm"></div>
+<div class="relative w-full max-w-md bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant overflow-hidden animate-in fade-in zoom-in duration-300">
+<!-- Header -->
+<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">upload_file</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Upload Document</h2>
+<p class="text-on-surface-variant font-label-sm uppercase tracking-wider">Dad AI Intelligence</p>
+</div>
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Form Content -->
+<div class="p-6 space-y-6">
+<!-- File Dropzone -->
+<div class="group relative border-2 border-dashed border-outline-variant rounded-xl p-8 transition-all hover:border-primary hover:bg-primary-container/5 flex flex-col items-center justify-center cursor-pointer">
+<input class="absolute inset-0 opacity-0 cursor-pointer" id="file-upload" type="file"/>
+<div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center mb-4 group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="cloud_upload">cloud_upload</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-surface text-center">Tap to select or drop files</p>
+<p class="text-on-surface-variant font-label-md mt-1">PDF, DOCX, or TXT up to 25MB</p>
+</div>
+<!-- Instructions Textarea -->
+<div class="space-y-2">
+<label class="font-label-md text-on-surface block px-1" for="instructions">Instructions (optional)</label>
+<textarea class="w-full bg-surface border border-outline-variant rounded-xl p-4 text-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none placeholder:text-outline" id="instructions" placeholder="Tell the AI what to focus on (e.g., 'Summarize key action items' or 'Analyze financial risks')" rows="3"></textarea>
+</div>
+<!-- AI Processing Visual Placeholder (Static but styled) -->
+<div class="flex items-center gap-4 p-4 bg-surface-container rounded-xl border border-outline-variant/50">
+<div class="flex-shrink-0 relative">
+<div class="w-2 h-2 bg-primary rounded-full animate-ping absolute inset-0"></div>
+<div class="w-2 h-2 bg-primary rounded-full relative"></div>
+</div>
+<span class="text-label-sm font-medium text-on-surface-variant">AI Engine standing by for context mapping</span>
+</div>
+</div>
+<!-- Footer Action -->
+<div class="p-6 bg-surface border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary py-4 rounded-xl font-bold text-body-lg hover:shadow-lg active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                        Submit for Analysis
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile only) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 bg-surface border-t border-outline-variant lg:hidden z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant py-1" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold bg-primary-container/10 rounded-xl px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant py-1" href="#">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+<span class="font-label-sm text-label-sm">Insights</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant py-1" href="#">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+<span class="font-label-sm text-label-sm">Menu</span>
+</a>
+</nav>
+<!-- Floating Action Button Contextual (Hidden as per rule: Suppress on Detail/Modal views) -->
+<!-- Suppression Logic: User is in a "focused journey" (Upload Form), so FAB is hidden -->
+<script>
+        // Simple Interaction logic for file dropzone
+        const dropzone = document.querySelector('.group.relative.border-dashed');
+        const fileInput = document.getElementById('file-upload');
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const fileName = e.target.files[0].name;
+                const dropzoneText = dropzone.querySelector('.font-headline-md');
+                dropzoneText.textContent = `Selected: ${fileName}`;
+                dropzone.classList.add('bg-primary-container/10', 'border-primary');
+            }
+        });
+
+        // Prevention of accidental scrolling when modal is open
+        document.body.classList.add('overflow-hidden');
+
+        // Logic for closing modal (mock)
+        const closeBtn = document.querySelector('button .material-symbols-outlined:contains("close")');
+        if(closeBtn) {
+            closeBtn.closest('button').addEventListener('click', () => {
+                alert('In a real app, this would close the overlay.');
+            });
+        }
+    </script>
+</body></html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - Presentations</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#a44100",
+                        "surface-container": "#eeedf7",
+                        "on-surface": "#1a1b22",
+                        "surface": "#fbf8ff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#0f0069",
+                        "primary-container": "#4f46e5",
+                        "surface-container-highest": "#e3e1ec",
+                        "inverse-primary": "#c3c0ff",
+                        "outline-variant": "#c7c4d8",
+                        "secondary-fixed": "#e1e0ff",
+                        "on-secondary-fixed": "#07006c",
+                        "primary": "#3525cd",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e7f1",
+                        "primary-fixed": "#e2dfff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-secondary-container": "#fffbff",
+                        "surface-bright": "#fbf8ff",
+                        "background": "#fbf8ff",
+                        "surface-variant": "#e3e1ec",
+                        "inverse-surface": "#2f3038",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "on-tertiary-fixed": "#351000",
+                        "on-primary-container": "#dad7ff",
+                        "on-background": "#1a1b22",
+                        "secondary": "#4648d4",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "tertiary": "#7e3000",
+                        "outline": "#777587",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#464555",
+                        "inverse-on-surface": "#f1effa",
+                        "surface-dim": "#dad9e3",
+                        "secondary-container": "#6063ee",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#4d44e3",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-container-low": "#f4f2fd",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-tertiary-fixed-variant": "#7b2f00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-page": "40px",
+                        "container-max": "1440px",
+                        "card-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pulse-container {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        .skeleton {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md flex flex-col">
+<!-- Top AppBar (from JSON context) -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm w-full top-0 z-40 sticky">
+<div class="flex justify-between items-center px-gutter h-16 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary cursor-pointer active:scale-95 transition-colors">menu</span>
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-inverse-primary">Dad</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-white font-bold text-xs overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up professional studio portrait of a high-level executive with a warm, confident expression. The lighting is soft and cinematic against a neutral, blurred corporate office background. The overall aesthetic is clean and modern, fitting a high-end SaaS profile avatar with realistic skin textures and lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX2CBgpIwPWIYO-TUUwqmfVgWP1yZ-7IZHWleXjyZMdcSDfjVLY73mMEFww99zksJ1EeMUleXrLM6p2_ypiJflfOoONKIq1moTd8fVnXS6bGSESyVIhSjIW-bDVWdXRIJPO727idepCGYGNsgXy8KFJafHXNqPGg2dl4bDZnRfhdIbzxMNgnzCIAyqM244Nj6ej-3lG8jsqBhVZ_-CyHFi0mhyIO8qZlNwtNwVt9PwovRa3px7dSyK"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col px-4 pt-6 pb-32 max-w-md mx-auto w-full">
+<!-- Header Section -->
+<div class="flex justify-between items-center mb-8">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Presentations</h1>
+<button class="bg-primary text-on-primary flex items-center gap-2 px-4 py-2 rounded-xl shadow-md active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="font-label-md text-label-md">New presentation</span>
+</button>
+</div>
+<!-- Dynamic Content Area -->
+<div class="space-y-4" id="content-container">
+<!-- Presentation Card: Generating (Pulse) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-card-padding shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Q4 Strategy Review</h3>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary-fixed-dim/20 text-primary-fixed-dim border border-primary/20 pulse-container">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Generating</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span>Created Today, 10:45 AM</span>
+</div>
+</div>
+<!-- Presentation Card: Ready (Green) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-card-padding shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Product Launch Deck</h3>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Ready</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span>Created Oct 24, 2023</span>
+</div>
+</div>
+<!-- Presentation Card: Draft -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-card-padding shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Untitled presentation</h3>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant border border-outline-variant">
+<span class="material-symbols-outlined text-[14px]">edit_note</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Draft</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span>Created Oct 20, 2023</span>
+</div>
+</div>
+<!-- Presentation Card: Failed (Red) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-card-padding shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Board Meeting Prep</h3>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-error-container text-on-error-container border border-error/20">
+<span class="material-symbols-outlined text-[14px]">error</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Failed</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span>Created Oct 18, 2023</span>
+</div>
+</div>
+<!-- Skeleton Loader (Hidden by default, used for state demonstration) -->
+<div class="hidden space-y-4" id="skeleton-state">
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-card-padding space-y-3">
+<div class="flex justify-between items-center">
+<div class="h-6 w-3/4 bg-surface-container-highest rounded-md animate-pulse"></div>
+<div class="h-5 w-16 bg-surface-container-highest rounded-full animate-pulse"></div>
+</div>
+<div class="h-4 w-1/3 bg-surface-container-highest rounded-md animate-pulse"></div>
+</div>
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-card-padding space-y-3">
+<div class="flex justify-between items-center">
+<div class="h-6 w-1/2 bg-surface-container-highest rounded-md animate-pulse"></div>
+<div class="h-5 w-16 bg-surface-container-highest rounded-full animate-pulse"></div>
+</div>
+<div class="h-4 w-1/4 bg-surface-container-highest rounded-md animate-pulse"></div>
+</div>
+</div>
+<!-- Empty State (Hidden by default) -->
+<div class="hidden flex flex-col items-center justify-center py-20 text-center px-8" id="empty-state">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-[32px] text-primary">present_to_all</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface mb-2 font-medium">No presentations yet.</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Create one from a document or your notes to see it here.</p>
+</div>
+</div>
+<!-- Toggle View Controls (Floating button for prototype only) -->
+<div class="fixed bottom-24 right-4 flex flex-col gap-2 z-30 opacity-20 hover:opacity-100 transition-opacity">
+<button class="p-2 bg-surface border border-outline-variant rounded-full shadow-sm text-xs" onclick="toggleView('list')">List</button>
+<button class="p-2 bg-surface border border-outline-variant rounded-full shadow-sm text-xs" onclick="toggleView('skeleton')">Skeleton</button>
+<button class="p-2 bg-surface border border-outline-variant rounded-full shadow-sm text-xs" onclick="toggleView('empty')">Empty</button>
+</div>
+</main>
+<!-- Bottom Navigation Bar (from JSON context) -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl lg:hidden flex justify-around items-center pt-2 pb-safe px-4 bg-surface/90 backdrop-blur-md border-t border-outline-variant shadow-lg h-20">
+<div class="flex flex-col items-center text-on-surface-variant active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-sm text-label-sm">Briefing</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-sm text-label-sm">Assistant</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</div>
+<!-- Active Tab: Presentations (Maps to Assistant or just defined as high priority) -->
+<!-- Since the JSON says "label_texts": ["Home", "Briefing", "Assistant", "Docs", "Cal"] and the task is for "Presentations", we map it to the tab that would logically contain it. In this layout, Assistant/Tools. However, for the sake of the prompt "Presentations active", if the icon "present_to_all" exists in the drawer context, we'll assume a custom icon here. Let's stick to Assistant as the active shell context for AI-generated presentations or add it if context allows. -->
+<div class="flex flex-col items-center text-primary font-bold active:scale-90 transition-transform duration-150 cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">present_to_all</span>
+<span class="font-label-sm text-label-sm">Pres</span>
+</div>
+</nav>
+<script>
+        function toggleView(view) {
+            const content = document.getElementById('content-container');
+            const skeletons = document.getElementById('skeleton-state');
+            const empty = document.getElementById('empty-state');
+            
+            // Hide all children of content-container first (the list items)
+            const listItems = Array.from(content.children).filter(child => 
+                child.id !== 'skeleton-state' && child.id !== 'empty-state'
+            );
+
+            if (view === 'list') {
+                listItems.forEach(item => item.classList.remove('hidden'));
+                skeletons.classList.add('hidden');
+                empty.classList.add('hidden');
+            } else if (view === 'skeleton') {
+                listItems.forEach(item => item.classList.add('hidden'));
+                skeletons.classList.remove('hidden');
+                empty.classList.add('hidden');
+            } else if (view === 'empty') {
+                listItems.forEach(item => item.classList.add('hidden'));
+                skeletons.classList.add('hidden');
+                empty.classList.remove('hidden');
+            }
+        }
+
+        // Handle Active states for nav (Visual interaction only)
+        const navItems = document.querySelectorAll('nav div');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(i => {
+                    i.classList.remove('text-primary', 'font-bold');
+                    i.classList.add('text-on-surface-variant');
+                    i.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 0";
+                });
+                item.classList.add('text-primary', 'font-bold');
+                item.classList.remove('text-on-surface-variant');
+                item.querySelector('.material-symbols-outlined').style.fontVariationSettings = "'FILL' 1";
+            });
+        });
+    </script>
+</body></html>

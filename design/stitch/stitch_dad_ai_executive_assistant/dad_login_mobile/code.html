@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - AI Chief of Staff Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffdbcc",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#dad7ff",
+                        "surface-container-high": "#e8e7f1",
+                        "surface-variant": "#e3e1ec",
+                        "surface-dim": "#dad9e3",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fbf8ff",
+                        "surface-container-highest": "#e3e1ec",
+                        "surface-container": "#eeedf7",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-secondary-fixed": "#07006c",
+                        "primary-container": "#4f46e5",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "surface-tint": "#4d44e3",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "primary-fixed": "#e2dfff",
+                        "surface": "#fbf8ff",
+                        "on-error-container": "#93000a",
+                        "secondary": "#4648d4",
+                        "background": "#fbf8ff",
+                        "tertiary-container": "#a44100",
+                        "inverse-surface": "#2f3038",
+                        "secondary-fixed": "#e1e0ff",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "inverse-primary": "#c3c0ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f4f2fd",
+                        "primary": "#3525cd",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "on-surface-variant": "#464555",
+                        "error": "#ba1a1a",
+                        "tertiary": "#7e3000",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "outline": "#777587",
+                        "on-error": "#ffffff",
+                        "on-background": "#1a1b22",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f1effa",
+                        "on-primary-fixed": "#0f0069",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-surface": "#1a1b22",
+                        "on-secondary-container": "#fffbff",
+                        "secondary-container": "#6063ee",
+                        "on-tertiary-fixed": "#351000",
+                        "outline-variant": "#c7c4d8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "margin-page": "40px",
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "card-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fbf8ff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .soft-shadow {
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .login-card {
+            border: 1px solid #c7c4d8;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex items-center justify-center p-6">
+<!-- Global Layout Wrapper -->
+<main class="w-full flex flex-col items-center justify-center gap-12">
+<!-- Animated Background Element (Atmospheric) -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none opacity-30">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[120px]"></div>
+</div>
+<!-- Branding Section (Contextual) -->
+<div class="text-center space-y-2">
+<div class="flex items-center justify-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="smart_toy">smart_toy</span>
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tighter">Dad</h1>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant font-medium opacity-80">Your AI chief of staff</p>
+</div>
+<!-- Login Card -->
+<section class="login-card bg-surface-container-lowest w-full max-w-[400px] rounded-xl p-card-padding soft-shadow">
+<form class="space-y-6" onsubmit="return false">
+<!-- Email Field -->
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wider" for="email">Email Address</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg transition-colors group-focus-within:text-primary" data-icon="mail">mail</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-lg border border-outline-variant bg-surface-container-low font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-outline/50" id="email" name="email" placeholder="marcus.aurelius@executive.com" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wider" for="password">Password</label>
+<a class="font-label-sm text-label-sm text-primary hover:underline transition-all" href="#">Forgot password?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg transition-colors group-focus-within:text-primary" data-icon="lock">lock</span>
+<input class="w-full pl-10 pr-12 py-3 rounded-lg border border-outline-variant bg-surface-container-low font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-outline/50" id="password" name="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="visibility_off">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full py-3.5 bg-primary hover:bg-secondary-container text-on-primary font-medium rounded-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2 group" type="submit">
+<span class="font-body-lg">Sign in</span>
+<span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Divider -->
+<div class="relative flex items-center gap-4">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">or continue with</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<!-- SSO Options -->
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 py-2.5 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors active:scale-95" type="button">
+<span class="material-symbols-outlined text-lg text-on-surface-variant" data-icon="google">google</span>
+<span class="font-label-md text-label-md">Google</span>
+</button>
+<button class="flex items-center justify-center gap-2 py-2.5 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors active:scale-95" type="button">
+<span class="material-symbols-outlined text-lg text-on-surface-variant" data-icon="shield_person">shield_person</span>
+<span class="font-label-md text-label-md">SSO</span>
+</button>
+</div>
+</form>
+<!-- Footer Link -->
+<p class="mt-8 text-center font-label-md text-label-md text-on-surface-variant">
+                Don't have an executive account? <a class="text-primary font-semibold hover:underline" href="#">Request access</a>
+</p>
+</section>
+<!-- Footer / Semantic Shell (Referencing Shared Components Copyright) -->
+<footer class="w-full max-w-[400px] text-center space-y-4">
+<div class="flex items-center justify-center gap-4 font-label-sm text-label-sm text-outline">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+<a class="hover:text-primary transition-colors" href="#">Security Architecture</a>
+</div>
+<p class="font-label-sm text-label-sm text-outline/60">
+                © 2024 Dad AI. Professional Confidentiality Guaranteed.
+            </p>
+</footer>
+</main>
+<!-- Micro-interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    input.closest('.login-card').classList.add('ring-1', 'ring-primary/10');
+                });
+                input.addEventListener('blur', () => {
+                    input.closest('.login-card').classList.remove('ring-1', 'ring-primary/10');
+                });
+            });
+
+            // Password Toggle Simulation
+            const togglePass = document.querySelector('button[type="button"] .material-symbols-outlined');
+            if (togglePass) {
+                togglePass.parentElement.addEventListener('click', () => {
+                    const passInput = document.getElementById('password');
+                    if (passInput.type === 'password') {
+                        passInput.type = 'text';
+                        togglePass.innerText = 'visibility';
+                    } else {
+                        passInput.type = 'password';
+                        togglePass.innerText = 'visibility_off';
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

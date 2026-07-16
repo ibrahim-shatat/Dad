@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - Q4 Strategy Review</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Design System Tokens -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#e8e7f1",
+                    "surface-dim": "#dad9e3",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e3e1ec",
+                    "outline": "#777587",
+                    "primary-fixed": "#e2dfff",
+                    "outline-variant": "#c7c4d8",
+                    "on-error-container": "#93000a",
+                    "primary": "#3525cd",
+                    "on-primary-container": "#dad7ff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e3e1ec",
+                    "surface-container-low": "#f4f2fd",
+                    "tertiary-container": "#a44100",
+                    "surface-container": "#eeedf7",
+                    "secondary": "#4648d4",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#464555",
+                    "on-primary-fixed": "#0f0069",
+                    "on-tertiary-fixed": "#351000",
+                    "tertiary-fixed": "#ffdbcc",
+                    "secondary-fixed": "#e1e0ff",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "surface": "#fbf8ff",
+                    "on-secondary-fixed": "#07006c",
+                    "secondary-container": "#6063ee",
+                    "inverse-primary": "#c3c0ff",
+                    "on-tertiary-container": "#ffd2be",
+                    "background": "#fbf8ff",
+                    "tertiary": "#7e3000",
+                    "surface-bright": "#fbf8ff",
+                    "primary-container": "#4f46e5",
+                    "inverse-on-surface": "#f1effa",
+                    "surface-tint": "#4d44e3",
+                    "inverse-surface": "#2f3038",
+                    "on-background": "#1a1b22",
+                    "on-surface": "#1a1b22",
+                    "on-secondary-container": "#fffbff",
+                    "on-primary-fixed-variant": "#3323cc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-page": "40px",
+                    "gutter": "24px",
+                    "unit": "4px",
+                    "container-max": "1440px",
+                    "card-padding": "20px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .soft-shadow { box-shadow: 0px 4px 12px rgba(0,0,0,0.05); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+        }
+        .dark .glass-card {
+            background: rgba(47, 48, 56, 0.7);
+        }
+        /* Custom scrollbar for preview list */
+        .preview-scroll::-webkit-scrollbar { width: 4px; }
+        .preview-scroll::-webkit-scrollbar-track { background: transparent; }
+        .preview-scroll::-webkit-scrollbar-thumb { background: #c7c4d8; border-radius: 2px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface transition-colors duration-300">
+<!-- Sidebar NavigationDrawer (Fixed Desktop Shell) -->
+<aside class="w-[260px] h-full fixed left-0 top-0 border-r border-outline-variant dark:border-outline bg-surface dark:bg-inverse-surface flex flex-col py-8 z-50">
+<div class="px-6 mb-10">
+<h1 class="text-headline-xl font-headline-xl text-primary dark:text-primary-fixed">Dad</h1>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Navigation Items mapped from JSON -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-body-md font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="text-body-md font-body-md">Daily Briefing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="text-body-md font-body-md">Assistant</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-body-md font-body-md">Documents</span>
+</a>
+<!-- Active State: Presentations -->
+<a class="flex items-center gap-3 px-4 py-3 text-primary dark:text-primary-fixed font-bold border-l-[3px] border-primary dark:border-primary-fixed bg-surface-container-low dark:bg-surface-container-highest scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">present_to_all</span>
+<span class="text-body-md font-body-md">Presentations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="text-body-md font-body-md">Approvals</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="text-body-md font-body-md">Admin</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<div class="p-4 bg-surface-container rounded-xl flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold">JD</div>
+<div class="overflow-hidden">
+<p class="text-body-md font-semibold truncate">James Dadson</p>
+<p class="text-label-sm text-on-surface-variant">Executive Lead</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[260px] min-h-screen">
+<!-- Top Bar Header -->
+<header class="flex justify-between items-center w-full px-margin-page h-16 sticky top-0 z-40 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none">
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h2 class="text-headline-lg font-headline-lg text-primary dark:text-primary-fixed">Q4 Strategy Review</h2>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-wider">Ready</span>
+<span class="text-label-md text-on-surface-variant">Last edited 2h ago</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 rounded-lg border border-outline-variant hover:bg-surface-container text-body-md font-medium transition-colors">
+                    Send to approval
+                </button>
+<button class="px-6 py-2 rounded-lg bg-primary text-white hover:opacity-90 active:scale-95 transition-all text-body-md font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                    Download .pptx
+                </button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</div>
+</div>
+</header>
+<!-- Canvas Container -->
+<div class="max-w-container-max mx-auto p-margin-page">
+<!-- Bento Grid of Slides -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Slide 1: Section Header (Full Width Focal) -->
+<div class="col-span-12 group">
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden soft-shadow transition-all hover:border-primary">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-on-surface-variant text-white flex items-center justify-center text-[10px] font-bold">1</span>
+<h3 class="text-label-md font-bold text-on-surface-variant uppercase tracking-tighter">Section header</h3>
+</div>
+<span class="text-label-md text-on-surface-variant font-medium italic">2024 Market Outlook</span>
+</div>
+<div class="aspect-video relative bg-primary-container flex items-center justify-center overflow-hidden">
+
+<div class="relative z-10 text-center px-12">
+<h1 class="text-[56px] leading-[1.1] font-extrabold text-on-primary-container tracking-tight">2024 Market Outlook</h1>
+<p class="mt-4 text-on-primary-container/80 text-headline-md italic">Charting the path to sustainable scale</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 2: Bullets & Speaker Notes (Split Layout) -->
+<div class="col-span-12 lg:col-span-7 group">
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden soft-shadow transition-all hover:border-primary h-full flex flex-col">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-on-surface-variant text-white flex items-center justify-center text-[10px] font-bold">2</span>
+<h3 class="text-label-md font-bold text-on-surface-variant uppercase tracking-tighter">Bullets</h3>
+</div>
+<span class="text-label-md text-on-surface-variant font-medium">Key Growth Pillars</span>
+</div>
+<div class="p-card-padding flex-1 flex flex-col gap-6">
+<h4 class="text-headline-md font-bold text-primary">Strategic Advantage Pillars</h4>
+<ul class="space-y-4">
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<div>
+<p class="font-bold text-body-lg">AI-First Infrastructure Integration</p>
+<p class="text-on-surface-variant text-body-md">Leveraging proprietary LLMs for predictive maintenance across global logistics chains.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<div>
+<p class="font-bold text-body-lg">Unit Economic Optimization</p>
+<p class="text-on-surface-variant text-body-md">Reducing CAC by 24% through targeted organic executive networking campaigns.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<div>
+<p class="font-bold text-body-lg">Global Expansion Velocity</p>
+<p class="text-on-surface-variant text-body-md">Market entry strategy for APAC and DACH regions scheduled for Q1-Q2.</p>
+</div>
+</li>
+</ul>
+</div>
+<!-- Speaker Notes Expansion -->
+<div class="bg-surface-container-high/50 p-4 border-t border-outline-variant">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-[18px]">record_voice_over</span>
+<p class="text-label-md font-bold uppercase text-on-surface-variant">Speaker Notes</p>
+</div>
+<p class="text-body-md text-on-surface italic leading-relaxed">
+                                "When presenting this, emphasize the AI component as our primary moat. We need the board to understand that this isn't just a layer, it's the foundation of the 2024 scaling effort."
+                            </p>
+</div>
+</div>
+</div>
+<!-- Slide 3: Chart Placeholder (Sidebar Column) -->
+<div class="col-span-12 lg:col-span-5 group">
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden soft-shadow transition-all hover:border-primary h-full flex flex-col">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-on-surface-variant text-white flex items-center justify-center text-[10px] font-bold">3</span>
+<h3 class="text-label-md font-bold text-on-surface-variant uppercase tracking-tighter">Chart</h3>
+</div>
+<span class="text-label-md text-on-surface-variant font-medium">Q3 Performance</span>
+</div>
+<div class="p-card-padding flex-1 flex flex-col">
+<h4 class="text-headline-md font-bold mb-6">Revenue Growth Velocity</h4>
+<div class="flex-1 flex items-end gap-4 pb-8 min-h-[200px]">
+<!-- Professional Bar Chart Placeholder using CSS -->
+<div class="flex-1 bg-surface-container-highest rounded-t-lg relative group/bar" style="height: 40%;">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-label-md font-bold opacity-0 group-hover/bar:opacity-100 transition-opacity">$1.2M</div>
+<div class="absolute bottom-[-30px] left-1/2 -translate-x-1/2 text-label-sm text-on-surface-variant">Jul</div>
+</div>
+<div class="flex-1 bg-surface-container-highest rounded-t-lg relative group/bar" style="height: 55%;">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-label-md font-bold opacity-0 group-hover/bar:opacity-100 transition-opacity">$1.8M</div>
+<div class="absolute bottom-[-30px] left-1/2 -translate-x-1/2 text-label-sm text-on-surface-variant">Aug</div>
+</div>
+<div class="flex-1 bg-primary rounded-t-lg relative group/bar" style="height: 85%;">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-label-md font-bold text-primary">$2.4M</div>
+<div class="absolute bottom-[-30px] left-1/2 -translate-x-1/2 text-label-sm font-bold text-primary">Sep</div>
+</div>
+<div class="flex-1 bg-surface-container-highest rounded-t-lg relative group/bar" style="height: 70%;">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-label-md font-bold opacity-0 group-hover/bar:opacity-100 transition-opacity">$2.1M</div>
+<div class="absolute bottom-[-30px] left-1/2 -translate-x-1/2 text-label-sm text-on-surface-variant">Oct (Est)</div>
+</div>
+</div>
+<div class="mt-4 p-4 rounded-lg bg-primary-container/10 border border-primary/20">
+<p class="text-body-md text-on-surface-variant">
+<span class="font-bold text-primary">Insight:</span> Performance exceeded forecasts by 14% in September following the enterprise beta launch.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 4: Two-Column Breakdown (Full Width Bottom) -->
+<div class="col-span-12 group">
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden soft-shadow transition-all hover:border-primary">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-on-surface-variant text-white flex items-center justify-center text-[10px] font-bold">4</span>
+<h3 class="text-label-md font-bold text-on-surface-variant uppercase tracking-tighter">Two-column</h3>
+</div>
+<span class="text-label-md text-on-surface-variant font-medium">Regional Breakdown</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 divide-x divide-outline-variant">
+<div class="p-card-padding">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[28px]">public</span>
+</div>
+<div>
+<h4 class="text-headline-md font-bold">North America</h4>
+<p class="text-label-md text-on-surface-variant font-medium">Mature Market Focus</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-body-md">Market Share</span>
+<span class="font-bold">42%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary h-2 rounded-full w-[42%]"></div>
+</div>
+<p class="text-body-md text-on-surface-variant leading-relaxed pt-2">
+                                        Primary focus on retention and upselling premium AI features to existing Fortune 500 accounts. Increasing wallet share by 18% YoY.
+                                    </p>
+</div>
+</div>
+<div class="p-card-padding">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[28px]">rocket_launch</span>
+</div>
+<div>
+<h4 class="text-headline-md font-bold">EMEA / APAC</h4>
+<p class="text-label-md text-on-surface-variant font-medium">Expansion Frontier</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-body-md">Growth Rate</span>
+<span class="font-bold text-emerald-600">+124%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-emerald-500 h-2 rounded-full w-[85%]"></div>
+</div>
+<p class="text-body-md text-on-surface-variant leading-relaxed pt-2">
+                                        Rapid acquisition in Singapore and Berlin hubs. Regulatory compliance hurdles in EU cleared; ready for aggressive sales push.
+                                    </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action for Quick Edit (SaaS UX Pattern) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-[28px]">edit</span>
+</button>
+<script>
+        // Micro-interaction for sidebar links
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if(!link.classList.contains('text-primary')) {
+                    // Visual feedback only as this is a static prototype
+                    link.classList.add('bg-surface-container');
+                    setTimeout(() => link.classList.remove('bg-surface-container'), 300);
+                }
+            });
+        });
+
+        // Simple Toggle for Dark Mode (for demonstration)
+        const toggleTheme = () => {
+            document.documentElement.classList.toggle('dark');
+        };
+        
+        // Listen for "D" key to toggle dark mode
+        window.addEventListener('keydown', (e) => {
+            if(e.key === 'd' || e.key === 'D') toggleTheme();
+        });
+    </script>
+</body></html>

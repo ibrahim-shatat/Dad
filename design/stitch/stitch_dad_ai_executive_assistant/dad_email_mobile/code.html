@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Email - Dad Executive Workspace</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom scrollbar for clean executive look */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e3e1ec;
+            border-radius: 10px;
+        }
+        .message-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .message-card:active {
+            transform: scale(0.98);
+        }
+        .draft-drawer {
+            transition: transform 0.3s ease-out;
+            transform: translateY(100%);
+        }
+        .draft-drawer.active {
+            transform: translateY(0);
+        }
+    </style>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#ffb695",
+                    "secondary": "#4648d4",
+                    "on-surface": "#1a1b22",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e3e1ec",
+                    "surface-container-high": "#e8e7f1",
+                    "on-secondary-fixed": "#07006c",
+                    "inverse-primary": "#c3c0ff",
+                    "surface": "#fbf8ff",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#464555",
+                    "tertiary": "#7e3000",
+                    "inverse-on-surface": "#f1effa",
+                    "surface-tint": "#4d44e3",
+                    "surface-container": "#eeedf7",
+                    "inverse-surface": "#2f3038",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "on-background": "#1a1b22",
+                    "tertiary-container": "#a44100",
+                    "surface-dim": "#dad9e3",
+                    "secondary-container": "#6063ee",
+                    "primary-container": "#4f46e5",
+                    "on-primary-container": "#dad7ff",
+                    "on-tertiary-container": "#ffd2be",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "tertiary-fixed": "#ffdbcc",
+                    "background": "#fbf8ff",
+                    "on-tertiary-fixed": "#351000",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#fbf8ff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f4f2fd",
+                    "secondary-fixed": "#e1e0ff",
+                    "on-tertiary": "#ffffff",
+                    "surface-variant": "#e3e1ec",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "outline": "#777587",
+                    "on-primary-fixed": "#0f0069",
+                    "outline-variant": "#c7c4d8",
+                    "primary": "#3525cd",
+                    "on-secondary-container": "#fffbff",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-page": "40px",
+                    "container-max": "1440px",
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "card-padding": "20px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md flex flex-col">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-surface dark:bg-on-surface border-b border-outline-variant dark:border-outline">
+<div class="flex justify-between items-center px-4 py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<div class="cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">smart_toy</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed-dim tracking-tight">Email</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Dad</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior executive male in his 50s, wearing a charcoal gray tailored suit and a crisp white shirt. The background is a soft-focus high-end corporate office with warm timber and glass accents. The lighting is flattering, natural, and creates a sense of leadership, trust, and calm competence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK_cF2gMnBDs3nPjFDXkS0gSqPiPggrF5PRa-EjS2AY2NkedcvLnehXV-fGjA3ohpIv4_cdNUkN_Oq3WqsvgPfaIUBj9XL1LDC4EqrJ_i5oTXBRuYLKu8oEFdqb5VhF77E-RncIxzNh5Pks01AaVLbmX6z2fDCK3x2klIhbVQ0peWxsHjFCUIBCX9CJeAEqaWCKQ3T9i9-zm8ziSurbWGmp-6A8iuieSqUROEhJyZiEjCZoPRp54DY"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 pb-24 overflow-y-auto">
+<div class="px-4 py-6 flex flex-col gap-6">
+<!-- Connected Accounts Card -->
+<section>
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-card-padding shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">account_circle</span>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">ceo@luxuryholding.com</p>
+<div class="flex items-center gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Synced 2m ago</span>
+<span class="w-1 h-1 rounded-full bg-on-surface-variant"></span>
+<span class="font-label-sm text-label-sm text-primary">Google</span>
+</div>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">sync</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Main Feed -->
+<section class="flex flex-col gap-3">
+<div class="flex justify-between items-center px-1">
+<h2 class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant">Inbox Feed</h2>
+<span class="font-label-sm text-label-sm text-primary">3 New Messages</span>
+</div>
+<!-- Message 1: High Urgency -->
+<div class="message-card bg-error-container/10 border border-error/20 rounded-xl p-card-padding flex flex-col gap-2 relative overflow-hidden cursor-pointer active:bg-error-container/20" onclick="toggleDraft('alex-jordan')">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-error text-on-error font-label-sm text-[10px] font-bold uppercase tracking-wider">High Urgency</span>
+<span class="w-2 h-2 rounded-full bg-primary"></span> <!-- Unread Dot -->
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">10:42 AM</span>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">Alex Jordan</p>
+<p class="font-body-md text-body-md font-semibold text-on-surface mt-0.5">Q4 Strategy Revisions</p>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+                        Requests feedback on the APAC expansion timeline by EOD.
+                    </p>
+</div>
+<!-- Message 2: Medium Urgency -->
+<div class="message-card bg-surface-container-lowest border border-outline-variant rounded-xl p-card-padding flex flex-col gap-2 cursor-pointer active:bg-surface-container-low" onclick="toggleDraft('sarah-adams')">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-tertiary-container text-on-tertiary-container font-label-sm text-[10px] font-bold uppercase tracking-wider">Medium Urgency</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">9:15 AM</span>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">Sarah Adams</p>
+<p class="font-body-md text-body-md font-semibold text-on-surface mt-0.5">Meeting Recap: Team Allocation</p>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+                        Summarizes new headcount approvals for the engineering sprint.
+                    </p>
+</div>
+<!-- Message 3: Low Urgency -->
+<div class="message-card bg-surface-container-lowest border border-outline-variant rounded-xl p-card-padding flex flex-col gap-2 cursor-pointer active:bg-surface-container-low" onclick="toggleDraft('marketing')">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-[10px] font-bold uppercase tracking-wider">Low Urgency</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Yesterday</span>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface opacity-80">Marketing Weekly</p>
+<p class="font-body-md text-body-md font-semibold text-on-surface opacity-80 mt-0.5">Your Industry Digest</p>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+                        Standard weekly report on competitor ad spend.
+                    </p>
+</div>
+</section>
+</div>
+</main>
+<!-- Draft Interaction Drawer (Hidden by default) -->
+<div class="fixed inset-0 bg-black/40 z-50 opacity-0 pointer-events-none transition-opacity duration-300" id="draft-overlay" onclick="hideDraft()"></div>
+<div class="draft-drawer fixed bottom-0 left-0 w-full bg-surface rounded-t-2xl z-50 p-6 border-t border-outline-variant shadow-2xl md:max-w-md md:left-1/2 md:-translate-x-1/2" id="draft-drawer">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full mx-auto mb-6"></div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary fill-icon">auto_awesome</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">AI Smart Draft</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                I can generate a professional response based on your previous communications and the priority level of this message.
+            </p>
+<button class="w-full bg-primary text-on-primary py-4 rounded-xl flex items-center justify-center gap-2 font-bold active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+                Draft reply
+            </button>
+<div class="flex items-center gap-2 bg-surface-container-low p-3 rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">info</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">
+                    Drafts are sent to your Approval Queue for final review.
+                </p>
+</div>
+<button class="w-full py-3 text-on-surface-variant font-medium" onclick="hideDraft()">Cancel</button>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface dark:bg-inverse-surface border-t border-outline-variant shadow-md z-50 rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-90">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-sm text-label-sm">Briefing</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 transition-transform active:scale-90">
+<span class="material-symbols-outlined fill-icon">mail</span>
+<span class="font-label-sm text-label-sm">Email</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-90">
+<span class="material-symbols-outlined">support_agent</span>
+<span class="font-label-sm text-label-sm">Assistant</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-90">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-90">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-label-sm text-label-sm">Approvals</span>
+</div>
+</nav>
+<script>
+        function toggleDraft(id) {
+            const drawer = document.getElementById('draft-drawer');
+            const overlay = document.getElementById('draft-overlay');
+            drawer.classList.add('active');
+            overlay.classList.remove('pointer-events-none');
+            overlay.classList.add('opacity-100');
+        }
+
+        function hideDraft() {
+            const drawer = document.getElementById('draft-drawer');
+            const overlay = document.getElementById('draft-overlay');
+            drawer.classList.remove('active');
+            overlay.classList.add('pointer-events-none');
+            overlay.classList.remove('opacity-100');
+        }
+        
+        // Handle dark mode toggle (for demonstration)
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
+    </script>
+</body></html>

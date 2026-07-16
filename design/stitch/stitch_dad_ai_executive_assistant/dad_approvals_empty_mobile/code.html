@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Approval Queue - Executive Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .empty-state-gradient {
+            background: radial-gradient(circle at center, rgba(79, 70, 229, 0.03) 0%, transparent 70%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c7c4d8",
+                        "on-surface": "#1a1b22",
+                        "primary-container": "#4f46e5",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "surface-container-highest": "#e3e1ec",
+                        "on-background": "#1a1b22",
+                        "outline": "#777587",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#6063ee",
+                        "on-secondary-container": "#fffbff",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "surface-dim": "#dad9e3",
+                        "primary-fixed": "#e2dfff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "primary": "#3525cd",
+                        "inverse-surface": "#2f3038",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-container-high": "#e8e7f1",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "inverse-primary": "#c3c0ff",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f1effa",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#fbf8ff",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "secondary-fixed": "#e1e0ff",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e3e1ec",
+                        "surface-tint": "#4d44e3",
+                        "on-primary-fixed": "#0f0069",
+                        "surface": "#fbf8ff",
+                        "on-primary-container": "#dad7ff",
+                        "surface-container-low": "#f4f2fd",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#a44100",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "surface-container": "#eeedf7",
+                        "background": "#fbf8ff",
+                        "on-secondary-fixed": "#07006c",
+                        "on-surface-variant": "#464555",
+                        "secondary": "#4648d4",
+                        "tertiary": "#7e3000",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-page": "40px",
+                        "container-max": "1440px",
+                        "gutter": "24px",
+                        "card-padding": "20px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-6 w-[260px] bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant dark:border-outline z-50">
+<div class="px-6 mb-8">
+<span class="font-headline-lg text-headline-lg font-black text-primary dark:text-primary-fixed">Dad</span>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-body-md text-body-md">Daily briefing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-body-md text-body-md">Assistant</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-body-md text-body-md">Documents</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="present_to_all">present_to_all</span>
+<span class="font-body-md text-body-md">Presentations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-body-md text-body-md">Email</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-body-md text-body-md">Meetings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-body-md text-body-md">Calendar</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary dark:text-primary-fixed font-bold border-l-[3px] border-primary dark:border-primary-fixed bg-primary-container/10 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check" style="font-variation-settings: 'FILL' 1;">fact_check</span>
+<span class="font-body-md text-body-md">Approvals</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="font-body-md text-body-md">Admin</span>
+</a>
+</nav>
+</aside>
+<!-- Top AppBar -->
+<header class="flex justify-between items-center w-full px-margin-page py-4 sticky top-0 z-40 ml-[260px] max-w-[calc(100%-260px)] bg-surface dark:bg-background border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container dark:hover:bg-inverse-surface rounded-full p-2 transition-transform active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-background">Executive Assistant</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface overflow-hidden bg-primary-container flex items-center justify-center text-[10px] text-white font-bold">AI</div>
+</div>
+<div class="w-10 h-10 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a high-level corporate executive with a clean, minimalist aesthetic. The lighting is soft and directional, highlighting a confident yet approachable expression. The background is a soft, out-of-focus modern office space with cool blue and grey tones, fitting a premium SaaS dashboard environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-eiZWcbCAV_8TpjGduFR5bReNjg__u4jErKKSYQgQRGMsuwEWw8e7LfTDEllpma-nBAYPm0yNmXLl7LxvrJ9UaBMtskPFKWEhFB96bM6pXrGllzA5JkX9aX6Lr67xi830BTi7VpQRTbs5eZRdZkKDiNjKM4XpoWh4k5CgxznrPIqhv8dgfCzId_Iirt6F_0CCPIQgK3BSO134M7ZLggjhiSJFsPV33AVp27I9jXBKbPX-7XFs5aBz"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-[260px] min-h-[calc(100vh-72px)] p-margin-page flex flex-col gap-8 max-w-[1440px]">
+<!-- Page Header -->
+<header class="flex flex-col gap-1">
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Approval queue</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Nothing here is sent or finalized until you approve it.</p>
+</header>
+<!-- Filters Section -->
+<section class="flex flex-col md:flex-row md:items-center justify-between gap-4 py-2 border-b border-outline-variant">
+<div class="flex items-center gap-1 p-1 bg-surface-container-low rounded-lg w-fit">
+<button class="px-6 py-2 rounded-md font-label-md text-label-md transition-all duration-200 bg-white shadow-sm text-primary font-semibold">Pending</button>
+<button class="px-6 py-2 rounded-md font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:bg-surface-container">Approved</button>
+<button class="px-6 py-2 rounded-md font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:bg-surface-container">Rejected</button>
+<button class="px-6 py-2 rounded-md font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:bg-surface-container">Archived</button>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<button class="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface-variant hover:border-primary transition-colors">
+<span>All Types</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 font-label-md text-label-md text-primary font-semibold hover:bg-primary/5 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="refresh">refresh</span>
+<span>Sync</span>
+</button>
+</div>
+</section>
+<!-- Empty State Container -->
+<section class="flex-1 flex flex-col items-center justify-center min-h-[400px] empty-state-gradient rounded-3xl border-2 border-dashed border-outline-variant/30">
+<div class="relative mb-8">
+<!-- Decorative Elements -->
+<div class="absolute -top-12 -left-12 w-24 h-24 bg-primary-container/5 rounded-full blur-2xl animate-pulse"></div>
+<div class="absolute -bottom-8 -right-8 w-20 h-20 bg-secondary-container/5 rounded-full blur-xl"></div>
+<!-- Main Icon -->
+<div class="relative w-24 h-24 bg-white dark:bg-inverse-surface rounded-3xl shadow-xl flex items-center justify-center border border-outline-variant/20 transform rotate-3 transition-transform hover:rotate-0 duration-500">
+<div class="absolute inset-2 border border-dashed border-outline-variant/40 rounded-2xl"></div>
+<span class="material-symbols-outlined text-5xl text-primary/40 select-none" data-icon="all_inbox">all_inbox</span>
+<!-- Floating Checkmark Badge -->
+<div class="absolute -top-3 -right-3 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white shadow-lg border-2 border-white">
+<span class="material-symbols-outlined text-[18px]" data-icon="check" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+</div>
+</div>
+<div class="text-center max-w-sm px-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Nothing pending approval.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 leading-relaxed">
+                    Your AI assistant is working in the background. When tasks require your final touch, they’ll appear here for review.
+                </p>
+<div class="flex flex-col sm:flex-row gap-3 justify-center">
+<button class="px-6 py-2.5 bg-primary text-white font-label-md text-label-md rounded-xl hover:bg-primary/90 transition-all shadow-md hover:shadow-lg active:scale-95">
+                        Ask Assistant for Status
+                    </button>
+<button class="px-6 py-2.5 bg-white border border-outline-variant text-on-surface font-label-md text-label-md rounded-xl hover:bg-surface-container-low transition-all">
+                        View Past Activity
+                    </button>
+</div>
+</div>
+<!-- Insight Chips -->
+<div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-3xl">
+<div class="glass-card p-5 rounded-2xl border border-outline-variant/20 flex flex-col gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">AI Processing</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Scanning 14 incoming emails for action items.</p>
+</div>
+<div class="glass-card p-5 rounded-2xl border border-outline-variant/20 flex flex-col gap-2 opacity-80">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="update">update</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">Scheduled</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Daily briefing generation scheduled for 8:00 AM.</p>
+</div>
+<div class="glass-card p-5 rounded-2xl border border-outline-variant/20 flex flex-col gap-2 opacity-80">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="task_alt">task_alt</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">Recent Wins</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Successfully cleared 12 approvals this morning.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Interaction Script -->
+<script>
+        // Simple micro-interaction for filter tabs
+        const tabs = document.querySelectorAll('.bg-surface-container-low button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('bg-white', 'shadow-sm', 'text-primary', 'font-semibold');
+                    t.classList.add('text-on-surface-variant', 'hover:bg-surface-container');
+                });
+                tab.classList.add('bg-white', 'shadow-sm', 'text-primary', 'font-semibold');
+                tab.classList.remove('text-on-surface-variant', 'hover:bg-surface-container');
+            });
+        });
+
+        // Add a subtle parallax effect to the empty state icons
+        document.addEventListener('mousemove', (e) => {
+            const icons = document.querySelectorAll('.empty-state-gradient .absolute');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            icons.forEach((icon, index) => {
+                const speed = (index + 1) * 10;
+                const x = (mouseX - 0.5) * speed;
+                const y = (mouseY - 0.5) * speed;
+                icon.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
+</body></html>

@@ -1,19 +1,22 @@
 import { useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router-dom'
-import { Mail, RefreshCw } from 'lucide-react'
+import { Mail, RefreshCw, RotateCcw, Trash2, X } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
 import {
+  disconnectAccount,
   draftReply,
   getGmailAuthorizationUrl,
   getOutlookAuthorizationUrl,
+  hideMessage,
   listEmailAccounts,
   listEmailMessages,
   syncAccount,
+  unhideMessage,
 } from '@/api/email'
 import type { EmailMessageItem, EmailUrgency } from '@/types'
 
@@ -45,11 +48,12 @@ export default function Email() {
   const [replyingTo, setReplyingTo] = useState<string | null>(null)
   const [instructions, setInstructions] = useState('')
   const [queuedMessageIds, setQueuedMessageIds] = useState<Set<string>>(new Set())
+  const [showDismissed, setShowDismissed] = useState(false)
 
   const { data: accounts } = useQuery({ queryKey: ['email-accounts'], queryFn: listEmailAccounts })
   const { data: messages } = useQuery({
-    queryKey: ['email-messages'],
-    queryFn: () => listEmailMessages(),
+    queryKey: ['email-messages', showDismissed],
+    queryFn: () => listEmailMessages(undefined, showDismissed),
     refetchInterval: 20000,
   })
 
@@ -70,6 +74,21 @@ export default function Email() {
     onSuccess: () => {
       setTimeout(() => queryClient.invalidateQueries({ queryKey: ['email-messages'] }), 3000)
     },
+  })
+  const disconnectMutation = useMutation({
+    mutationFn: disconnectAccount,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['email-accounts'] })
+      queryClient.invalidateQueries({ queryKey: ['email-messages'] })
+    },
+  })
+  const hideMutation = useMutation({
+    mutationFn: hideMessage,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['email-messages'] }),
+  })
+  const unhideMutation = useMutation({
+    mutationFn: unhideMessage,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['email-messages'] }),
   })
   const draftReplyMutation = useMutation({
     mutationFn: ({ messageId, text }: { messageId: string; text: string }) =>
@@ -147,15 +166,34 @@ export default function Email() {
                     </p>
                   </div>
                 </div>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  disabled={syncMutation.isPending}
-                  onClick={() => syncMutation.mutate(account.id)}
-                >
-                  <RefreshCw className={cn('size-4', syncMutation.isPending && 'animate-spin')} />
-                  Sync
-                </Button>
+                <div className="flex flex-none gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={syncMutation.isPending}
+                    onClick={() => syncMutation.mutate(account.id)}
+                  >
+                    <RefreshCw className={cn('size-4', syncMutation.isPending && 'animate-spin')} />
+                    Sync now
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="text-muted-foreground hover:text-destructive"
+                    disabled={disconnectMutation.isPending}
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          `Disconnect ${account.email_address}? This removes its synced emails and calendar events.`
+                        )
+                      )
+                        disconnectMutation.mutate(account.id)
+                    }}
+                  >
+                    <Trash2 className="size-4" />
+                    Disconnect
+                  </Button>
+                </div>
               </Card>
             ))}
           </div>
@@ -163,15 +201,26 @@ export default function Email() {
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
               <h2 className="text-base font-semibold uppercase tracking-wide text-muted-foreground">
-                Inbox feed
+                {showDismissed ? 'Dismissed emails' : 'Inbox feed'}
               </h2>
-              {unreadCount > 0 && (
-                <span className="text-xs font-medium text-primary">{unreadCount} unread</span>
-              )}
+              <div className="flex items-center gap-3">
+                {!showDismissed && unreadCount > 0 && (
+                  <span className="text-xs font-medium text-primary">{unreadCount} unread</span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setShowDismissed((v) => !v)}
+                  className="text-xs font-medium text-muted-foreground hover:text-foreground"
+                >
+                  {showDismissed ? 'Back to inbox' : 'Show dismissed'}
+                </button>
+              </div>
             </div>
             {!messages || messages.length === 0 ? (
               <p className="text-sm text-muted-foreground">
-                No messages synced yet — try "Sync" above.
+                {showDismissed
+                  ? 'No dismissed emails.'
+                  : 'No messages synced yet — try "Sync now" above.'}
               </p>
             ) : (
               <div className="flex flex-col gap-3">
@@ -189,6 +238,8 @@ export default function Email() {
                     onGenerate={() =>
                       draftReplyMutation.mutate({ messageId: message.id, text: instructions })
                     }
+                    onHide={() => hideMutation.mutate(message.id)}
+                    onUnhide={() => unhideMutation.mutate(message.id)}
                   />
                 ))}
               </div>
@@ -210,6 +261,8 @@ interface MessageCardProps {
   onStartReply: () => void
   onCancelReply: () => void
   onGenerate: () => void
+  onHide: () => void
+  onUnhide: () => void
 }
 
 function MessageCard({
@@ -222,21 +275,44 @@ function MessageCard({
   onStartReply,
   onCancelReply,
   onGenerate,
+  onHide,
+  onUnhide,
 }: MessageCardProps) {
   const high = message.ai_urgency === 'high'
   return (
-    <Card className={cn('p-4', high && 'border-red-500/30 bg-red-500/5')}>
+    <Card className={cn('p-4', high && 'border-red-500/30 bg-red-500/5', message.is_hidden && 'opacity-70')}>
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2">
           {message.ai_urgency && <UrgencyPill urgency={message.ai_urgency} />}
           {message.is_unread && <span className="size-2 rounded-full bg-primary" />}
         </div>
-        <span className="flex-none text-xs text-muted-foreground">
-          {new Date(message.received_at).toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-          })}
-        </span>
+        <div className="flex flex-none items-center gap-2">
+          <span className="text-xs text-muted-foreground">
+            {new Date(message.received_at).toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+          </span>
+          {message.is_hidden ? (
+            <button
+              type="button"
+              onClick={onUnhide}
+              title="Restore to inbox"
+              className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+            >
+              <RotateCcw className="size-4" />
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={onHide}
+              title="Dismiss (hide from inbox)"
+              className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+            >
+              <X className="size-4" />
+            </button>
+          )}
+        </div>
       </div>
       <p className="mt-2 font-semibold leading-tight">{message.sender}</p>
       <p className="font-medium">{message.subject}</p>

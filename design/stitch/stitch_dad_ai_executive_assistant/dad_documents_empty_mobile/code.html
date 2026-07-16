@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Documents | Dad's Executive Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom subtle pulse for the empty state icon to reduce anxiety */
+        @keyframes calmPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.03); opacity: 1; }
+        }
+        .calm-animate {
+            animation: calmPulse 4s ease-in-out infinite;
+        }
+    </style>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#4648d4",
+                      "on-error-container": "#93000a",
+                      "surface": "#fbf8ff",
+                      "tertiary-fixed-dim": "#ffb695",
+                      "primary-fixed": "#e2dfff",
+                      "surface-tint": "#4d44e3",
+                      "on-tertiary-fixed-variant": "#7b2f00",
+                      "primary-container": "#4f46e5",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed": "#07006c",
+                      "on-tertiary-container": "#ffd2be",
+                      "surface-container-highest": "#e3e1ec",
+                      "surface-container": "#eeedf7",
+                      "surface-bright": "#fbf8ff",
+                      "surface-variant": "#e3e1ec",
+                      "surface-dim": "#dad9e3",
+                      "on-primary": "#ffffff",
+                      "surface-container-high": "#e8e7f1",
+                      "on-primary-container": "#dad7ff",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed": "#ffdbcc",
+                      "outline-variant": "#c7c4d8",
+                      "secondary-container": "#6063ee",
+                      "on-tertiary-fixed": "#351000",
+                      "on-secondary-container": "#fffbff",
+                      "on-surface": "#1a1b22",
+                      "on-primary-fixed-variant": "#3323cc",
+                      "on-primary-fixed": "#0f0069",
+                      "inverse-on-surface": "#f1effa",
+                      "on-secondary": "#ffffff",
+                      "on-background": "#1a1b22",
+                      "tertiary": "#7e3000",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "outline": "#777587",
+                      "on-error": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-surface-variant": "#464555",
+                      "secondary-fixed-dim": "#c0c1ff",
+                      "primary": "#3525cd",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-low": "#f4f2fd",
+                      "secondary-fixed": "#e1e0ff",
+                      "on-secondary-fixed-variant": "#2f2ebe",
+                      "inverse-primary": "#c3c0ff",
+                      "tertiary-container": "#a44100",
+                      "inverse-surface": "#2f3038",
+                      "background": "#fbf8ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "card-padding": "20px",
+                      "margin-page": "40px",
+                      "unit": "4px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "body-md": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-md": ["Inter"]
+              },
+              "fontSize": {
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-40 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline lg:pl-[284px]">
+<div class="flex items-center gap-4">
+<button class="p-2 -ml-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors active:opacity-80">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-inverse-primary">Documents</h1>
+</div>
+<button class="flex items-center gap-2 bg-primary-container text-on-primary px-4 py-2 rounded-xl active:opacity-80 transition-opacity hover:bg-primary-container/90">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+<span class="font-label-md text-label-md">Upload document</span>
+</button>
+</header>
+<!-- Side Navigation (Hidden on Mobile) -->
+<aside class="hidden lg:flex flex-col h-screen fixed left-0 top-0 w-[260px] bg-surface dark:bg-inverse-surface border-r border-outline-variant dark:border-outline z-50">
+<div class="p-6">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-inverse-primary">Assistant</span>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-surface-variant font-medium hover:bg-surface-container dark:hover:bg-surface-container-low transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary dark:text-inverse-primary font-bold border-l-[3px] border-primary bg-surface-container-high dark:bg-surface-container-highest rounded-r-xl transition-all scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="font-body-md text-body-md">Documents</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-surface-variant font-medium hover:bg-surface-container dark:hover:bg-surface-container-low transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-body-md text-body-md">AI Insights</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-on-surface-variant font-medium hover:bg-surface-container dark:hover:bg-surface-container-low transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-body-md text-body-md">Team Vault</span>
+</a>
+</nav>
+<div class="p-4 mt-auto border-t border-outline-variant">
+<div class="flex items-center gap-3 px-4 py-3">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A dignified close-up portrait of a mature professional man with graying hair, wearing a clean charcoal sweater, looking slightly away with a calm and confident expression. The lighting is soft and directional, evoking a high-end corporate studio photography style with a muted navy and soft white color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGOaAn3YhvMtEE1GB1khdgEw2FM5fnjrlhDo1-2xFgNQOwWnMUez9z-VovnIp8vWk6_rLvbdq5AtPKxlBKTwHu9xKh6WNhqrBhFVRbaJOzl_kj7tYAgYFussiWuVBaU77MkxeS2r1Yx3PZ5nPD8V81EeHlEGhd4A5kl_w4rSybub8piTe6vGGEfcuZeF3gWH1N5DJ2p_pmdQcVNNSK_fKGSRyp4tXSO9PDsMw9Y5Kf4goEKTfvvn0F"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface font-bold">Executive User</span>
+<span class="font-label-sm text-on-surface-variant">Global Strategy</span>
+</div>
+</div>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center p-gutter lg:pl-[284px] transition-all duration-300">
+<!-- Empty State Container -->
+<div class="max-w-md w-full flex flex-col items-center text-center space-y-6">
+<!-- Animated Shader / Atmospheric Background Element -->
+<div class="relative w-48 h-48 flex items-center justify-center">
+<!-- Abstract calm motion background -->
+<div class="absolute inset-0 bg-primary/5 rounded-full blur-3xl calm-animate"></div>
+<!-- Central Icon -->
+<div class="relative bg-surface-container-low p-10 rounded-full shadow-sm border border-outline-variant/30">
+<span class="material-symbols-outlined text-[80px] text-primary/40 calm-animate" data-icon="folder_open">folder_open</span>
+</div>
+</div>
+<div class="space-y-2">
+<h2 class="font-headline-md text-headline-md text-on-surface-variant font-medium">No documents yet</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant/70 px-4">
+                    Upload one to get an AI review. Your executive assistant is ready to analyze your files.
+                </p>
+</div>
+<!-- Quick Action Suggestion -->
+<div class="pt-4">
+<button class="px-8 py-3 border border-outline-variant text-primary font-bold rounded-full hover:bg-surface-container transition-all active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+                    Browse Files
+                </button>
+</div>
+</div>
+<!-- Secondary Contextual Info (Trust signals) -->
+<div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl opacity-60">
+<div class="flex flex-col items-center p-card-padding text-center">
+<span class="material-symbols-outlined text-outline" data-icon="lock">lock</span>
+<span class="font-label-md text-label-md mt-2">Secure Storage</span>
+</div>
+<div class="flex flex-col items-center p-card-padding text-center">
+<span class="material-symbols-outlined text-outline" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-md text-label-md mt-2">AI Summaries</span>
+</div>
+<div class="flex flex-col items-center p-card-padding text-center">
+<span class="material-symbols-outlined text-outline" data-icon="history">history</span>
+<span class="font-label-md text-label-md mt-2">Version Control</span>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 bg-surface dark:bg-inverse-surface border-t border-outline-variant z-50 lg:hidden shadow-md">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-low p-2 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-inverse-primary font-bold bg-primary-container/10 rounded-xl px-4 py-1 transition-all scale-95" href="#">
+<span class="material-symbols-outlined active-icon" data-icon="description">description</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-low p-2 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+<span class="font-label-sm text-label-sm">Insights</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-low p-2 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+<span class="font-label-sm text-label-sm">Menu</span>
+</a>
+</nav>
+<!-- Micro-interaction script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Logic for visual polish
+            const uploadBtn = document.querySelector('header button');
+            uploadBtn.addEventListener('click', () => {
+                // Mock interaction
+                uploadBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => uploadBtn.style.transform = 'scale(1)', 100);
+            });
+        });
+    </script>
+</body></html>

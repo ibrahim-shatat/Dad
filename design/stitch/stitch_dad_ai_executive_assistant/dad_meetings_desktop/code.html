@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Executive Workspace - Meetings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-pill {
+            position: absolute;
+            left: 0;
+            width: 3px;
+            height: 24px;
+            background-color: #3525cd;
+            border-radius: 0 4px 4px 0;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e3e1ec;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c7c4d8;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#3525cd",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-container": "#6063ee",
+                      "on-tertiary-fixed-variant": "#7b2f00",
+                      "on-error": "#ffffff",
+                      "on-background": "#1a1b22",
+                      "background": "#fbf8ff",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed": "#e1e0ff",
+                      "tertiary-fixed-dim": "#ffb695",
+                      "primary-fixed": "#e2dfff",
+                      "inverse-on-surface": "#f1effa",
+                      "on-secondary-container": "#fffbff",
+                      "on-primary": "#ffffff",
+                      "on-primary-container": "#dad7ff",
+                      "surface-container": "#eeedf7",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#ffdbcc",
+                      "surface-container-high": "#e8e7f1",
+                      "surface-dim": "#dad9e3",
+                      "on-tertiary-fixed": "#351000",
+                      "on-secondary": "#ffffff",
+                      "on-surface-variant": "#464555",
+                      "tertiary": "#7e3000",
+                      "error": "#ba1a1a",
+                      "on-tertiary-container": "#ffd2be",
+                      "surface-variant": "#e3e1ec",
+                      "secondary-fixed-dim": "#c0c1ff",
+                      "on-primary-fixed-variant": "#3323cc",
+                      "outline": "#777587",
+                      "surface-tint": "#4d44e3",
+                      "surface-container-highest": "#e3e1ec",
+                      "surface-container-low": "#f4f2fd",
+                      "surface": "#fbf8ff",
+                      "surface-bright": "#fbf8ff",
+                      "secondary": "#4648d4",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "inverse-surface": "#2f3038",
+                      "on-secondary-fixed": "#07006c",
+                      "on-primary-fixed": "#0f0069",
+                      "tertiary-container": "#a44100",
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#c3c0ff",
+                      "on-surface": "#1a1b22",
+                      "primary-container": "#4f46e5",
+                      "on-secondary-fixed-variant": "#2f2ebe",
+                      "outline-variant": "#c7c4d8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "card-padding": "20px",
+                      "margin-page": "40px",
+                      "gutter": "24px",
+                      "container-max": "1440px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "headline-xl": ["Inter"]
+              },
+              "fontSize": {
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                      "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden flex h-screen">
+<!-- Navigation Drawer (SideNav) -->
+<aside class="fixed left-0 top-0 h-full w-[260px] bg-surface-container-low border-r border-outline-variant flex flex-col h-full py-8 z-40">
+<div class="px-6 mb-10">
+<h1 class="font-headline-md text-headline-md text-primary font-semibold">Executive Workspace</h1>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Dashboard -->
+<a class="flex items-center gap-4 px-6 py-3 cursor-pointer text-on-surface-variant font-medium hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<!-- Daily Briefing -->
+<a class="flex items-center gap-4 px-6 py-3 cursor-pointer text-on-surface-variant font-medium hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-label-md text-label-md">Daily Briefing</span>
+</a>
+<!-- Assistant -->
+<a class="flex items-center gap-4 px-6 py-3 cursor-pointer text-on-surface-variant font-medium hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span class="font-label-md text-label-md">Assistant</span>
+</a>
+<!-- Meetings (Active) -->
+<a class="flex items-center gap-4 px-6 py-3 cursor-pointer text-primary font-bold border-l-4 border-primary bg-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="video_chat">video_chat</span>
+<span class="font-label-md text-label-md">Meetings</span>
+</a>
+<!-- Documents -->
+<a class="flex items-center gap-4 px-6 py-3 cursor-pointer text-on-surface-variant font-medium hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Documents</span>
+</a>
+<!-- Presentations -->
+<a class="flex items-center gap-4 px-6 py-3 cursor-pointer text-on-surface-variant font-medium hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="present_to_all">present_to_all</span>
+<span class="font-label-md text-label-md">Presentations</span>
+</a>
+<!-- Email -->
+<a class="flex items-center gap-4 px-6 py-3 cursor-pointer text-on-surface-variant font-medium hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-label-md text-label-md">Email</span>
+</a>
+<!-- Approvals -->
+<a class="flex items-center gap-4 px-6 py-3 cursor-pointer text-on-surface-variant font-medium hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="font-label-md text-label-md">Approvals</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<div class="p-4 rounded-xl bg-primary/5 border border-primary/10">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-md text-label-md text-primary font-bold">AI Status</span>
+</div>
+<p class="text-[10px] text-on-surface-variant leading-relaxed">System ready for executive briefing. 3 updates pending review.</p>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 ml-[260px] h-screen overflow-y-auto relative flex flex-col">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-30 bg-background/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center px-margin-page py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="smart_toy">smart_toy</span>
+<h2 class="font-headline-lg text-headline-lg font-semibold text-primary">Dad</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<input class="bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="Search insights..." type="text"/>
+</div>
+<div class="h-10 w-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border border-outline-variant cursor-pointer active:opacity-80">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a high-level executive with a confident, serene expression, wearing a tailored navy suit. The lighting is soft and corporate, set against a blurred modern office background with neutral gray and white tones. Professional photography style, high resolution, minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJy3dNC5w4OKvjUm1ERwAVVv1WRMqhG6tuQq-I_mvm9ivzyazq8pW7lenPZKROcVSJ1NH9WR1kq7KIl5dwfkoXOEE3idDZ2QDRIHjRA8Tj4mkptxLdR0z-DWqKqHXzSs2Mf2bgU-PfuslCctblxGFHa1-ECS_CeCQQAIO3aFGsoxquzH1PvrEQ6mdKZ9ELM4YSr6pnMEFfR0vKbXIcOld9qNUOxZeVvuFdpGXXAXwXSS6qhzyZf6K_"/>
+</div>
+</div>
+</header>
+<div class="px-margin-page py-8 w-full max-w-container-max mx-auto flex-1 flex flex-col gap-8">
+<!-- Page Title & Actions -->
+<div class="flex justify-between items-end">
+<div>
+<nav class="flex items-center gap-2 mb-2">
+<span class="text-label-md font-label-md text-outline">Workspace</span>
+<span class="material-symbols-outlined text-sm text-outline" data-icon="chevron_right">chevron_right</span>
+<span class="text-label-md font-label-md text-primary font-bold">Meetings</span>
+</nav>
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Meetings</h2>
+</div>
+<button class="bg-primary hover:bg-primary-container text-white px-6 py-2.5 rounded-full flex items-center gap-2 transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="font-label-md text-label-md font-bold">Add meeting</span>
+</button>
+</div>
+<!-- Bento Layout Area -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Meeting Processing Notification (Subtle Banner) -->
+<div class="col-span-12">
+<div class="flex items-center justify-between p-4 bg-secondary-fixed/30 border border-secondary-fixed rounded-xl">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-lg bg-secondary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined animate-spin" data-icon="autorenew">autorenew</span>
+</div>
+<div>
+<h4 class="font-headline-md text-body-lg text-primary font-bold">Weekly Engineering Sync is being processed</h4>
+<p class="text-body-md text-on-surface-variant">AI is currently generating meeting minutes and action items. Estimated time: 2 mins.</p>
+</div>
+</div>
+<div class="w-48 h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-2/3 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Main Meetings Table/List -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="px-card-padding py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low/30">
+<h3 class="font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">Upcoming &amp; Recent</h3>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-outline transition-colors"><span class="material-symbols-outlined" data-icon="filter_list">filter_list</span></button>
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-outline transition-colors"><span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span></button>
+</div>
+</div>
+<div class="flex flex-col">
+<!-- Q4 Product Strategy -->
+<div class="group px-card-padding py-6 border-b border-outline-variant hover:bg-surface-container-low transition-all cursor-pointer flex items-center gap-6">
+<div class="h-14 w-14 rounded-xl bg-primary-fixed flex flex-col items-center justify-center text-primary">
+<span class="text-[10px] font-bold uppercase">Oct</span>
+<span class="text-xl font-bold leading-none">24</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<h4 class="font-headline-md text-headline-md text-on-surface font-semibold">Q4 Product Strategy</h4>
+<span class="px-2 py-0.5 rounded-full bg-primary-container/10 text-primary text-[10px] font-bold">Strategy</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 10:00 AM - 11:30 AM</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span> Boardroom A</span>
+</div>
+</div>
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a senior tech architect with glasses and a thoughtful expression, warm lighting, high-end commercial photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvV3nccmHyk05pZY7M3yjAoWfPXMXz-H7RCpsyESQGb3X-rpwa32uYYl9RoEtKkR6ryzVKxs_T4oKugbVtMi0vZBBtJf131TrK_xCmy8I8wFVhcJRRoVt9QmG_s8qEheLmwQMI_MAUD4o0cEmuv-u9tzZqEPZx5LfzoC9cRE193xNn2m3s-uXIlVarabSPU62FC0mhIENkVJEgI3EPKfbpw9vo6uWhUaA7zextF4Jl8Rz23GvXRM9I"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young professional marketing director, smiling, bright modern lighting, high-end commercial photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2gJa6OMe4O2V90WF5TpNqdI98Moxj0cIpe3NcWOpQf9_LLhr_tld70Gnva7c8Q_Kxb5rWzVwmWBQoN6NGg9J0-PoO8OV5PuC98OJQEI5TpOsxEdc5qBtYqcdDLcmCaDjdzDvyjssM6vMW_UTQN0klcpNGIBD9iHIuuTWGgp77uV6C0ksBEeE4zDCVgiCLMQYbT8oZcg0-wyYqhG-mwB6YPlv6I4PTGgcYkgpKppeJngpLsayVO8RX"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">
+                                    +5
+                                </div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Weekly Engineering Sync (Processing) -->
+<div class="group px-card-padding py-6 border-b border-outline-variant bg-secondary-fixed/10 hover:bg-secondary-fixed/20 transition-all cursor-pointer flex items-center gap-6">
+<div class="h-14 w-14 rounded-xl bg-surface-container-highest flex flex-col items-center justify-center text-outline">
+<span class="text-[10px] font-bold uppercase">Oct</span>
+<span class="text-xl font-bold leading-none">23</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<h4 class="font-headline-md text-headline-md text-on-surface font-semibold">Weekly Engineering Sync</h4>
+<span class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-secondary-fixed text-primary text-[10px] font-bold">
+<span class="material-symbols-outlined text-[12px] animate-spin" data-icon="sync">sync</span> Processing
+                                    </span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 09:00 AM - 10:00 AM</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="videocam">videocam</span> Zoom Call</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-primary font-bold text-sm">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Minutes Pending</span>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Budget Review -->
+<div class="group px-card-padding py-6 border-b border-outline-variant hover:bg-surface-container-low transition-all cursor-pointer flex items-center gap-6">
+<div class="h-14 w-14 rounded-xl bg-surface-container-high flex flex-col items-center justify-center text-on-surface-variant">
+<span class="text-[10px] font-bold uppercase">Oct</span>
+<span class="text-xl font-bold leading-none">22</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<h4 class="font-headline-md text-headline-md text-on-surface font-semibold">Budget Review</h4>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-tertiary text-[10px] font-bold">Finance</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 02:00 PM - 03:30 PM</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span> Meeting Room 4</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined" data-icon="attach_file">attach_file</span>
+<span>3 Files</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Empty Placeholder for spacing -->
+<div class="px-card-padding py-10 flex flex-col items-center justify-center text-outline-variant border-dashed border-2 border-outline-variant m-4 rounded-xl">
+<span class="material-symbols-outlined text-4xl mb-2" data-icon="calendar_today">calendar_today</span>
+<p class="font-label-md text-label-md">No more meetings scheduled for this week</p>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Inside Canvas (Details/Summary) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+<!-- Quick Stats Card -->
+<div class="bg-primary text-white p-6 rounded-xl relative overflow-hidden">
+
+<div class="relative z-10">
+<h3 class="font-label-md text-label-md opacity-80 uppercase font-bold mb-4">Meeting Load</h3>
+<div class="flex items-end gap-2 mb-2">
+<span class="text-4xl font-bold">12h 30m</span>
+<span class="text-sm opacity-80 mb-1">this week</span>
+</div>
+<div class="flex items-center gap-2 text-sm">
+<span class="flex items-center gap-1 text-green-300 font-bold">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_downward">arrow_downward</span> 15%
+                                </span>
+<span class="opacity-80">from last week</span>
+</div>
+</div>
+</div>
+<!-- AI Insights Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-card-padding flex flex-col gap-4 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+<h3 class="font-label-md text-label-md text-on-surface font-bold uppercase">Executive Summary</h3>
+</div>
+<p class="text-body-md text-on-surface-variant leading-relaxed">
+                            Your focus for the upcoming <span class="text-primary font-bold">Q4 Product Strategy</span> should be on resource allocation for the AI infrastructure project. Engineering sync notes indicate a potential bottleneck in API integration.
+                        </p>
+<button class="w-full py-2 bg-surface-container-high text-on-surface text-sm font-bold rounded-lg hover:bg-surface-variant transition-colors flex items-center justify-center gap-2">
+                            View Detailed Analysis
+                        </button>
+</div>
+<!-- Pinned Documents -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-card-padding flex flex-col gap-4 shadow-sm">
+<h3 class="font-label-md text-label-md text-on-surface font-bold uppercase">Pinned Attachments</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-2 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer border border-transparent hover:border-outline-variant">
+<div class="h-10 w-10 bg-red-100 text-red-600 rounded flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-sm font-bold text-on-surface truncate">Q4_Roadmap_V2.pdf</p>
+<p class="text-[10px] text-outline">Shared by Sarah • 2.4 MB</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-2 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer border border-transparent hover:border-outline-variant">
+<div class="h-10 w-10 bg-blue-100 text-blue-600 rounded flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="table_chart">table_chart</span>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-sm font-bold text-on-surface truncate">Budget_Projection.xlsx</p>
+<p class="text-[10px] text-outline">Auto-updated • 1.1 MB</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Assistant Bubble -->
+<button class="fixed bottom-10 right-10 h-16 w-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 group">
+<span class="material-symbols-outlined text-3xl" data-icon="smart_toy">smart_toy</span>
+<div class="absolute right-20 bg-inverse-surface text-inverse-on-surface px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                Ask Dad about a meeting
+            </div>
+</button>
+</main>
+<script>
+        // Simple interactivity for the cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('click', () => {
+                console.log('Meeting selected');
+                // Could expand details here
+            });
+        });
+    </script>
+</body></html>

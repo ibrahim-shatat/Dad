@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - Calendar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .executive-shadow {
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), 0px 4px 6px rgba(0, 0, 0, 0.03);
+        }
+        .hairline-border {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .glass-surface {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#ffd2be",
+                        "primary-container": "#4f46e5",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "surface-container-highest": "#e3e2e2",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#a44100",
+                        "on-primary-fixed": "#0f0069",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#464555",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-bright": "#fbf9f9",
+                        "inverse-primary": "#c3c0ff",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "surface-tint": "#4d44e3",
+                        "primary-fixed": "#e2dfff",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#7e3000",
+                        "on-tertiary-fixed": "#351000",
+                        "error": "#ba1a1a",
+                        "outline": "#777587",
+                        "surface-container-high": "#e9e8e7",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "on-background": "#1b1c1c",
+                        "surface-container": "#efeded",
+                        "on-primary-container": "#dad7ff",
+                        "on-secondary-fixed": "#07006c",
+                        "surface-variant": "#e3e2e2",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline-variant": "#c7c4d8",
+                        "primary": "#3525cd",
+                        "on-surface": "#1b1c1c",
+                        "background": "#fbf9f9",
+                        "on-secondary-container": "#fffbff",
+                        "surface-dim": "#dbdad9",
+                        "inverse-surface": "#303031",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#6063ee",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "surface": "#fbf9f9",
+                        "secondary": "#4648d4",
+                        "surface-container-low": "#f5f3f3",
+                        "secondary-fixed": "#e1e0ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "xl": "32px",
+                        "gutter": "24px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "3xl": "64px",
+                        "container-max": "1280px",
+                        "2xl": "48px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface sticky top-0 w-full z-40 border-b border-outline-variant/30 shadow-sm">
+<div class="flex justify-between items-center h-16 px-gutter max-w-container-max mx-auto">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform duration-200">menu</span>
+<span class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">Dad</span>
+</div>
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<div class="flex max-w-container-max mx-auto">
+<!-- NavigationDrawer (Desktop) -->
+<aside class="hidden md:flex flex-col p-md gap-sm h-screen w-72 sticky top-16 bg-surface-container-low border-r border-outline-variant/20">
+<div class="flex items-center gap-md p-md mb-md">
+<div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface font-semibold">Executive User</p>
+<p class="text-[12px] text-on-surface-variant">CEO Office</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-md px-md py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-md">Daily Briefing</span>
+</a>
+<a class="flex items-center gap-md px-md py-3 bg-secondary-container text-on-secondary-container font-semibold rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-md">Calendar</span>
+</a>
+<a class="flex items-center gap-md px-md py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-md">Assistant</span>
+</a>
+<a class="flex items-center gap-md px-md py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-md">Documents</span>
+</a>
+<a class="flex items-center gap-md px-md py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md">Email</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 px-md md:px-gutter py-xl pb-32 md:pb-xl">
+<!-- Screen Header -->
+<section class="flex flex-col md:flex-row md:items-center justify-between mb-2xl gap-md">
+<div class="flex items-center gap-lg">
+<div class="w-14 h-14 bg-primary-container/10 rounded-xl flex items-center justify-center border border-primary-container/20">
+<span class="material-symbols-outlined text-primary-container text-3xl">calendar_clock</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Calendar</h1>
+<p class="font-body-md text-on-surface-variant">Upcoming meetings, with AI prep briefs and follow-ups</p>
+</div>
+</div>
+<button class="flex items-center justify-center gap-sm px-lg py-sm border border-outline-variant text-primary font-label-md rounded-lg hover:bg-surface-container transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+                    Sync
+                </button>
+</section>
+<!-- Calendar Feed -->
+<div class="space-y-xl">
+<!-- Day Group -->
+<div class="space-y-md">
+<h2 class="font-label-md text-on-surface-variant uppercase tracking-widest text-[11px] mb-md flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                        Monday, Jul 20
+                    </h2>
+<div class="grid grid-cols-1 gap-md">
+<!-- Event Card 1 -->
+<div class="bg-surface hairline-border executive-shadow rounded-xl p-lg overflow-hidden relative">
+<div class="flex flex-col md:flex-row justify-between gap-md mb-lg">
+<div class="space-y-base">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Q4 Strategy Revisions</h3>
+<div class="flex flex-wrap gap-md text-on-surface-variant font-body-sm">
+<span class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                                            10:42 AM
+                                        </span>
+<span class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                            Boardroom A
+                                        </span>
+<span class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">group</span>
+                                            5 attendees
+                                        </span>
+</div>
+</div>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface overflow-hidden bg-primary-container/20">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of an executive woman in a neutral gray studio background, soft lighting, business attire, high resolution corporate photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXocSs9g7975L2eC5nH46UMIe2lGDN6grExgivGHW1TpsU-SZTtHq1-Aps9T3AQs8nGprNoVM5FAhoNUU7k1iieLa0d2h9TSluWdJysZGLlvBtTDd2WhUxnNMa60fbwyg7VTy2l9La4TKKbuXiuo1s9sbjEUNTPLMiwr2Wb4aiUalHinTs6qHUCPtVCLnAMTWUkrRTfMoN9iBOtDn3V4-0AVfArPh2tB7W7O5O83wOAq9RK0O1zrRT"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface overflow-hidden bg-secondary-container/20">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged businessman wearing a dark blue suit, looking confidently at the camera, modern office background, professional lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCftYPIKnaSY6ODtb48no96V1t841QSxxlhOGbqDGpp9ksEBJ3KlNBNmuLvjByIABzxdlCnlutpXkg_jfHc30sWEj3p-vI99KR0gAzYwjVdkyt7JkWcsn6Zvhx19Za-3SGZfhBWvO-noJ95K413tCaiXtNcRhTEK0eXyIDKzV2FJcTYaHikf9k-gq-GjsA3tWaDJTHZYPdZ_xhfCdG-Ju7HnoYfIgDbmc0NLrdiHzDoLKeiFKCDYET6"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">
+                                        +3
+                                    </div>
+</div>
+</div>
+<!-- AI Prep Brief -->
+<div class="bg-primary-container/5 border border-primary-container/10 rounded-lg p-md mt-sm">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary-container text-[18px]">spark</span>
+<h4 class="font-label-md text-primary-container uppercase tracking-wider text-[11px] font-bold">Prep brief</h4>
+</div>
+<div class="space-y-md">
+<div class="font-body-sm text-on-surface">
+<p class="font-bold mb-xs">Context:</p>
+<p class="text-on-surface-variant">Reviewing the APAC expansion timeline. Recent data shows a 12% increase in logistics overhead in the Singapore region.</p>
+</div>
+<div class="font-body-sm text-on-surface">
+<p class="font-bold mb-xs">Talking points:</p>
+<p class="text-on-surface-variant">• Budget allocation for Singapore launch phase 2.<br/>• Mitigating logistical risks in Southeast Asian shipping lanes.</p>
+</div>
+<div class="font-body-sm text-on-surface">
+<p class="font-bold mb-xs">Questions:</p>
+<p class="text-on-surface-variant">"Can we hit the Jan 2025 date without compromising the redundancy protocol?"</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Event Card 2 -->
+<div class="bg-surface hairline-border executive-shadow rounded-xl p-lg transition-all hover:translate-y-[-2px]">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div class="space-y-base">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Weekly Engineering Sync</h3>
+<div class="flex flex-wrap gap-md text-on-surface-variant font-body-sm">
+<span class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                                            2:00 PM
+                                        </span>
+<span class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">videocam</span>
+                                            Virtual (Microsoft Teams)
+                                        </span>
+</div>
+</div>
+<button class="flex items-center gap-sm px-md py-sm border border-primary-container/30 text-primary-container font-label-md rounded-lg hover:bg-primary-container/5 transition-colors group">
+<span class="material-symbols-outlined text-[18px] group-hover:animate-pulse">spark</span>
+                                    Generate prep brief
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Past Day Group -->
+<div class="space-y-md opacity-75">
+<h2 class="font-label-md text-on-surface-variant uppercase tracking-widest text-[11px] mb-md flex items-center gap-sm">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+                        Yesterday
+                    </h2>
+<div class="grid grid-cols-1 gap-md">
+<!-- Event Card 3 (Past) -->
+<div class="bg-surface/60 hairline-border executive-shadow rounded-xl p-lg">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div class="space-y-base">
+<h3 class="font-headline-sm text-headline-sm text-on-surface-variant line-through decoration-on-surface-variant/30">Budget Review</h3>
+<div class="flex flex-wrap gap-md text-on-surface-variant font-body-sm">
+<span class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">done_all</span>
+                                            Completed
+                                        </span>
+</div>
+</div>
+<div class="flex items-center gap-sm px-md py-base bg-secondary-container/10 border border-secondary-container/20 text-secondary font-label-md rounded-full text-[12px]">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                    Follow-up sent to approvals
+                                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface/90 backdrop-blur-md border-t border-outline-variant/30 shadow-lg rounded-t-xl px-2">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1" href="#">
+<span class="material-symbols-outlined">today</span>
+<span class="font-label-sm text-[10px]">Briefing</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1" href="#">
+<span class="material-symbols-outlined">spark</span>
+<span class="font-label-sm text-[10px]">AI</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold bg-primary-container/10 rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="font-label-sm text-[10px]">Events</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1" href="#">
+<span class="material-symbols-outlined">folder</span>
+<span class="font-label-sm text-[10px]">Docs</span>
+</a>
+</nav>
+<!-- Micro-interaction script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('absolute', 'bg-white/20', 'rounded-full', 'animate-ping');
+                    ripple.style.width = '10px';
+                    ripple.style.height = '10px';
+                    this.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 500);
+                });
+            });
+        });
+    </script>
+</body></html>

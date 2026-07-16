@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - Presentation Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#e8e7f1",
+                    "surface-dim": "#dad9e3",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e3e1ec",
+                    "outline": "#777587",
+                    "primary-fixed": "#e2dfff",
+                    "outline-variant": "#c7c4d8",
+                    "on-error-container": "#93000a",
+                    "primary": "#3525cd",
+                    "on-primary-container": "#dad7ff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e3e1ec",
+                    "surface-container-low": "#f4f2fd",
+                    "tertiary-container": "#a44100",
+                    "surface-container": "#eeedf7",
+                    "secondary": "#4648d4",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#464555",
+                    "on-primary-fixed": "#0f0069",
+                    "on-tertiary-fixed": "#351000",
+                    "tertiary-fixed": "#ffdbcc",
+                    "secondary-fixed": "#e1e0ff",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "surface": "#fbf8ff",
+                    "on-secondary-fixed": "#07006c",
+                    "secondary-container": "#6063ee",
+                    "inverse-primary": "#c3c0ff",
+                    "on-tertiary-container": "#ffd2be",
+                    "background": "#fbf8ff",
+                    "tertiary": "#7e3000",
+                    "surface-bright": "#fbf8ff",
+                    "primary-container": "#4f46e5",
+                    "inverse-on-surface": "#f1effa",
+                    "surface-tint": "#4d44e3",
+                    "inverse-surface": "#2f3038",
+                    "on-background": "#1a1b22",
+                    "on-surface": "#1a1b22",
+                    "on-secondary-container": "#fffbff",
+                    "on-primary-fixed-variant": "#3323cc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-page": "40px",
+                    "gutter": "24px",
+                    "unit": "4px",
+                    "container-max": "1440px",
+                    "card-padding": "20px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-effect {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-4 h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-3">
+<button class="hover:bg-surface-container rounded-full p-2 transition-all active:opacity-80">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="text-headline-md font-headline-md text-primary">Presentations</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="hover:bg-surface-container rounded-full p-2 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">share</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior male executive with a warm, confident expression. He is wearing a crisp white shirt and a dark navy blazer, set against a blurred corporate office background with soft bokeh. The lighting is natural and flattering, emphasizing a trustworthy and experienced persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4IcE3fS6keYCOY8KCJ5UNBg60LU9ZqkNaFP1hG8hMA0aQsoHUg8o4MtXKgYf8T9chtZDnCP3hP8UibBa6nzAJGtK3HTcxovDd-FBD_4_PeilULDlcrbTA1-UMAPZ2tW7_OECsF4aU_mVx6X3vQiMqjJMPI23qakZHnAoNF7b4uGOXmY9x0AvsY4FdMYjguStMIhAyFBV0GTwuSRVFYosFGgpoFHq-losPsE9ejE5-4SSTsYqnMt2c"/>
+</div>
+</div>
+</header>
+<main class="px-4 py-6 pb-24">
+<!-- Presentation Title & Status -->
+<section class="mb-8">
+<div class="flex flex-col gap-2">
+<h2 class="text-headline-lg font-headline-lg text-on-surface leading-tight">Annual Stakeholder Keynote</h2>
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 rounded-full bg-error-container text-on-error-container text-label-md font-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">error</span>
+                        Failed
+                    </span>
+<span class="text-label-md font-label-md text-outline">Updated 2m ago</span>
+</div>
+</div>
+</section>
+<!-- Error Panel -->
+<section class="mb-8">
+<div class="bg-error-container/30 border border-error/20 rounded-xl p-5 relative overflow-hidden">
+<!-- Background Pattern -->
+<div class="absolute top-0 right-0 opacity-5 pointer-events-none transform translate-x-1/4 -translate-y-1/4">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="flex flex-col gap-4 relative z-10">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-error-container rounded-lg shrink-0">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">running_with_errors</span>
+</div>
+<div>
+<h3 class="text-body-lg font-bold text-on-error-container">Generation Interrupted</h3>
+<p class="text-body-md text-on-error-container/80 mt-1">Generation failed due to incomplete data source (Slide 4)</p>
+</div>
+</div>
+<div class="pt-2">
+<button class="w-full py-3 bg-primary text-on-primary rounded-lg font-semibold flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-sm" onclick="handleRetry(this)">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+                            Retry Generation
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Outline / Content Preview (Muted/Disabled) -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-label-md font-label-md text-outline uppercase tracking-wider">Presentation Outline</h3>
+<span class="text-label-sm text-outline">8 Slides Planned</span>
+</div>
+<div class="space-y-4">
+<!-- Slide 1: Success/Cached -->
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-4 opacity-60">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-high rounded-lg flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">image</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="text-body-md font-semibold text-on-surface">Slide 1: Executive Summary</h4>
+<span class="material-symbols-outlined text-green-600 text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<p class="text-label-md text-on-surface-variant">Core mission and vision statement...</p>
+</div>
+</div>
+</div>
+<!-- Slide 2: Success/Cached -->
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-4 opacity-60">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-high rounded-lg flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">bar_chart</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="text-body-md font-semibold text-on-surface">Slide 2: Q3 Performance</h4>
+<span class="material-symbols-outlined text-green-600 text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<p class="text-label-md text-on-surface-variant">Visualizing growth across key sectors...</p>
+</div>
+</div>
+</div>
+<!-- Slide 3: The Failure Point -->
+<div class="bg-surface-container border-2 border-error/40 rounded-xl p-4 relative ring-2 ring-error/5 shadow-md">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-error-container rounded-lg flex items-center justify-center text-error">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">database_off</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="text-body-md font-bold text-on-surface">Slide 4: Competitive Landscape</h4>
+<span class="material-symbols-outlined text-error text-[18px]" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<p class="text-label-md text-error font-medium italic">Data linkage broken: competitive_analysis.csv</p>
+</div>
+</div>
+</div>
+<!-- Muted/Pending Slides -->
+<div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-4 opacity-30 grayscale">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-high rounded-lg flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">pie_chart</span>
+</div>
+<div class="flex-1">
+<h4 class="text-body-md font-semibold text-on-surface">Slide 5: Market Share Goals</h4>
+<p class="text-label-md text-on-surface-variant">Pending generation...</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-4 opacity-30 grayscale">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-high rounded-lg flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">lightbulb</span>
+</div>
+<div class="flex-1">
+<h4 class="text-body-md font-semibold text-on-surface">Slide 6: Innovation Roadmap</h4>
+<p class="text-label-md text-on-surface-variant">Pending generation...</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-16 px-4 pb-safe bg-surface border-t border-outline-variant z-50 shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="text-label-sm font-label-sm">Briefing</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-all" href="#">
+<div class="bg-primary text-on-primary p-2 -mt-8 rounded-full shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<span class="text-label-sm font-label-sm mt-1">Ask AI</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-semibold active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">present_to_all</span>
+<span class="text-label-sm font-label-sm">Files</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">more_horiz</span>
+<span class="text-label-sm font-label-sm">More</span>
+</a>
+</nav>
+<script>
+        function handleRetry(btn) {
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Connecting...
+            `;
+            btn.classList.add('opacity-80', 'pointer-events-none');
+            
+            // Mock retry behavior
+            setTimeout(() => {
+                alert("Checking data sources for Slide 4...");
+                btn.innerHTML = originalContent;
+                btn.classList.remove('opacity-80', 'pointer-events-none');
+            }, 2000);
+        }
+
+        // Simple parallax effect for the error icon
+        window.addEventListener('scroll', () => {
+            const icon = document.querySelector('.absolute.top-0.right-0');
+            if(icon) {
+                const scrolled = window.scrollY;
+                icon.style.transform = `translate(${25 + (scrolled * 0.1)}%, ${-25 + (scrolled * 0.05)}%)`;
+            }
+        });
+    </script>
+</body></html>

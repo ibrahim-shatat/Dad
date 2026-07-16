@@ -5,12 +5,13 @@ from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
-from sqlalchemy import select
+from sqlalchemy import delete, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.core.deps import get_current_user
 from app.db.session import get_db
+from app.models.calendar import CalendarEvent
 from app.models.email import EmailAccount, EmailDraft, EmailDraftStatus, EmailMessage, EmailProvider
 from app.models.user import User, UserRole
 from app.schemas.email import EmailAccountRead, EmailDraftRead, EmailDraftUpdate, EmailMessageRead
@@ -46,6 +47,36 @@ async def list_accounts(
         .order_by(EmailAccount.created_at.desc())
     )
     return list(result.scalars().all())
+
+
+@router.delete("/accounts/{account_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def disconnect_account(
+    account_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+) -> None:
+    """Disconnect an email/calendar account and remove its synced data. Draft emails are kept but
+    detached (they become copy-to-clipboard drafts) so approval history isn't lost."""
+    account = await db.get(EmailAccount, account_id)
+    if account is None or account.user_id != user.id:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Account not found")
+
+    message_ids = select(EmailMessage.id).where(EmailMessage.account_id == account_id)
+    # Detach drafts that reference this account or its (about-to-be-deleted) messages.
+    await db.execute(
+        update(EmailDraft)
+        .where(EmailDraft.account_id == account_id)
+        .values(account_id=None, source_message_id=None)
+    )
+    await db.execute(
+        update(EmailDraft)
+        .where(EmailDraft.source_message_id.in_(message_ids))
+        .values(source_message_id=None)
+    )
+    await db.execute(delete(CalendarEvent).where(CalendarEvent.account_id == account_id))
+    await db.execute(delete(EmailMessage).where(EmailMessage.account_id == account_id))
+    await db.delete(account)
+    await db.commit()
 
 
 # --- Gmail OAuth ---
@@ -198,6 +229,7 @@ async def trigger_sync(
 @router.get("/messages", response_model=list[EmailMessageRead])
 async def list_messages(
     account_id: uuid.UUID | None = None,
+    include_hidden: bool = False,
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ) -> list[EmailMessage]:
@@ -209,9 +241,33 @@ async def list_messages(
     )
     if account_id is not None:
         query = query.where(EmailMessage.account_id == account_id)
+    if not include_hidden:
+        query = query.where(EmailMessage.is_hidden.is_(False))
 
     result = await db.execute(query)
     return list(result.scalars().all())
+
+
+@router.post("/messages/{message_id}/hide", status_code=status.HTTP_204_NO_CONTENT)
+async def hide_message(
+    message_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+) -> None:
+    message = await _get_owned_message(db, user, message_id)
+    message.is_hidden = True
+    await db.commit()
+
+
+@router.post("/messages/{message_id}/unhide", status_code=status.HTTP_204_NO_CONTENT)
+async def unhide_message(
+    message_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+) -> None:
+    message = await _get_owned_message(db, user, message_id)
+    message.is_hidden = False
+    await db.commit()
 
 
 async def _get_owned_message(db: AsyncSession, user: User, message_id: uuid.UUID) -> EmailMessage:

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#fffbff",
+                        "secondary-container": "#6063ee",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f1effa",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e3e1ec",
+                        "primary-container": "#4f46e5",
+                        "surface": "#fbf8ff",
+                        "surface-variant": "#e3e1ec",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline-variant": "#c7c4d8",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e8e7f1",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "on-surface-variant": "#464555",
+                        "on-tertiary-fixed": "#351000",
+                        "on-surface": "#1a1b22",
+                        "surface-container": "#eeedf7",
+                        "surface-container-low": "#f4f2fd",
+                        "on-primary-container": "#dad7ff",
+                        "secondary-fixed": "#e1e0ff",
+                        "inverse-primary": "#c3c0ff",
+                        "surface-dim": "#dad9e3",
+                        "tertiary": "#7e3000",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#a44100",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "inverse-surface": "#2f3038",
+                        "surface-tint": "#4d44e3",
+                        "on-background": "#1a1b22",
+                        "on-primary-fixed": "#0f0069",
+                        "error": "#ba1a1a",
+                        "primary": "#3525cd",
+                        "secondary": "#4648d4",
+                        "on-secondary": "#ffffff",
+                        "outline": "#777587",
+                        "primary-fixed": "#e2dfff",
+                        "on-secondary-fixed": "#07006c",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#fbf8ff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "background": "#fbf8ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-page": "40px",
+                        "card-padding": "20px",
+                        "container-max": "1440px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c7c4d8; border-radius: 10px; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(227, 225, 236, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Navigation Drawer (Desktop Only) -->
+<aside class="fixed left-0 top-0 h-full w-[260px] hidden lg:flex flex-col py-6 overflow-y-auto border-r border-outline-variant bg-surface">
+<div class="px-6 mb-8">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">Dad</span>
+</div>
+<nav class="flex-1">
+<div class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-body-md text-body-md">Daily briefing</span>
+</div>
+<!-- Active State for Assistant -->
+<div class="flex items-center gap-3 px-6 py-3 border-l-[3px] border-primary bg-surface-container-high text-on-surface font-bold cursor-pointer">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-body-md text-body-md">Assistant</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined">description</span>
+<span class="font-body-md text-body-md">Documents</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined">present_to_all</span>
+<span class="font-body-md text-body-md">Presentations</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-body-md text-body-md">Email</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-body-md text-body-md">Meetings</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-body-md text-body-md">Calendar</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-body-md text-body-md">Approvals</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-body-md text-body-md">Admin</span>
+</div>
+</nav>
+</aside>
+<!-- Top App Bar (Mobile Only) -->
+<header class="flex lg:hidden justify-between items-center px-4 py-3 w-full sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">menu</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">Dad</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-secondary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior executive male in his 50s, wearing a crisp navy suit and a white shirt. He has short, styled salt-and-pepper hair and a warm, confident smile. The portrait is shot against a soft-focus minimalist office background with cool natural light, reflecting a modern corporate aesthetic with high-key lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCR-AqhGZL_2O8i_qOMfAz5k_F3aCXyj2wjDPrv6SsCgSWvh21bm10fh3bY-nmZuTQhnLUI9R3iKfIyakmHRZzIVSz8hdbbPs8o69AE2LgbifiS9LF6ef2J1NfQaHLubiFlfNDJDsf158iF4tmyEtLnWBhP8IKPBFmaoopM-oCIowaaK1HsNNOhnDHjDOU3SfQXUrxIuUko2Qde6wKb4ZC0T24cmFIsKYBVhdCjfpMkLh6LiASGr7S"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="lg:ml-[260px] min-h-screen px-4 md:px-10 py-8 lg:py-12 max-w-[1440px] mx-auto">
+<!-- Page Header -->
+<header class="mb-10">
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-2">Assistant</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Ask about your workspace, or search across everything.</p>
+</header>
+<!-- Chat Interface Section -->
+<section class="mb-12">
+<div class="glass-card rounded-xl overflow-hidden flex flex-col h-[600px] shadow-sm">
+<!-- Chat Window -->
+<div class="flex-1 p-6 overflow-y-auto custom-scrollbar flex flex-col gap-6" id="chat-container">
+<!-- Empty State (Shown initially) -->
+<div class="flex flex-col items-center justify-center h-full text-center max-w-md mx-auto" id="empty-state">
+<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-on-primary text-3xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Ask me anything about your work.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">I can summarize emails, find documents, and manage your calendar.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
+<button class="px-4 py-3 bg-surface-container rounded-lg border border-outline-variant hover:border-primary text-left text-on-surface font-label-md text-label-md transition-all active:scale-95">
+                                What needs my approval today?
+                            </button>
+<button class="px-4 py-3 bg-surface-container rounded-lg border border-outline-variant hover:border-primary text-left text-on-surface font-label-md text-label-md transition-all active:scale-95">
+                                Summarize my open action items
+                            </button>
+<button class="px-4 py-3 bg-surface-container rounded-lg border border-outline-variant hover:border-primary text-left text-on-surface font-label-md text-label-md transition-all active:scale-95">
+                                What's on my calendar this week?
+                            </button>
+<button class="px-4 py-3 bg-surface-container rounded-lg border border-outline-variant hover:border-primary text-left text-on-surface font-label-md text-label-md transition-all active:scale-95">
+                                Any urgent emails I should know?
+                            </button>
+</div>
+</div>
+<!-- Example Messages (Hidden in real usage, displayed for demo) -->
+<div class="hidden flex flex-col gap-6" id="active-messages">
+<!-- User Message -->
+<div class="flex justify-end">
+<div class="bg-primary text-on-primary px-4 py-3 rounded-2xl rounded-tr-none max-w-[80%] shadow-sm">
+<p class="font-body-md text-body-md">What's the status of the "Q4 Strategy" presentation?</p>
+</div>
+</div>
+<!-- Assistant Message -->
+<div class="flex justify-start">
+<div class="bg-surface-container-high text-on-surface px-4 py-3 rounded-2xl rounded-tl-none max-w-[80%] border border-outline-variant">
+<p class="font-body-md text-body-md mb-3">The presentation is currently with the Finance team for review. Sarah mentioned in an email this morning that she'll finish her section by 2 PM today.</p>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold text-on-surface-variant border border-outline-variant uppercase">
+<span class="material-symbols-outlined text-[14px]">mail</span> Email from Sarah
+                                    </span>
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold text-on-surface-variant border border-outline-variant uppercase">
+<span class="material-symbols-outlined text-[14px]">description</span> Q4_Strategy_Final.pptx
+                                    </span>
+</div>
+</div>
+</div>
+<!-- Thinking State -->
+<div class="flex justify-start">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<div class="flex gap-1">
+<span class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce"></span>
+<span class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:0.2s]"></span>
+<span class="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:0.4s]"></span>
+</div>
+<span class="font-body-md text-body-md italic">Thinking…</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-4 border-t border-outline-variant bg-surface-container-lowest">
+<div class="relative flex items-center">
+<input class="w-full bg-surface border border-outline-variant rounded-xl py-4 pl-4 pr-14 focus:ring-2 focus:ring-primary focus:border-transparent outline-none font-body-md text-body-md transition-shadow" placeholder="Ask me anything..." type="text"/>
+<button class="absolute right-2 p-2 bg-primary text-on-primary rounded-lg hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Global Search Section -->
+<section>
+<div class="mb-6 flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-on-surface">Global Search</h2>
+</div>
+<!-- Search Input -->
+<div class="relative mb-8 max-w-2xl">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="w-full bg-surface border border-outline-variant rounded-xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary focus:border-transparent outline-none font-body-md text-body-md transition-shadow" id="search-input" placeholder="Search documents, meetings, emails, presentations…" type="text"/>
+</div>
+<!-- Search Results -->
+<div class="space-y-1" id="results-container">
+<!-- Result Item -->
+<div class="group flex items-start gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer border border-transparent hover:border-outline-variant">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant">description</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider block mb-1">DOCUMENT</span>
+<h4 class="font-body-lg text-body-lg font-bold text-on-surface mb-0.5 truncate">Annual Revenue Projections 2024</h4>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">...based on current growth trends, we anticipate a 15% increase in annual recurring revenue for the upcoming fiscal year...</p>
+</div>
+<span class="text-label-sm text-label-sm text-outline px-2">2h ago</span>
+</div>
+<div class="group flex items-start gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer border border-transparent hover:border-outline-variant">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant">mail</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider block mb-1">EMAIL</span>
+<h4 class="font-body-lg text-body-lg font-bold text-on-surface mb-0.5 truncate">Re: Feedback on Project Orion</h4>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">I've reviewed the latest mocks. The user flow looks much cleaner now, especially the assistant integration...</p>
+</div>
+<span class="text-label-sm text-label-sm text-outline px-2">Yesterday</span>
+</div>
+<div class="group flex items-start gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer border border-transparent hover:border-outline-variant">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant">groups</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider block mb-1">MEETING</span>
+<h4 class="font-body-lg text-body-lg font-bold text-on-surface mb-0.5 truncate">Weekly Sync: Operations</h4>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Summary: Discussed bottleneck in supply chain and final approval for the new logistics partner in EMEA...</p>
+</div>
+<span class="text-label-sm text-label-sm text-outline px-2">Oct 12</span>
+</div>
+<div class="group flex items-start gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer border border-transparent hover:border-outline-variant">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant">present_to_all</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider block mb-1">PRESENTATION</span>
+<h4 class="font-body-lg text-body-lg font-bold text-on-surface mb-0.5 truncate">Board Deck - Q3 Highlights</h4>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Executive summary of regional performance, cost optimization initiatives, and long-term strategic goals for 2025...</p>
+</div>
+<span class="text-label-sm text-label-sm text-outline px-2">Oct 10</span>
+</div>
+</div>
+<!-- No Matches State (Hidden by default) -->
+<div class="hidden py-20 text-center" id="no-matches">
+<span class="material-symbols-outlined text-outline text-5xl mb-4">search_off</span>
+<p class="font-body-lg text-body-lg text-on-surface-variant">No matches for '<span class="font-bold" id="search-term">...</span>'</p>
+<p class="font-body-md text-body-md text-outline mt-2">Try searching for broader terms or check your spelling.</p>
+</div>
+</section>
+</main>
+<!-- Interactive Logic -->
+<script>
+        const searchInput = document.getElementById('search-input');
+        const resultsContainer = document.getElementById('results-container');
+        const noMatches = document.getElementById('no-matches');
+        const searchTerm = document.getElementById('search-term');
+
+        // Simple Search Filter Simulation
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const items = resultsContainer.querySelectorAll('.group');
+            let hasVisible = false;
+
+            if (query === "") {
+                items.forEach(item => item.classList.remove('hidden'));
+                noMatches.classList.add('hidden');
+                resultsContainer.classList.remove('hidden');
+                return;
+            }
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    item.classList.remove('hidden');
+                    hasVisible = true;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            if (!hasVisible) {
+                resultsContainer.classList.add('hidden');
+                noMatches.classList.remove('hidden');
+                searchTerm.textContent = e.target.value;
+            } else {
+                resultsContainer.classList.remove('hidden');
+                noMatches.classList.add('hidden');
+            }
+        });
+
+        // Chat Interaction Simulation (Switching from empty state to conversation)
+        const chatInput = document.querySelector('section div input');
+        const emptyState = document.getElementById('empty-state');
+        const activeMessages = document.getElementById('active-messages');
+        const suggestionChips = document.querySelectorAll('#empty-state button');
+
+        function startChat() {
+            emptyState.classList.add('hidden');
+            activeMessages.classList.remove('hidden');
+        }
+
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.target.value.trim() !== "") {
+                startChat();
+                e.target.value = "";
+            }
+        });
+
+        suggestionChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                startChat();
+            });
+        });
+    </script>
+</body></html>

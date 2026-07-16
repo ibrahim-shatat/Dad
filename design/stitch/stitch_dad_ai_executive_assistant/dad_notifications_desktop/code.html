@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - AI Executive Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#6063ee",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-error": "#ffffff",
+                        "on-background": "#1a1b22",
+                        "background": "#fbf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#3525cd",
+                        "secondary-fixed": "#e1e0ff",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#eeedf7",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#dad7ff",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "primary-fixed": "#e2dfff",
+                        "inverse-on-surface": "#f1effa",
+                        "on-secondary-container": "#fffbff",
+                        "on-surface-variant": "#464555",
+                        "tertiary": "#7e3000",
+                        "surface-dim": "#dad9e3",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-high": "#e8e7f1",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#777587",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-variant": "#e3e1ec",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#fbf8ff",
+                        "surface": "#fbf8ff",
+                        "surface-container-low": "#f4f2fd",
+                        "surface-tint": "#4d44e3",
+                        "surface-container-highest": "#e3e1ec",
+                        "on-secondary-fixed": "#07006c",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "inverse-surface": "#2f3038",
+                        "secondary": "#4648d4",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "outline-variant": "#c7c4d8",
+                        "primary-container": "#4f46e5",
+                        "on-surface": "#1a1b22",
+                        "on-primary-fixed": "#0f0069",
+                        "tertiary-container": "#a44100",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#c3c0ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "8px",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "container-max": "1440px",
+                        "card-padding": "20px",
+                        "margin-page": "40px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #FAFAFA; color: #1a1b22; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .notification-badge { position: absolute; top: -2px; right: -2px; min-width: 16px; height: 16px; border-radius: 999px; background-color: #ba1a1a; color: white; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #ffffff; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e3e1ec; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c7c4d8; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- NavigationDrawer (Left Sidebar) -->
+<aside class="w-[260px] h-screen fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant flex flex-col z-40">
+<div class="px-gutter py-8 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Dad</h1>
+</div>
+<!-- Profile Section -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-high rounded-xl">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">
+                    EU
+                </div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Executive User</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">AI Assistant Active</span>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<!-- Executive Briefing (Dashboard Active) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-fixed text-on-secondary-fixed-variant font-bold border-l-4 border-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Executive Briefing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-300" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-md text-label-md">Document Lab</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-300" href="#">
+<span class="material-symbols-outlined">video_chat</span>
+<span class="font-label-md text-label-md">Meeting Suite</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-300" href="#">
+<span class="material-symbols-outlined">settings_suggest</span>
+<span class="font-label-md text-label-md">Assistant Settings</span>
+</a>
+</nav>
+<div class="p-6 border-t border-outline-variant">
+<span class="text-[10px] text-outline tracking-widest uppercase">V 2.4.1</span>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[260px] flex-1 flex flex-col min-h-screen relative">
+<!-- TopAppBar -->
+<header class="h-16 w-full sticky top-0 z-30 bg-surface flex items-center justify-between px-gutter border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface cursor-pointer p-2 hover:bg-surface-container-low rounded-full">menu</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Executive Briefing</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors relative cursor-pointer" id="notification-trigger">
+<span class="material-symbols-outlined text-primary">notifications</span>
+<div class="notification-badge">3</div>
+</button>
+<!-- Notification Panel (Simulated Open State) -->
+<div class="absolute right-0 top-12 w-[320px] bg-white border border-outline-variant shadow-lg rounded-xl overflow-hidden z-50 transform origin-top-right transition-all duration-200" id="notification-panel">
+<div class="p-4 flex items-center justify-between border-b border-outline-variant">
+<span class="font-body-lg font-bold text-on-surface">Notifications</span>
+<button class="font-label-md text-primary hover:underline transition-all">Mark all read</button>
+</div>
+<div class="max-h-[480px] overflow-y-auto">
+<!-- Item 1: Urgent Email (Unread) -->
+<div class="p-4 bg-surface-container-low border-b border-outline-variant flex gap-3 relative cursor-pointer hover:bg-surface-container transition-colors">
+<div class="w-2 h-2 rounded-full bg-primary absolute left-2 top-6"></div>
+<div class="flex-1 ml-3">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-md font-bold text-on-surface">Urgent Email</span>
+<span class="text-[10px] text-outline">Just now</span>
+</div>
+<p class="font-label-md font-bold text-primary mb-1">Urgent: Board Meeting Update</p>
+<p class="font-body-md text-on-surface-variant text-xs line-clamp-2">The board has requested an earlier start for tomorrow's sync.</p>
+</div>
+</div>
+<!-- Item 2: Approval Pending (Unread) -->
+<div class="p-4 bg-surface-container-low border-b border-outline-variant flex gap-3 relative cursor-pointer hover:bg-surface-container transition-colors">
+<div class="w-2 h-2 rounded-full bg-primary absolute left-2 top-6"></div>
+<div class="flex-1 ml-3">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-md font-bold text-on-surface">Approval Pending</span>
+<span class="text-[10px] text-outline">2m ago</span>
+</div>
+<p class="font-label-md font-bold text-primary mb-1">Approval Request: Q4 Budget</p>
+<p class="font-body-md text-on-surface-variant text-xs line-clamp-2">Marketing is requesting a 15% increase for the upcoming campaign.</p>
+</div>
+</div>
+<!-- Item 3: Meeting Processed (Read) -->
+<div class="p-4 bg-white border-b border-outline-variant flex gap-3 cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="flex-1 ml-5">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-md font-medium text-on-surface">Meeting Processed</span>
+<span class="text-[10px] text-outline">1h ago</span>
+</div>
+<p class="font-label-md text-on-surface mb-1">Meeting Summary: Product Strategy</p>
+<p class="font-body-md text-on-surface-variant text-xs line-clamp-2">Action items and key takeaways have been added to your briefing.</p>
+</div>
+</div>
+<!-- Item 4: Approval Rejected (Read) -->
+<div class="p-4 bg-white flex gap-3 cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="flex-1 ml-5">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-md font-medium text-on-surface">Approval Rejected</span>
+<span class="text-[10px] text-outline">5h ago</span>
+</div>
+<p class="font-label-md text-on-surface mb-1">Expense Rejected</p>
+<p class="font-body-md text-on-surface-variant text-xs line-clamp-2">The requested hardware upgrade exceeds the quarterly team limit.</p>
+</div>
+</div>
+</div>
+<div class="p-3 bg-surface-container-lowest border-t border-outline-variant flex justify-center">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline text-on-surface-variant rounded-full text-xs font-medium hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-sm">notifications_active</span>
+                                Enable phone notifications
+                            </button>
+</div>
+</div>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior male executive in a well-lit modern corporate office setting. He is wearing a crisp white dress shirt with no tie, looking directly at the camera with a confident yet approachable expression. The background is softly blurred with hints of glass partitions and warm wood accents, consistent with a high-end SaaS platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0p4yyepdgC365ch1w963TG-I2AaqcyQzEMbnESshI1h1-CAZmtaktJX-ywrABJaA-B64xRB-plD38qT5_AfpfE9Na0ADD6UZK8OTyet2MC9mHn38gVJ2eBAhmb_IkGab5sVOV2mATGmRSyLgbYcE1H2sXdcCRoajngexASLl8G8Hnzz0Ytt-YXi3rMRzzO_Z41VG5ovrxHyxgAmVTQgoM2XX67bdHXtu4WZbEToPJmXvFiJ6KoGzm"/>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="p-margin-page max-w-container-max mx-auto w-full space-y-8">
+<!-- Hero Greeting -->
+<section class="flex flex-col gap-2">
+<h3 class="font-headline-xl text-headline-xl text-on-background">Good morning, James.</h3>
+<p class="font-body-lg text-on-surface-variant">Here is what the AI has prioritized for your workspace today.</p>
+</section>
+<!-- Bento Grid Dashboard -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Priority Card: AI Briefing -->
+<div class="col-span-8 bg-white p-card-padding rounded-xl border border-outline-variant shadow-sm flex flex-col gap-4 relative overflow-hidden">
+<div class="flex items-center justify-between border-b border-outline-variant pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+<h4 class="font-headline-md text-headline-md">Executive Summary</h4>
+</div>
+<span class="bg-primary-fixed text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">AI Generated</span>
+</div>
+<div class="grid grid-cols-2 gap-8 py-4">
+<div class="space-y-3">
+<h5 class="font-label-md font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">mail</span> Communication
+                            </h5>
+<ul class="space-y-2">
+<li class="text-sm flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></span>
+<span>3 urgent threads identified; 1 requires immediate board response.</span>
+</li>
+<li class="text-sm flex items-start gap-2 text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant mt-1.5 shrink-0"></span>
+<span>Client feedback from Zenith Corp has been sentiment-analyzed as 'Positive'.</span>
+</li>
+</ul>
+</div>
+<div class="space-y-3">
+<h5 class="font-label-md font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">calendar_month</span> Schedule
+                            </h5>
+<ul class="space-y-2">
+<li class="text-sm flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></span>
+<span>Conflict resolved in tomorrow's PM slot by rescheduling Sync.</span>
+</li>
+<li class="text-sm flex items-start gap-2 text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant mt-1.5 shrink-0"></span>
+<span>Suggested 45m 'Deep Work' block added between 2-3 PM.</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<button class="bg-primary text-white px-6 py-2.5 rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all flex items-center gap-2 shadow-md">
+                            Read Full Briefing
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<!-- Subtle Abstract Background Accent -->
+<div class="absolute -right-16 -top-16 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">bubble_chart</span>
+</div>
+</div>
+<!-- Secondary Card: Calendar Pulse -->
+<div class="col-span-4 bg-white p-card-padding rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h4 class="font-headline-md text-headline-md">Today</h4>
+<span class="text-outline font-label-sm text-label-sm">Nov 24</span>
+</div>
+<div class="space-y-4">
+<div class="flex gap-4 p-3 bg-surface-container-low rounded-lg border-l-4 border-primary">
+<div class="text-center shrink-0">
+<p class="text-xs font-bold text-on-surface">10:00</p>
+<p class="text-[10px] text-outline">AM</p>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Board Sync</p>
+<p class="text-xs text-on-surface-variant">Conf. Room A</p>
+</div>
+</div>
+<div class="flex gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors">
+<div class="text-center shrink-0">
+<p class="text-xs font-medium text-on-surface">12:30</p>
+<p class="text-[10px] text-outline">PM</p>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface">Lunch Meeting</p>
+<p class="text-xs text-on-surface-variant">The Foundry</p>
+</div>
+</div>
+<div class="flex gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors">
+<div class="text-center shrink-0">
+<p class="text-xs font-medium text-on-surface">03:00</p>
+<p class="text-[10px] text-outline">PM</p>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface">Product Strategy</p>
+<p class="text-xs text-on-surface-variant">Virtual Zoom</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Actionable List: Pending Approvals -->
+<div class="col-span-6 bg-white p-card-padding rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h4 class="font-headline-md text-headline-md">Approvals</h4>
+<span class="text-primary font-label-md text-label-md cursor-pointer hover:underline">View All</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center justify-between p-3 border-b border-outline-variant group hover:bg-surface-container-low transition-colors rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">payments</span>
+<div>
+<p class="text-sm font-bold text-on-surface">Q4 Budget Proposal</p>
+<p class="text-xs text-on-surface-variant">Requested by Marketing Team</p>
+</div>
+</div>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-error hover:bg-error-container rounded transition-colors"><span class="material-symbols-outlined text-sm">close</span></button>
+<button class="p-1.5 text-primary hover:bg-primary-fixed rounded transition-colors"><span class="material-symbols-outlined text-sm">check</span></button>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 border-b border-outline-variant group hover:bg-surface-container-low transition-colors rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">person_add</span>
+<div>
+<p class="text-sm font-bold text-on-surface">Hiring: Lead Designer</p>
+<p class="text-xs text-on-surface-variant">Requested by Product Team</p>
+</div>
+</div>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-error hover:bg-error-container rounded transition-colors"><span class="material-symbols-outlined text-sm">close</span></button>
+<button class="p-1.5 text-primary hover:bg-primary-fixed rounded transition-colors"><span class="material-symbols-outlined text-sm">check</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Analysis Card: Market Trend -->
+<div class="col-span-6 bg-white p-card-padding rounded-xl border border-outline-variant shadow-sm relative overflow-hidden">
+<h4 class="font-headline-md text-headline-md mb-4">Market Intelligence</h4>
+<div class="h-32 flex items-end gap-2 px-2">
+<div class="w-full bg-primary h-[40%] rounded-t-sm opacity-20"></div>
+<div class="w-full bg-primary h-[55%] rounded-t-sm opacity-40"></div>
+<div class="w-full bg-primary h-[48%] rounded-t-sm opacity-30"></div>
+<div class="w-full bg-primary h-[75%] rounded-t-sm opacity-60"></div>
+<div class="w-full bg-primary h-[90%] rounded-t-sm opacity-100"></div>
+<div class="w-full bg-primary h-[82%] rounded-t-sm opacity-80"></div>
+</div>
+<div class="mt-4 flex items-center justify-between">
+<div>
+<p class="text-[10px] text-outline uppercase font-bold">Trend Analysis</p>
+<p class="text-sm font-bold text-on-surface">Growth sector: AI Infrastructure (+12%)</p>
+</div>
+<span class="material-symbols-outlined text-primary">trending_up</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Overlay Floating Trigger (Contextual FAB) -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="bg-primary hover:bg-primary-container text-white p-4 rounded-full shadow-xl flex items-center gap-3 transition-all transform hover:scale-105 active:scale-95 group">
+<span class="material-symbols-outlined">bolt</span>
+<span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 ease-in-out whitespace-nowrap font-medium text-sm pr-2">Quick Action</span>
+</button>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for notification toggle simulation
+        const trigger = document.getElementById('notification-trigger');
+        const panel = document.getElementById('notification-panel');
+        let isOpen = true; // Set to true as requested by prompt "notification panel open"
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isOpen = !isOpen;
+            if (isOpen) {
+                panel.classList.remove('scale-95', 'opacity-0', 'invisible');
+                panel.classList.add('scale-100', 'opacity-100', 'visible');
+            } else {
+                panel.classList.add('scale-95', 'opacity-0', 'invisible');
+                panel.classList.remove('scale-100', 'opacity-100', 'visible');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!panel.contains(e.target) && !trigger.contains(e.target)) {
+                isOpen = false;
+                panel.classList.add('scale-95', 'opacity-0', 'invisible');
+                panel.classList.remove('scale-100', 'opacity-100', 'visible');
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Executive Workspace - Meetings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#3525cd",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#6063ee",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-error": "#ffffff",
+                    "on-background": "#1a1b22",
+                    "background": "#fbf8ff",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#e1e0ff",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "primary-fixed": "#e2dfff",
+                    "inverse-on-surface": "#f1effa",
+                    "on-secondary-container": "#fffbff",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#dad7ff",
+                    "surface-container": "#eeedf7",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container-high": "#e8e7f1",
+                    "surface-dim": "#dad9e3",
+                    "on-tertiary-fixed": "#351000",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#464555",
+                    "tertiary": "#7e3000",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#ffd2be",
+                    "surface-variant": "#e3e1ec",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "surface-tint": "#4d44e3",
+                    "surface-container-highest": "#e3e1ec",
+                    "surface-container-low": "#f4f2fd",
+                    "surface": "#fbf8ff",
+                    "surface-bright": "#fbf8ff",
+                    "secondary": "#4648d4",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "inverse-surface": "#2f3038",
+                    "on-secondary-fixed": "#07006c",
+                    "on-primary-fixed": "#0f0069",
+                    "tertiary-container": "#a44100",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#c3c0ff",
+                    "on-surface": "#1a1b22",
+                    "primary-container": "#4f46e5",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "outline-variant": "#c7c4d8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "card-padding": "20px",
+                    "margin-page": "40px",
+                    "gutter": "24px",
+                    "container-max": "1440px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.95); }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-lg min-h-screen">
+<!-- Top AppBar -->
+<header class="w-full top-0 sticky z-40 bg-background border-b border-outline-variant">
+<div class="flex justify-between items-center px-4 py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl">smart_toy</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Dad</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Professional executive profile headshot of a middle-aged male leader with a warm, confident expression. He is wearing a crisp white shirt and a navy blazer, set against a blurred high-end office background with soft bokeh. The lighting is bright and airy, reflecting a modern corporate aesthetic with clean lines and a premium feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlrVH8XNOkmdC5_x1RT4QIq0t3uu1aukXdVOE_L8a6QePju2mSEK6avchod5Dq1RafrRIb-zZvER8BPEuEUNjIwmVDqc3mtYBWURzUlsmh23lxrLnnvzNJ3Ak_AKlXW3il1cf7pCVICvLDZicOdD8KJ2TLy3MEfx89tNS4td9PmC-R9jBEoohiQ6fOwLPpL1cepvOrdl0Lk_LcQlqx8i6VjIQZFSOuA2bvMueVUeuF7h16tKZOvxCY"/>
+</div>
+</div>
+</header>
+<main class="px-4 py-6 mb-24 max-w-container-max mx-auto">
+<!-- Section Header -->
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Meetings</h2>
+<button class="bg-primary-container text-white px-4 py-2 rounded-lg font-label-md flex items-center gap-2 shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm">add</span>
+                Add meeting
+            </button>
+</div>
+<!-- Meeting Cards List -->
+<div class="space-y-4">
+<!-- Card 1: Q4 Product Strategy -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-card-padding shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-3">
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">Q4 Product Strategy</h3>
+<span class="font-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                            Oct 26, 2024
+                        </span>
+</div>
+<span class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-emerald-100">
+                        Processed
+                    </span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-3 border border-outline-variant/30">
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+<span class="font-bold text-primary mr-1">Summary:</span>
+                        Finalized roadmap for Q4 and aligned on key expansion targets for APAC.
+                    </p>
+</div>
+<div class="mt-4 flex gap-3">
+<button class="flex-1 py-2 text-primary font-label-md border border-primary/20 rounded-lg hover:bg-primary/5 transition-colors">View Notes</button>
+<button class="flex-1 py-2 text-primary font-label-md border border-primary/20 rounded-lg hover:bg-primary/5 transition-colors">Action Items</button>
+</div>
+</div>
+<!-- Card 2: Weekly Engineering Sync -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-card-padding shadow-sm">
+<div class="flex justify-between items-start mb-3">
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">Weekly Engineering Sync</h3>
+<span class="font-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                            Oct 25, 2024
+                        </span>
+</div>
+<div class="flex items-center gap-2 bg-primary-container/10 text-primary px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-primary-container/20">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse-soft"></span>
+                        Processing
+                    </div>
+</div>
+<div class="flex flex-col items-center justify-center py-6 border-2 border-dashed border-outline-variant rounded-lg bg-surface-container-low/50">
+<span class="material-symbols-outlined text-outline-variant mb-2 text-3xl">auto_awesome</span>
+<p class="font-label-md text-on-surface-variant italic text-center px-4">AI is currently analyzing the transcript and generating a summary...</p>
+</div>
+</div>
+<!-- Card 3: Budget Review -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-card-padding shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-3">
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">Budget Review</h3>
+<span class="font-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                            Oct 23, 2024
+                        </span>
+</div>
+<span class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-emerald-100">
+                        Processed
+                    </span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-3 border border-outline-variant/30">
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+<span class="font-bold text-primary mr-1">Summary:</span>
+                        Approved marketing spend for Q1 and reviewed department overhead.
+                    </p>
+</div>
+<div class="mt-4 flex gap-3">
+<button class="flex-1 py-2 text-primary font-label-md border border-primary/20 rounded-lg hover:bg-primary/5 transition-colors">View Notes</button>
+<button class="flex-1 py-2 text-primary font-label-md border border-primary/20 rounded-lg hover:bg-primary/5 transition-colors">Financials</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface border-t border-outline-variant shadow-lg flex justify-around items-center px-4 py-2 pb-safe">
+<!-- Briefing -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95 cursor-pointer">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-sm text-[10px] mt-1">Briefing</span>
+</div>
+<!-- Chat -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95 cursor-pointer">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-sm text-[10px] mt-1">Chat</span>
+</div>
+<!-- Meetings (Active) -->
+<div class="flex flex-col items-center justify-center text-primary bg-primary-container/10 rounded-xl px-4 py-1 transition-transform active:scale-95 cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">video_chat</span>
+<span class="font-label-sm text-[10px] mt-1 font-bold">Meetings</span>
+</div>
+<!-- Email -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95 cursor-pointer">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-sm text-[10px] mt-1">Email</span>
+</div>
+<!-- Docs -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95 cursor-pointer">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-sm text-[10px] mt-1">Docs</span>
+</div>
+</nav>
+<script>
+        // Micro-interactions for card hovering effects (if needed for desktop simulation)
+        document.querySelectorAll('.hover\\:shadow-md').forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.classList.add('scale-[0.98]');
+                card.classList.add('bg-surface-container-low');
+            });
+            card.addEventListener('touchend', () => {
+                card.classList.remove('scale-[0.98]');
+                card.classList.remove('bg-surface-container-low');
+            });
+        });
+    </script>
+</body></html>

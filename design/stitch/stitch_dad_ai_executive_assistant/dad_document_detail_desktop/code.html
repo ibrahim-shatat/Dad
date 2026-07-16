@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad AI - Document Detail</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#1a1b22",
+                    "surface-bright": "#fbf8ff",
+                    "on-secondary-container": "#fffbff",
+                    "inverse-surface": "#2f3038",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-tertiary-container": "#ffd2be",
+                    "on-primary-container": "#dad7ff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "tertiary": "#7e3000",
+                    "surface-dim": "#dad9e3",
+                    "outline-variant": "#c7c4d8",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "surface-variant": "#e3e1ec",
+                    "surface-tint": "#4d44e3",
+                    "inverse-primary": "#c3c0ff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e8e7f1",
+                    "on-tertiary-fixed": "#351000",
+                    "surface-container-low": "#f4f2fd",
+                    "surface-container": "#eeedf7",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "on-primary-fixed": "#0f0069",
+                    "on-surface-variant": "#464555",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "inverse-on-surface": "#f1effa",
+                    "tertiary-container": "#a44100",
+                    "secondary-container": "#6063ee",
+                    "secondary": "#4648d4",
+                    "on-surface": "#1a1b22",
+                    "primary-container": "#4f46e5",
+                    "outline": "#777587",
+                    "background": "#fbf8ff",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "primary": "#3525cd",
+                    "on-secondary-fixed": "#07006c",
+                    "secondary-fixed": "#e1e0ff",
+                    "surface": "#fbf8ff",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e3e1ec",
+                    "primary-fixed": "#e2dfff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "container-max": "1440px",
+                    "margin-page": "40px",
+                    "gutter": "24px",
+                    "card-padding": "20px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fbf8ff;
+            font-family: 'Inter', sans-serif;
+            color: #1a1b22;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e3e1ec;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<div class="flex min-h-screen">
+<!-- NavigationDrawer (Predicted Shared Component) -->
+<aside class="hidden lg:flex flex-col py-8 gap-2 fixed left-0 top-0 h-full w-[260px] bg-surface-container-low border-r border-outline-variant z-50">
+<div class="px-6 mb-10">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Dad AI</h1>
+</div>
+<nav class="flex flex-col gap-1 px-3">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-label-md text-label-md">Daily Briefing</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-md text-label-md">Assistant</span>
+</a>
+<!-- Active Tab: Documents -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-primary font-bold border-l-4 border-primary bg-primary-container/10 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="font-label-md text-label-md">Documents</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-label-md text-label-md">Approvals</span>
+</a>
+</nav>
+<div class="mt-auto px-6">
+<div class="p-4 rounded-xl bg-surface-container-high border border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-2">Usage Limit</p>
+<div class="h-1.5 w-full bg-outline-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[72%]"></div>
+</div>
+<p class="font-label-sm text-label-sm text-primary mt-2">72% of monthly tokens</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-[260px] min-h-screen">
+<!-- TopAppBar (Predicted Shared Component) -->
+<header class="flex justify-between items-center px-margin-page h-16 w-full sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<button class="lg:hidden p-2 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="description">description</span>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Documents</h2>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group hidden sm:block">
+<input class="h-10 pl-10 pr-4 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary w-64 text-body-md font-body-md transition-all" placeholder="Search strategy..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant" data-icon="search">search</span>
+</div>
+<div class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center bg-surface overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a high-level executive with graying hair and a sharp tailored navy blazer, looking confident and approachable. The lighting is soft and cinematic, highlighting facial features with a warm glow against a minimalist office background. The overall aesthetic is clean, corporate, and sophisticated, mirroring a high-fidelity workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYQzzr_N_bPCsRhgnivrNGUsc87Ai5yzwsp44HeHCH6NvpcnAX11eSIrN6r-tegdhzuAMC2TSytkeZgMsThM6KxfpiqaEdE9RpkWncoO6XjG0QvhLRlrUkOh-1nPBQzBYfddoX0Sec3mkEKJ-wZGJqc4ZjqAEaIbN9enONOj-XjBEj95B5oTuQWV6eHsx-L9eqV0ngOSl-HqXyFJtRlnCLUl29B4OoF3GDgPjqsDIX8FEZPJeoas1F"/>
+</div>
+</div>
+</header>
+<div class="max-w-[1440px] mx-auto px-margin-page py-8">
+<!-- Document Header Section -->
+<div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="bg-primary-fixed text-on-primary-fixed px-2 py-0.5 rounded text-[10px] font-bold tracking-widest uppercase">PDF</span>
+<h1 class="font-headline-xl text-headline-xl text-on-background tracking-tight">Q4 Strategic Roadmap.pdf</h1>
+</div>
+<div class="flex items-center gap-6 text-on-surface-variant font-body-md text-body-md">
+<div class="flex items-center gap-2">
+<span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    Reviewed
+                                </span>
+</div>
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]" data-icon="calendar_today">calendar_today</span>
+                                Oct 24, 2023
+                            </span>
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]" data-icon="folder">folder</span>
+                                Strategy / 2023
+                            </span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="h-10 px-4 rounded-lg border border-outline-variant text-on-surface font-label-md text-label-md flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+                            Download
+                        </button>
+<button class="h-10 px-5 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center gap-2 hover:bg-primary-container transition-colors shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+                            Share Report
+                        </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column (2/3 width) -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-gutter">
+<!-- Executive Summary Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-card-padding shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[120px]" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<span class="p-2 rounded-lg bg-primary-fixed-dim/20 text-primary">
+<span class="material-symbols-outlined" data-icon="summarize" style="font-variation-settings: 'FILL' 1;">summarize</span>
+</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Executive summary</h3>
+</div>
+<span class="bg-secondary-container/10 text-secondary border border-secondary/20 px-3 py-1 rounded-full text-label-sm font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]" data-icon="sparkles" style="font-variation-settings: 'FILL' 1;">spark</span>
+                                    AI ANALYSIS
+                                </span>
+</div>
+<div class="space-y-4">
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+                                    The Q4 strategy pivot focuses heavily on the <span class="font-bold text-primary">APAC region</span>, identifying a critical growth window in high-tier markets. 
+                                    A primary cornerstone of this roadmap is the <span class="underline decoration-primary/30 decoration-2 underline-offset-4">Singapore expansion initiative</span>, slated for 
+                                    commencement in late November.
+                                </p>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                                    Strategic analysis suggests that localizing our core infrastructure within the Singapore financial hub will reduce latency for regional clients 
+                                    by 40% and provide a sovereign regulatory advantage. The document outlines a three-phase hiring plan, targeting 50+ local executive hires 
+                                    to lead operations across the Southeast Asian corridor.
+                                </p>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant grid grid-cols-3 gap-4">
+<div class="text-center">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Impact Level</p>
+<p class="text-headline-md font-headline-md text-on-surface">Critical</p>
+</div>
+<div class="text-center border-x border-outline-variant">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Fiscal Impact</p>
+<p class="text-headline-md font-headline-md text-on-surface">$2.4M</p>
+</div>
+<div class="text-center">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Timeline</p>
+<p class="text-headline-md font-headline-md text-on-surface">Q4-Q1</p>
+</div>
+</div>
+</div>
+<!-- Risk Flags List -->
+<div class="space-y-4">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-error" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+                                    Risk flags
+                                </h3>
+<button class="text-primary font-label-md text-label-md hover:underline">Mark all as acknowledged</button>
+</div>
+<!-- High Risk Card -->
+<div class="bg-error-container/5 border border-error/20 rounded-xl p-5 flex items-start gap-5 hover:bg-error-container/10 transition-colors">
+<div class="p-3 bg-error text-on-error rounded-lg shrink-0">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-sm font-label-sm text-error font-bold uppercase tracking-widest">High Risk</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Section 4.2</span>
+</div>
+<h4 class="font-headline-md text-body-lg font-bold text-on-surface mb-2">Liability: Ambiguous indemnity limits</h4>
+<p class="font-body-md text-body-md text-on-surface-variant leading-normal">
+                                        The current language in the contractor agreements doesn't explicitly cap total aggregate liability for third-party IP claims. This presents a catastrophic exposure window for the Singapore subsidiary.
+                                    </p>
+</div>
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<!-- Medium Risk Card -->
+<div class="bg-tertiary-fixed/10 border border-tertiary/20 rounded-xl p-5 flex items-start gap-5 hover:bg-tertiary-fixed/20 transition-colors">
+<div class="p-3 bg-tertiary text-on-tertiary rounded-lg shrink-0">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-sm font-label-sm text-tertiary font-bold uppercase tracking-widest">Medium Risk</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Appendix A</span>
+</div>
+<h4 class="font-headline-md text-body-lg font-bold text-on-surface mb-2">Timeline: Audit overlap</h4>
+<p class="font-body-md text-body-md text-on-surface-variant leading-normal">
+                                        The launch sequence overlaps with the annual compliance audit window. This may result in resource fatigue or delayed regulatory filing for the MAS operating license.
+                                    </p>
+</div>
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Column (1/3 width) -->
+<div class="col-span-12 lg:col-span-4">
+<!-- Suggested Rewrite Card -->
+<div class="bg-surface-container border border-outline-variant rounded-xl flex flex-col h-fit sticky top-24">
+<div class="p-5 border-b border-outline-variant flex items-center justify-between">
+<h3 class="font-label-md text-label-md font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="edit_note">edit_note</span>
+                                    Suggested rewrite
+                                </h3>
+<button class="p-2 rounded-lg hover:bg-surface-container-highest text-on-surface-variant transition-all active:scale-90" id="copyBtn" title="Copy to clipboard">
+<span class="material-symbols-outlined" data-icon="content_copy">content_copy</span>
+</button>
+</div>
+<div class="p-6 bg-surface-container-lowest rounded-b-xl">
+<div class="mb-4">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Original:</span>
+<p class="text-body-md text-body-md italic text-on-surface-variant/70 mt-1 line-clamp-2">
+                                        "We'll start working on Singapore expansion by end of the year once we hire people."
+                                    </p>
+</div>
+<div class="bg-primary/5 p-4 rounded-lg border-l-4 border-primary">
+<span class="text-label-sm font-label-sm text-primary font-bold">Refined Recommendation:</span>
+<p class="text-body-md text-body-md text-on-surface mt-2 leading-relaxed font-medium">
+                                        "The organization will initiate the phased Singapore market expansion in Q4 2023, following the successful recruitment of the core regional leadership team. This strategic sequence ensures operational readiness and adherence to local regulatory frameworks."
+                                    </p>
+</div>
+<div class="mt-8">
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-3">Tone Adjustment</p>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-2 bg-outline-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[85%]"></div>
+</div>
+<span class="text-label-sm font-label-sm font-bold text-on-surface">Professional (85%)</span>
+</div>
+</div>
+<div class="mt-6 flex flex-col gap-2">
+<button class="w-full py-2.5 rounded-lg bg-surface-container-high border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-surface-container-highest transition-colors">
+                                        Regenerate
+                                    </button>
+<button class="w-full py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary/90 transition-colors">
+                                        Apply to Draft
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Mini Map / Context Card -->
+<div class="mt-6 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="h-32 relative bg-surface-container">
+<img class="w-full h-full object-cover" data-location="Singapore" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6uB6sbYUHjQ9xQKysCzch1FaQZK6yzVb3tVa3-ItXR9DjYZfaJMXXwUFtj3xi_7BqfeUYHRC6MGjxu0ANK5GAXJXAw1i0Mgqr8-eThBbFmb0mK-HXE8y7SsVqW6gfdMu4RxUTU4C_3jYr5yVqiHkJL1zpBJLSQVAbqMMAn9EWP3Q7ZLFCgS1WL1xnmjyy7Wy4tQm4CbPzFse_cZJzubov1cmmeW_WVbAyQl5OvZXBTSnjCLD9XEZ1"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent"></div>
+<div class="absolute bottom-3 left-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="location_on" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="text-label-sm font-bold text-on-surface">Singapore Hub</span>
+</div>
+</div>
+<div class="p-4">
+<p class="text-body-md text-body-md text-on-surface-variant">
+                                    The Singapore market presents a high-growth environment with low entry barriers for AI-centric platforms.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Navigation -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-surface border-t border-outline-variant flex justify-around items-center h-16 pb-safe px-4 shadow-sm">
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-label-sm text-label-sm">Brief</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-sm text-label-sm">AI</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-label-sm text-label-sm">Done</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for the copy button
+        const copyBtn = document.getElementById('copyBtn');
+        copyBtn.addEventListener('click', () => {
+            const icon = copyBtn.querySelector('.material-symbols-outlined');
+            icon.textContent = 'check';
+            copyBtn.classList.add('text-primary');
+            
+            setTimeout(() => {
+                icon.textContent = 'content_copy';
+                copyBtn.classList.remove('text-primary');
+            }, 2000);
+        });
+
+        // Simple Fade-in Animation for Cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.bg-surface-container-lowest, .bg-error-container\\/5, .bg-tertiary-fixed\\/10');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(10px)';
+                card.style.transition = 'all 0.4s ease-out';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+        });
+    </script>
+</body></html>

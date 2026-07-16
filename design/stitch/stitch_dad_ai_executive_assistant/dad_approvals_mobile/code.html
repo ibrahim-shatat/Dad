@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Executive Assistant - Approval Queue</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fbf8ff;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #e3e1ec;
+        }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c7c4d8",
+                        "on-surface": "#1a1b22",
+                        "primary-container": "#4f46e5",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "surface-container-highest": "#e3e1ec",
+                        "on-background": "#1a1b22",
+                        "outline": "#777587",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#6063ee",
+                        "on-secondary-container": "#fffbff",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "surface-dim": "#dad9e3",
+                        "primary-fixed": "#e2dfff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "primary": "#3525cd",
+                        "inverse-surface": "#2f3038",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-container-high": "#e8e7f1",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "inverse-primary": "#c3c0ff",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f1effa",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#fbf8ff",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "secondary-fixed": "#e1e0ff",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e3e1ec",
+                        "surface-tint": "#4d44e3",
+                        "on-primary-fixed": "#0f0069",
+                        "surface": "#fbf8ff",
+                        "on-primary-container": "#dad7ff",
+                        "surface-container-low": "#f4f2fd",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#a44100",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "surface-container": "#eeedf7",
+                        "background": "#fbf8ff",
+                        "on-secondary-fixed": "#07006c",
+                        "on-surface-variant": "#464555",
+                        "secondary": "#4648d4",
+                        "tertiary": "#7e3000",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-page": "40px",
+                        "container-max": "1440px",
+                        "gutter": "24px",
+                        "card-padding": "20px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="flex min-h-screen bg-background">
+<!-- NavigationDrawer (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-6 w-[260px] bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant dark:border-outline z-50">
+<div class="px-6 mb-8">
+<span class="font-headline-lg text-headline-lg font-black text-primary dark:text-primary-fixed">Dad</span>
+</div>
+<nav class="flex-1 overflow-y-auto no-scrollbar space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high dark:hover:bg-surface-variant/10 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-body-md font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high dark:hover:bg-surface-variant/10 transition-colors" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="text-body-md font-body-md">Daily briefing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high dark:hover:bg-surface-variant/10 transition-colors" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="text-body-md font-body-md">Assistant</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high dark:hover:bg-surface-variant/10 transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-body-md font-body-md">Documents</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high dark:hover:bg-surface-variant/10 transition-colors" href="#">
+<span class="material-symbols-outlined">present_to_all</span>
+<span class="text-body-md font-body-md">Presentations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high dark:hover:bg-surface-variant/10 transition-colors" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="text-body-md font-body-md">Email</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high dark:hover:bg-surface-variant/10 transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-body-md font-body-md">Meetings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high dark:hover:bg-surface-variant/10 transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-body-md font-body-md">Calendar</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary dark:text-primary-fixed font-bold border-l-[3px] border-primary dark:border-primary-fixed bg-primary-container/10 active-nav transition-all duration-200" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="text-body-md font-body-md">Approvals</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant font-medium hover:bg-surface-container-high dark:hover:bg-surface-variant/10 transition-colors" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="text-body-md font-body-md">Admin</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-[260px] min-h-screen">
+<!-- TopAppBar (Shared Component) -->
+<header class="flex justify-between items-center w-full px-margin-page py-4 sticky top-0 z-40 bg-surface dark:bg-background border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container dark:hover:bg-inverse-surface rounded-full p-2 transition-all duration-150 scale-95 md:hidden">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-background">Executive Assistant</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-4">
+<span class="text-primary font-semibold">Approvals</span>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Close-up professional portrait of a high-level executive woman with sharp features, wearing a tailored charcoal blazer, in a soft-focus modern corporate office environment. The lighting is bright and airy, reflecting a clean light-mode aesthetic with cool blue and grey undertones. The overall mood is sophisticated, confident, and reliable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkmPD6fM7vpSh5lMrwCsghZYpjpIQ7iG9x_ygte-fEq5ruOJHoO933CP4FdK2NfC9ci8pi-mU8A5reIIR0gf8hzx4Voz3d4ONNKrDqAPMjFAk4fk3F57z838pjrnFvU5qz_WILmdZau4kV2s2b0kyKV_eoLTJt6pRJ8h-L_l4NLE_GEq1_gKP1i3TNuHhGirdaHRWMbDIiRwRvISYi9Bpk2J3VRV5v8eyURBkoAj8W0WCZMv2AuBgy"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="max-w-[1200px] mx-auto px-margin-page py-10">
+<!-- Page Header -->
+<div class="mb-10">
+<h2 class="text-headline-xl font-headline-xl text-on-surface mb-2">Approval queue</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Nothing here is sent or finalized until you approve it.</p>
+</div>
+<!-- Filters Row -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+<!-- Segmented Control -->
+<div class="flex p-1 bg-surface-container rounded-xl">
+<button class="px-6 py-2 text-label-md font-label-md bg-white text-primary shadow-sm rounded-lg">Pending</button>
+<button class="px-6 py-2 text-label-md font-label-md text-on-surface-variant hover:text-on-surface transition-colors">Approved</button>
+<button class="px-6 py-2 text-label-md font-label-md text-on-surface-variant hover:text-on-surface transition-colors">Rejected</button>
+<button class="px-6 py-2 text-label-md font-label-md text-on-surface-variant hover:text-on-surface transition-colors">All</button>
+</div>
+<!-- Dropdown -->
+<div class="relative min-w-[180px]">
+<div class="flex items-center justify-between px-4 py-2 border border-outline-variant rounded-lg bg-white cursor-pointer hover:border-primary transition-colors">
+<span class="text-body-md font-body-md text-on-surface">All Types</span>
+<span class="material-symbols-outlined text-outline">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Approval Cards List (Asymmetric Grid / Stack) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Card 1: Pending Email -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col gap-4 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]">mail</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Email draft</h3>
+</div>
+<span class="px-3 py-1 bg-surface-container-highest text-outline font-label-md text-label-md rounded-full">Pending</span>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-lg p-4 border border-outline-variant/30">
+<p class="text-body-md font-body-md text-on-surface-variant italic mb-2">To: Board Members</p>
+<p class="text-body-md font-body-md text-on-surface">"Dear Board, I'm writing to share the preliminary results for Q3. We've seen a 12% increase in operational efficiency due to the new..."</p>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<button class="flex-1 bg-primary text-white font-label-md text-label-md py-3 rounded-lg hover:bg-secondary transition-all active:scale-[0.98]">Approve</button>
+<button class="flex-1 border border-outline-variant text-on-surface-variant font-label-md text-label-md py-3 rounded-lg hover:bg-surface-container-low transition-all">Reject</button>
+<button class="w-12 h-[44px] flex items-center justify-center border border-outline-variant text-on-surface-variant rounded-lg hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Pending Share -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col gap-4 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[20px]">share</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Document share</h3>
+</div>
+<span class="px-3 py-1 bg-surface-container-highest text-outline font-label-md text-label-md rounded-full">Pending</span>
+</div>
+<div class="flex-1 flex items-center gap-4 bg-surface-container-low rounded-lg p-4 border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary text-[32px]">picture_as_pdf</span>
+<div class="text-body-md font-body-md text-on-surface">
+                            Granting view access to <span class="font-semibold">Q4_Strategy_Draft.pdf</span> for <span class="text-primary underline">sarah@finance.com</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<button class="flex-1 bg-primary text-white font-label-md text-label-md py-3 rounded-lg hover:bg-secondary transition-all active:scale-[0.98]">Approve</button>
+<button class="flex-1 border border-outline-variant text-on-surface-variant font-label-md text-label-md py-3 rounded-lg hover:bg-surface-container-low transition-all">Reject</button>
+</div>
+</div>
+<!-- Card 3: Approved -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col gap-4 shadow-sm border-l-4 border-l-green-500 opacity-90 transition-opacity hover:opacity-100">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-green-600 text-[20px]">present_to_all</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Presentation export</h3>
+</div>
+<span class="px-3 py-1 bg-green-100 text-green-700 font-label-md text-label-md rounded-full">Approved</span>
+</div>
+<div class="flex-1 bg-white rounded-lg p-4 border border-outline-variant/30 shadow-inner">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">monitoring</span>
+<span class="text-body-md font-body-md text-on-surface font-medium">Monthly Revenue Report - Q3</span>
+</div>
+</div>
+<div class="pt-2 mt-auto border-t border-outline-variant/30">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-label-md">check_circle</span>
+<span class="text-label-md font-label-md">Approved by John Doe · Oct 24</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Rejected -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col gap-4 shadow-sm border-l-4 border-l-error opacity-90 transition-opacity hover:opacity-100">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-error/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-[20px]">mail</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Email draft</h3>
+</div>
+<span class="px-3 py-1 bg-error-container text-on-error-container font-label-md text-label-md rounded-full">Rejected</span>
+</div>
+<div class="flex-1 bg-white rounded-lg p-4 border border-outline-variant/30 opacity-60">
+<p class="text-body-md font-body-md text-on-surface-variant italic mb-2">To: Dr. Aris Thorne</p>
+<p class="text-body-md font-body-md text-on-surface">"Hey Aris, quick heads up about the schedule change for the lab visit next week. We're moving it to Friday..."</p>
+</div>
+<div class="pt-2 mt-auto border-t border-outline-variant/30 flex flex-col gap-1">
+<div class="flex items-center gap-2 text-error">
+<span class="material-symbols-outlined text-label-md">cancel</span>
+<span class="text-label-md font-label-md font-bold">Rejected by John Doe · Oct 23</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant bg-error-container/20 p-2 rounded border border-error/10">
+                            Reason: "Tone is too casual for this recipient."
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        document.querySelectorAll('.glass-card button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Simplified feedback for actions
+                const originalText = this.innerText;
+                if (this.innerText === 'Approve') {
+                    this.innerHTML = '<span class="material-symbols-outlined text-white animate-spin">refresh</span>';
+                    setTimeout(() => {
+                        this.closest('.glass-card').style.transform = 'translateY(-20px)';
+                        this.closest('.glass-card').style.opacity = '0';
+                        setTimeout(() => this.closest('.glass-card').remove(), 300);
+                    }, 800);
+                }
+            });
+        });
+
+        // Hover animation for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+            card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
+    </script>
+</body></html>

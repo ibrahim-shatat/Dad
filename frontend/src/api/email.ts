@@ -37,11 +37,29 @@ export async function syncAccount(accountId: string): Promise<void> {
   await apiClient.post(`/email/accounts/${accountId}/sync`)
 }
 
-export async function listEmailMessages(accountId?: string): Promise<EmailMessageItem[]> {
+export async function disconnectAccount(accountId: string): Promise<void> {
+  await apiClient.delete(`/email/accounts/${accountId}`)
+}
+
+export async function listEmailMessages(
+  accountId?: string,
+  includeHidden = false
+): Promise<EmailMessageItem[]> {
+  const params: Record<string, string | boolean> = {}
+  if (accountId) params.account_id = accountId
+  if (includeHidden) params.include_hidden = true
   const response = await apiClient.get<EmailMessageItem[]>('/email/messages', {
-    params: accountId ? { account_id: accountId } : undefined,
+    params: Object.keys(params).length ? params : undefined,
   })
   return response.data
+}
+
+export async function hideMessage(messageId: string): Promise<void> {
+  await apiClient.post(`/email/messages/${messageId}/hide`)
+}
+
+export async function unhideMessage(messageId: string): Promise<void> {
+  await apiClient.post(`/email/messages/${messageId}/unhide`)
 }
 
 export async function getEmailMessage(id: string): Promise<EmailMessageItem> {

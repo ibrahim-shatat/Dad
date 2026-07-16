@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad Executive - Calendar</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#ffd2be",
+                        "primary-container": "#4f46e5",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "surface-container-highest": "#e3e2e2",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#a44100",
+                        "on-primary-fixed": "#0f0069",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#464555",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-bright": "#fbf9f9",
+                        "inverse-primary": "#c3c0ff",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "surface-tint": "#4d44e3",
+                        "primary-fixed": "#e2dfff",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#7e3000",
+                        "on-tertiary-fixed": "#351000",
+                        "error": "#ba1a1a",
+                        "outline": "#777587",
+                        "surface-container-high": "#e9e8e7",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "on-background": "#1b1c1c",
+                        "surface-container": "#efeded",
+                        "on-primary-container": "#dad7ff",
+                        "on-secondary-fixed": "#07006c",
+                        "surface-variant": "#e3e2e2",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline-variant": "#c7c4d8",
+                        "primary": "#3525cd",
+                        "on-surface": "#1b1c1c",
+                        "background": "#fbf9f9",
+                        "on-secondary-container": "#fffbff",
+                        "surface-dim": "#dbdad9",
+                        "inverse-surface": "#303031",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#6063ee",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "surface": "#fbf9f9",
+                        "secondary": "#4648d4",
+                        "surface-container-low": "#f5f3f3",
+                        "secondary-fixed": "#e1e0ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "xl": "32px",
+                        "gutter": "24px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "3xl": "64px",
+                        "container-max": "1280px",
+                        "2xl": "48px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .hairline-border {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .soft-shadow {
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), 0px 4px 6px rgba(0, 0, 0, 0.03);
+        }
+        .soft-shadow-hover:hover {
+            box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.05), 0px 4px 6px -2px rgba(0, 0, 0, 0.02);
+            transform: translateY(-1px);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fbf9f9;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- Layout Wrapper -->
+<div class="flex min-h-screen">
+<!-- NavigationDrawer (Sidebar) -->
+<aside class="h-full w-72 fixed left-0 top-0 bg-surface-container-low flex flex-col p-md gap-sm border-r border-outline-variant/20 shadow-md z-40 hidden md:flex">
+<!-- Header/Profile -->
+<div class="flex items-center gap-md px-sm py-md mb-md">
+<div class="w-12 h-12 rounded-full bg-primary-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a mature male executive in his late 40s, wearing a charcoal tailored suit and a crisp white shirt. The lighting is soft and cinematic, highlighting his confident yet approachable expression. The background is a blurred high-end office environment with warm oak textures and subtle blue accent lighting, reflecting a calm and authoritative Dad Executive persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdhezP_BMCnFVqOsimsdLwDjf5vQBigaxS1nYK_G4qVQVoQHySFH3QWbPZmAp2NCYZw2urrHx4tG-wBiBHrSk3ghI9nWAznMt31YZzUK_2v0V-JKXShcuyME57kgqK6z-z5f74oLdKHSgtIo6Erf5Dg9qHOb5XFYr-k3T_hkDWE5Wh-7GOAymJkhOi97B6oVRT-Z8Li3gIyg73BFqCHG2GNS_BJuu80FWUnp2vqL-m0pgEeKtpbJ5h"/>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Executive User</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant opacity-70">CEO Office</span>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="flex flex-col gap-xs">
+<div class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg cursor-pointer transition-all">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg cursor-pointer transition-all">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-md text-label-md">Daily Briefing</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg cursor-pointer transition-all">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-md text-label-md">Assistant</span>
+</div>
+<!-- Active Item: Calendar -->
+<div class="flex items-center gap-sm px-md py-sm bg-secondary-container text-on-secondary-container font-semibold rounded-lg cursor-pointer transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-label-md text-label-md">Calendar</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg cursor-pointer transition-all">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-md text-label-md">Documents</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg cursor-pointer transition-all">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md text-label-md">Email</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg cursor-pointer transition-all">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-md text-label-md">Meetings</span>
+</div>
+<div class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg cursor-pointer transition-all">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-label-md text-label-md">Approvals</span>
+</div>
+</nav>
+<div class="mt-auto pt-md border-t border-outline-variant/20">
+<div class="flex items-center gap-sm px-md py-sm text-on-surface-variant hover:bg-surface-container-high rounded-lg cursor-pointer transition-all">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-label-md text-label-md">Admin</span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 md:ml-72 min-h-screen pb-32">
+<!-- Top Bar / Header Component -->
+<header class="w-full sticky top-0 bg-surface/80 backdrop-blur-md z-30 shadow-sm border-b border-outline-variant/30">
+<div class="flex justify-between items-center h-20 px-gutter max-w-container-max mx-auto">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-primary-container/10 flex items-center justify-center rounded-lg border border-primary-container/20">
+<span class="material-symbols-outlined text-primary text-3xl">calendar_month</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Calendar</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Upcoming meetings, with AI prep briefs and follow-ups</p>
+</div>
+</div>
+<button class="flex items-center gap-sm px-md py-sm border border-outline-variant text-primary font-label-md text-label-md rounded-lg hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+                        Sync
+                    </button>
+</div>
+</header>
+<div class="max-w-container-max mx-auto px-gutter py-xl">
+<!-- Timeline Section -->
+<div class="space-y-xl">
+<!-- Day Group 1 -->
+<section>
+<div class="flex items-center gap-md mb-md">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Monday, Jul 20</h2>
+<div class="flex-1 h-px bg-outline-variant/30"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+<!-- Event Card 1: With AI Brief -->
+<div class="bg-surface hairline-border soft-shadow rounded-lg p-lg soft-shadow-hover transition-all flex flex-col gap-md">
+<div class="flex justify-between items-start">
+<div class="space-y-xs">
+<h3 class="font-headline-sm text-headline-sm text-primary">Q3 Strategic Alignment</h3>
+<div class="flex items-center gap-md text-on-surface-variant">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-body-sm text-body-sm">09:00 AM - 10:30 AM</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="font-body-sm text-body-sm">Boardroom B</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">groups</span>
+<span class="font-body-sm text-body-sm">12</span>
+</div>
+</div>
+</div>
+<span class="bg-primary-container/10 text-primary px-sm py-1 rounded-full text-label-sm font-label-sm border border-primary-container/20">High Priority</span>
+</div>
+<!-- AI Prep Brief Component -->
+<div class="bg-primary-container/5 rounded-lg border border-primary-container/10 p-md relative overflow-hidden">
+<div class="flex items-center gap-sm mb-sm text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-md text-label-md uppercase tracking-wider">Executive Prep Brief</span>
+</div>
+<ul class="space-y-sm">
+<li class="flex gap-sm items-start">
+<span class="text-primary mt-1 text-[14px]">●</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sarah will likely pivot to margin concerns; be ready with the efficiency report.</p>
+</li>
+<li class="flex gap-sm items-start">
+<span class="text-primary mt-1 text-[14px]">●</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Key Question: How does this project impact the 2024 hiring freeze?</p>
+</li>
+<li class="flex gap-sm items-start">
+<span class="text-primary mt-1 text-[14px]">●</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Previous Action: Ensure the legacy integration roadmap is visible.</p>
+</li>
+</ul>
+</div>
+</div>
+<!-- Event Card 2: Generate Prep -->
+<div class="bg-surface hairline-border soft-shadow rounded-lg p-lg soft-shadow-hover transition-all flex flex-col gap-md">
+<div class="flex justify-between items-start">
+<div class="space-y-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Product Roadmap Review</h3>
+<div class="flex items-center gap-md text-on-surface-variant">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-body-sm text-body-sm">11:30 AM - 12:30 PM</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">videocam</span>
+<span class="font-body-sm text-body-sm">Virtual</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">groups</span>
+<span class="font-body-sm text-body-sm">6</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<button class="w-full flex items-center justify-center gap-sm py-md bg-surface hairline-border text-primary font-label-md text-label-md rounded-lg hover:bg-primary-container/5 hover:border-primary-container/20 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]">auto_fix_high</span>
+                                        Generate prep brief
+                                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Day Group 2 -->
+<section>
+<div class="flex items-center gap-md mb-md">
+<h2 class="font-headline-sm text-headline-sm text-on-surface opacity-60">Past Events</h2>
+<div class="flex-1 h-px bg-outline-variant/30"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+<!-- Event Card 3: Follow-up Sent -->
+<div class="bg-surface-container-low hairline-border opacity-80 rounded-lg p-lg flex flex-col gap-md">
+<div class="flex justify-between items-start">
+<div class="space-y-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface-variant">Vendor Negotiation: Azure</h3>
+<div class="flex items-center gap-md text-outline">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-body-sm text-body-sm">08:00 AM - 09:00 AM (Completed)</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-xs text-secondary font-label-sm text-label-sm bg-secondary-container/10 px-sm py-1 rounded-full border border-secondary-container/20">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                        Follow-up sent
+                                    </div>
+</div>
+<div class="p-md bg-surface-container-highest/30 rounded-lg border border-outline-variant/20">
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">"Drafted executive summary and sent contract approval request to the Finance team via Approvals module."</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface/90 backdrop-blur-md border-t border-outline-variant/30 shadow-lg">
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">today</span>
+<span class="font-label-sm text-label-sm">Briefing</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">spark</span>
+<span class="font-label-sm text-label-sm">AI</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary font-bold bg-primary-container/10 rounded-xl px-3 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-label-sm text-label-sm">Events</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">folder</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</div>
+</nav>
+<!-- Micro-interactions Script -->
+<script>
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+
+        // Simple mock for "Sync" action
+        const syncBtn = document.querySelector('header button');
+        if (syncBtn) {
+            syncBtn.addEventListener('click', () => {
+                const icon = syncBtn.querySelector('.material-symbols-outlined');
+                icon.classList.add('animate-spin');
+                syncBtn.disabled = true;
+                setTimeout(() => {
+                    icon.classList.remove('animate-spin');
+                    syncBtn.disabled = false;
+                }, 1000);
+            });
+        }
+    </script>
+</body></html>

@@ -59,6 +59,8 @@ class EmailMessage(UUIDPrimaryKeyMixin, CreatedAtMixin, Base):
     snippet: Mapped[str] = mapped_column(Text, nullable=False)
     received_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     is_unread: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    # User dismissed this message from the inbox feed (hidden until unhidden).
+    is_hidden: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     ai_urgency: Mapped[EmailUrgency | None] = mapped_column(
         Enum(EmailUrgency, name="email_urgency"), nullable=True
     )

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Daily Briefing - Dad</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for high-end feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #dad9e3;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c7c4d8;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(227, 225, 236, 0.5);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "inverse-on-surface": "#f1effa",
+                        "background": "#fbf8ff",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#6063ee",
+                        "surface-dim": "#dad9e3",
+                        "surface-container-high": "#e8e7f1",
+                        "inverse-surface": "#2f3038",
+                        "inverse-primary": "#c3c0ff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-primary-fixed": "#0f0069",
+                        "surface-bright": "#fbf8ff",
+                        "surface-container-highest": "#e3e1ec",
+                        "on-surface-variant": "#464555",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#dad7ff",
+                        "primary-fixed": "#e2dfff",
+                        "surface-variant": "#e3e1ec",
+                        "secondary": "#4648d4",
+                        "primary": "#3525cd",
+                        "on-background": "#1a1b22",
+                        "surface-container-low": "#f4f2fd",
+                        "on-secondary-container": "#fffbff",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#e1e0ff",
+                        "tertiary": "#7e3000",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "outline": "#777587",
+                        "surface-tint": "#4d44e3",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-surface": "#1a1b22",
+                        "on-secondary-fixed": "#07006c",
+                        "surface-container": "#eeedf7",
+                        "surface": "#fbf8ff",
+                        "tertiary-container": "#a44100",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c7c4d8",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-tertiary-fixed": "#351000",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "primary-container": "#4f46e5",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-page": "40px",
+                        "container-max": "1440px",
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "card-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-hidden flex h-screen">
+<!-- NavigationDrawer (Shared Component) -->
+<!-- Determined active: "Daily briefing" (index 1) -->
+<aside class="fixed left-0 top-0 h-screen w-[260px] border-r border-outline-variant bg-surface hidden lg:flex flex-col py-8 px-4 gap-2 z-50">
+<div class="mb-8 px-4">
+<span class="font-headline-lg text-headline-lg font-black text-primary tracking-tight">Dad</span>
+</div>
+<nav class="flex flex-col gap-1">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out hover:bg-surface-container-high hover:text-primary text-on-surface-variant font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<!-- Daily briefing (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-primary font-bold border-l-4 border-primary bg-surface-container-low" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-label-md text-label-md">Daily briefing</span>
+</a>
+<!-- Assistant -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out hover:bg-surface-container-high hover:text-primary text-on-surface-variant font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-md text-label-md">Assistant</span>
+</a>
+<!-- Documents -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out hover:bg-surface-container-high hover:text-primary text-on-surface-variant font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Documents</span>
+</a>
+<!-- Email -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out hover:bg-surface-container-high hover:text-primary text-on-surface-variant font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-label-md text-label-md">Email</span>
+</a>
+<!-- Calendar -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out hover:bg-surface-container-high hover:text-primary text-on-surface-variant font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-md text-label-md">Calendar</span>
+</a>
+</nav>
+<div class="mt-auto px-4 py-4 border-t border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a mature, distinguished man in his 50s with grey-flecked hair, wearing a tailored charcoal suit in a high-end corporate office setting. The lighting is soft and natural, emphasizing confidence and clarity. The aesthetic is clean and modern, following the reliable clarity of the SaaS brand system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk_s-leYcU1hItKgHUnkCpEz-w1An0ZVjDeUcTTKtcY3_POd9eWqTeqGnjrImOb4mAF2cReZHG4Ap5EHVHXRSZIhFO2DKqMOZATcESDr0yCcoNfoygg3LbD46TRLuFaujuxcbWpSlA9L_dn_NOLy01imd0gX5Jhojvvq-ot9Bm9C35TMlTATUVhxV2FltINh1QW0p61-o9id3d_FKxdLy4j9oYwaWp5Vu5xEk-SfrapEQ9IMFVXwyy"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-bold">Executive Profile</span>
+<span class="text-[10px] text-on-surface-variant">Premium Access</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-[260px] flex-1 h-screen overflow-y-auto bg-background">
+<!-- TopAppBar (Shared Component) -->
+<header class="flex justify-between items-center px-10 h-24 w-full sticky top-0 z-40 bg-background/80 backdrop-blur-md">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-3xl" data-icon="wb_sunny">wb_sunny</span>
+</div>
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Daily briefing</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Friday, Oct 25</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex flex-col items-end mr-4">
+<span class="font-label-md text-label-md text-on-surface-variant">Completion</span>
+<div class="flex items-center gap-2">
+<div class="w-32 h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-[43%] h-full bg-primary transition-all duration-700 ease-out"></div>
+</div>
+<span class="font-label-md text-label-md text-primary font-bold">3/7 handled</span>
+</div>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md font-bold transition-transform active:scale-95 hover:bg-primary-container shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="refresh">refresh</span>
+                    Regenerate
+                </button>
+</div>
+</header>
+<div class="px-10 pb-16 max-w-[1440px] mx-auto grid grid-cols-12 gap-gutter">
+<!-- Left Column: Executive Summary -->
+<section class="col-span-12 lg:col-span-5 flex flex-col gap-6">
+<div class="glass-card rounded-[24px] p-card-padding shadow-sm relative overflow-hidden">
+<!-- Subtle AI Background Glow -->
+<div class="absolute -top-12 -right-12 w-32 h-32 bg-primary/10 blur-3xl rounded-full"></div>
+<div class="flex items-center gap-3 mb-6">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed-dim flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Executive Summary</h2>
+</div>
+<div class="space-y-4">
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+                            Good morning. Your day focuses on three critical threads: the <span class="font-bold text-primary">Q4 Budget Approval</span>, a conflict in the <span class="font-bold text-primary">APAC Team Sync</span>, and your daughter's school recital tonight. 
+                        </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            I've prioritized seven items requiring your attention. You've already cleared three. The most pressing is the email from Sarah regarding the budget shortfall in the Marketing department.
+                        </p>
+<div class="mt-8 pt-6 border-t border-outline-variant">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-4">Key Priorities</h3>
+<ol class="space-y-4">
+<li class="flex gap-4 items-start">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-fixed text-primary text-[12px] font-bold flex items-center justify-center">1</span>
+<p class="font-body-md text-body-md text-on-surface">Review Marketing's Q4 reallocation proposal before 11:00 AM.</p>
+</li>
+<li class="flex gap-4 items-start">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-fixed text-primary text-[12px] font-bold flex items-center justify-center">2</span>
+<p class="font-body-md text-body-md text-on-surface">Brief the Board on the APAC expansion risks during lunch sync.</p>
+</li>
+<li class="flex gap-4 items-start">
+<span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-fixed text-primary text-[12px] font-bold flex items-center justify-center">3</span>
+<p class="font-body-md text-body-md text-on-surface">Confirm attendance for the school recital by 3:00 PM.</p>
+</li>
+</ol>
+</div>
+</div>
+<!-- Decorative AI Pattern -->
+<div class="mt-10 opacity-30">
+<div class="h-24 w-full rounded-xl bg-gradient-to-r from-primary/5 via-secondary/10 to-primary/5 relative overflow-hidden">
+<div class="absolute inset-0 flex items-center justify-around px-10">
+<div class="w-1 h-8 bg-primary rounded-full animate-pulse"></div>
+<div class="w-1 h-12 bg-primary rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+<div class="w-1 h-6 bg-primary rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+<div class="w-1 h-16 bg-primary rounded-full animate-pulse" style="animation-delay: 0.1s"></div>
+<div class="w-1 h-10 bg-primary rounded-full animate-pulse" style="animation-delay: 0.3s"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Personal Context Card -->
+<div class="bg-surface-container-low rounded-[24px] p-card-padding border border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="family_restroom">family_restroom</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-bold">Family Recital Tonight</p>
+<p class="text-[12px] text-on-surface-variant">Leaves in 8h 15m • Reminder set for 4:00 PM</p>
+</div>
+</div>
+<button class="text-primary hover:bg-primary/5 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_forward_ios" style="font-size: 16px;">arrow_forward_ios</span>
+</button>
+</div>
+</section>
+<!-- Right Column: Grouped Items -->
+<section class="col-span-12 lg:col-span-7 flex flex-col gap-8">
+<!-- Urgent Emails Section -->
+<div>
+<div class="flex items-center justify-between mb-4 px-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error" data-icon="priority_high">priority_high</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Urgent Emails</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant px-2 py-0.5 bg-surface-container-high rounded-full">2 Unread</span>
+</div>
+<div class="space-y-2">
+<!-- Item: Unread -->
+<div class="group flex items-center justify-between p-4 bg-surface rounded-xl border border-outline-variant hover:border-primary transition-all cursor-pointer shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md font-bold text-on-surface">Sarah Mitchell</h4>
+<p class="text-[12px] text-on-surface-variant line-clamp-1">Budget Shortfall: Marketing Q4 Reallocation...</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">9:12 AM</span>
+<button class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-variant text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined" data-icon="reply">reply</span>
+</button>
+</div>
+</div>
+<!-- Item: Handled -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low/50 rounded-xl border border-transparent opacity-60">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-outline">
+<span class="material-symbols-outlined" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md font-medium text-on-surface line-through">Tom Harris</h4>
+<p class="text-[12px] text-on-surface-variant">Re: Weekly Sales Deck - Final Pass</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant italic">Archived</span>
+</div>
+</div>
+</div>
+<!-- Meetings Section -->
+<div>
+<div class="flex items-center justify-between mb-4 px-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="calendar_month">calendar_month</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Upcoming Meetings</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant px-2 py-0.5 bg-surface-container-high rounded-full">3 Today</span>
+</div>
+<div class="space-y-2">
+<!-- Item: Active/Upcoming -->
+<div class="group flex items-center justify-between p-4 bg-surface rounded-xl border border-outline-variant hover:border-primary transition-all cursor-pointer shadow-sm overflow-hidden relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md font-bold text-on-surface">APAC Strategic Expansion Sync</h4>
+<p class="text-[12px] text-on-surface-variant">11:30 AM — 12:30 PM • Conference Room B</p>
+</div>
+</div>
+<button class="bg-secondary text-white px-4 py-1.5 rounded-full font-label-md text-label-md">Join</button>
+</div>
+<!-- Item: Handled -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low/50 rounded-xl border border-transparent opacity-60">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-outline">
+<span class="material-symbols-outlined" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md font-medium text-on-surface line-through">Stand-up Meeting</h4>
+<p class="text-[12px] text-on-surface-variant italic">Completed at 9:00 AM</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Items Section -->
+<div>
+<div class="flex items-center justify-between mb-4 px-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="task_alt">task_alt</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Action Items</h3>
+</div>
+</div>
+<div class="space-y-2">
+<div class="group flex items-center justify-between p-4 bg-surface rounded-xl border border-outline-variant hover:border-primary transition-all cursor-pointer shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded border-2 border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors"></div>
+<p class="font-body-md text-body-md text-on-surface">Approve Q4 Marketing Spend reallocation</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-primary-fixed-variant bg-primary-fixed px-2 py-0.5 rounded-full">High</span>
+</div>
+</div>
+<div class="group flex items-center justify-between p-4 bg-surface rounded-xl border border-outline-variant hover:border-primary transition-all cursor-pointer shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded border-2 border-outline-variant flex items-center justify-center"></div>
+<p class="font-body-md text-body-md text-on-surface">Draft board memo for expansion risks</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-tertiary-fixed-variant bg-tertiary-fixed px-2 py-0.5 rounded-full">Medium</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low/50 rounded-xl border border-transparent opacity-60">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[16px]" data-icon="check">check</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface line-through">Review previous APAC performance data</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Shared Component - Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface border-t border-outline-variant shadow-sm">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary font-bold">
+<span class="material-symbols-outlined" data-icon="today">today</span>
+<span class="font-label-sm text-label-sm">Brief</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="font-label-sm text-label-sm">Chat</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined" data-icon="folder">folder</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span>
+<span class="font-label-sm text-label-sm">More</span>
+</button>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hover effect for items
+            const interactiveCards = document.querySelectorAll('.cursor-pointer');
+            interactiveCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-2px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+
+            // "Regenerate" button logic simulation
+            const regenBtn = document.querySelector('button:contains("Regenerate")');
+            if (regenBtn) {
+                regenBtn.addEventListener('click', () => {
+                    regenBtn.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="autorenew">autorenew</span> Thinking...';
+                    setTimeout(() => {
+                        regenBtn.innerHTML = '<span class="material-symbols-outlined" data-icon="refresh">refresh</span> Regenerate';
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body></html>

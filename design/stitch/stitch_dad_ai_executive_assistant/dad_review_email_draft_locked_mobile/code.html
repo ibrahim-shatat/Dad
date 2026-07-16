@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Locked Draft View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Placeholder background for the demo */
+        }
+        .bottom-sheet-overlay {
+            background-color: rgba(26, 27, 34, 0.4);
+            backdrop-filter: blur(4px);
+        }
+        .bottom-sheet-content {
+            border-top-left-radius: 1.5rem;
+            border-top-right-radius: 1.5rem;
+            max-height: 92vh;
+        }
+        /* Custom scrollbar for clean corporate look */
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #e3e1ec;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#a44100",
+                        "on-primary-fixed": "#0f0069",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#fbf8ff",
+                        "on-surface-variant": "#464555",
+                        "inverse-on-surface": "#f1effa",
+                        "inverse-primary": "#c3c0ff",
+                        "primary-container": "#4f46e5",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "surface-container-highest": "#e3e1ec",
+                        "on-tertiary-fixed": "#351000",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e8e7f1",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "outline": "#777587",
+                        "on-background": "#1a1b22",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "surface-tint": "#4d44e3",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "primary-fixed": "#e2dfff",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#7e3000",
+                        "on-secondary-fixed": "#07006c",
+                        "surface-variant": "#e3e1ec",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline-variant": "#c7c4d8",
+                        "primary": "#3525cd",
+                        "on-surface": "#1a1b22",
+                        "background": "#fbf8ff",
+                        "surface-container": "#eeedf7",
+                        "on-primary-container": "#dad7ff",
+                        "secondary-container": "#6063ee",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "surface": "#fbf8ff",
+                        "secondary": "#4648d4",
+                        "surface-container-low": "#f4f2fd",
+                        "secondary-fixed": "#e1e0ff",
+                        "on-secondary-container": "#fffbff",
+                        "surface-dim": "#dad9e3",
+                        "inverse-surface": "#2f3038",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-page": "40px",
+                        "container-max": "1440px",
+                        "gutter": "24px",
+                        "card-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Mock Background Content -->
+<main class="min-h-screen p-8 flex flex-col gap-6 lg:ml-[260px]">
+<div class="flex flex-col gap-4 max-w-4xl">
+<h1 class="font-headline-xl text-headline-xl text-primary">Executive Workspace</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Manage your high-priority communications and documents.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-8">
+<div class="p-card-padding bg-surface-container rounded-xl border border-outline-variant">
+<h3 class="font-headline-md text-headline-md mb-2">Pending Approvals</h3>
+<div class="h-32 bg-surface-container-low rounded-lg animate-pulse"></div>
+</div>
+<div class="p-card-padding bg-surface-container rounded-xl border border-outline-variant">
+<h3 class="font-headline-md text-headline-md mb-2">Upcoming Briefings</h3>
+<div class="h-32 bg-surface-container-low rounded-lg animate-pulse"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Sheet Overlay -->
+<div class="fixed inset-0 z-50 flex items-end justify-center bottom-sheet-overlay transition-opacity duration-300" id="bottomSheetOverlay">
+<!-- Bottom Sheet Wrapper -->
+<div class="bottom-sheet-content w-full md:max-w-2xl bg-surface-container-lowest shadow-2xl flex flex-col transform transition-transform duration-500 ease-out translate-y-0 overflow-hidden">
+<!-- Handle Decorator -->
+<div class="w-full flex justify-center py-3">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full"></div>
+</div>
+<!-- Muted Banner: Status Indicator -->
+<div class="mx-4 mb-4 px-4 py-3 bg-surface-container rounded-lg border border-outline-variant flex items-center gap-3">
+<span class="material-symbols-outlined text-outline text-[20px]">lock</span>
+<span class="font-label-md text-label-md text-on-surface-variant">This draft is approved and can no longer be edited</span>
+</div>
+<!-- Header -->
+<div class="px-6 py-4 flex items-center justify-between border-b border-outline-variant">
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface">Review Draft</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">ID: EXE-99210-MAIL</p>
+</div>
+<button class="p-2 hover:bg-surface-variant rounded-full transition-colors text-on-surface-variant" onclick="toggleSheet()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Form Content (Read-Only) -->
+<div class="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-6 custom-scroll">
+<!-- Recipient Info -->
+<div class="grid grid-cols-1 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-outline">To</label>
+<div class="px-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface-variant font-body-md text-body-md">
+                            board@luxuryholding.com
+                        </div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-outline">Cc</label>
+<div class="px-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface-variant font-body-md text-body-md">
+                            legal-review@luxuryholding.com, ceo-office@luxuryholding.com
+                        </div>
+</div>
+</div>
+<!-- Subject -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-outline">Subject</label>
+<div class="px-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface-variant font-body-md text-body-md font-semibold">
+                        Q4 Executive Strategic Review - Final Approval Required
+                    </div>
+</div>
+<!-- Body Content -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-outline">Message Body</label>
+<div class="px-4 py-6 bg-surface-container-low border border-outline-variant rounded-lg text-on-surface-variant font-body-md text-body-md leading-relaxed whitespace-pre-wrap">Dear Board Members,
+
+Please find attached the final version of the Q4 Strategic Review. This document outlines our performance metrics, market expansion results, and the proposed roadmap for the upcoming fiscal year.
+
+The executive committee has reviewed and finalized these figures. Following today's session, the draft has been locked to ensure data integrity before the general assembly presentation.
+
+Best regards,
+The Executive Office</div>
+</div>
+<!-- Attachments (Visual Representation) -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-outline">Attachments (2)</label>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-2 px-3 py-2 bg-surface border border-outline-variant rounded-full text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+<span class="font-label-md text-label-md">Q4_Report.pdf</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-2 bg-surface border border-outline-variant rounded-full text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">table_chart</span>
+<span class="font-label-md text-label-md">Financials.xlsx</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="px-6 py-6 border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-3">
+<!-- "Save changes" is hidden as per requirements -->
+<button class="px-8 py-3 bg-on-background text-white font-label-md text-label-md rounded-full hover:bg-inverse-surface active:scale-95 transition-all shadow-sm" onclick="toggleSheet()">
+                    Close
+                </button>
+</div>
+</div>
+</div>
+<script>
+        function toggleSheet() {
+            const overlay = document.getElementById('bottomSheetOverlay');
+            const sheet = overlay.querySelector('.bottom-sheet-content');
+            
+            if (overlay.classList.contains('hidden')) {
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    overlay.style.opacity = '1';
+                    sheet.style.transform = 'translateY(0)';
+                }, 10);
+            } else {
+                overlay.style.opacity = '0';
+                sheet.style.transform = 'translateY(100%)';
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Initially shown for the prompt, but normally hidden
+        // toggleSheet();
+    </script>
+</body></html>

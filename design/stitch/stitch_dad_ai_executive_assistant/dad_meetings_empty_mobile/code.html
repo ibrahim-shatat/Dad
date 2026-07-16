@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#3525cd",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#6063ee",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-error": "#ffffff",
+                    "on-background": "#1a1b22",
+                    "background": "#fbf8ff",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#e1e0ff",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "primary-fixed": "#e2dfff",
+                    "inverse-on-surface": "#f1effa",
+                    "on-secondary-container": "#fffbff",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#dad7ff",
+                    "surface-container": "#eeedf7",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container-high": "#e8e7f1",
+                    "surface-dim": "#dad9e3",
+                    "on-tertiary-fixed": "#351000",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#464555",
+                    "tertiary": "#7e3000",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#ffd2be",
+                    "surface-variant": "#e3e1ec",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "surface-tint": "#4d44e3",
+                    "surface-container-highest": "#e3e1ec",
+                    "surface": "#fbf8ff",
+                    "surface-bright": "#fbf8ff",
+                    "secondary": "#4648d4",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "inverse-surface": "#2f3038",
+                    "on-secondary-fixed": "#07006c",
+                    "on-primary-fixed": "#0f0069",
+                    "tertiary-container": "#a44100",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#c3c0ff",
+                    "on-surface": "#1a1b22",
+                    "primary-container": "#4f46e5",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "outline-variant": "#c7c4d8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "card-padding": "20px",
+                    "margin-page": "40px",
+                    "gutter": "24px",
+                    "container-max": "1440px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .empty-state-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(244, 242, 253, 0.5) 100%);
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-background dark:bg-inverse-surface border-b border-outline-variant dark:border-outline">
+<div class="flex justify-between items-center px-4 py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center w-10 h-10 rounded-xl bg-primary-container text-on-primary-container cursor-pointer active:opacity-80 transition-colors">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-semibold text-primary dark:text-primary-fixed">Dad</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center overflow-hidden cursor-pointer active:opacity-80">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior executive in a minimalist studio setting. The lighting is soft and flattering, emphasizing a mood of calm authority. The background is a clean, out-of-focus executive office with subtle hints of modern architecture and warm wood tones. The aesthetic is high-end, crisp, and aligns with a premium corporate identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB4pl5eCurK0sJqS8SiqdVUbiEvlU1aSOpLpHV7FVMKQ2Yepw5AnGdcef-js0GR1JvtA8khMjXnwWRWUfE8pIaRJZOika6BETjnjS4JZelSKBUg2gIDLp3wN4WLmN9wEBA9EUPrMKa0mYUx_xWSZ4V5T94LLIbtGBfG3bb2_o8dMcidYLAF-XZmIlIJOCIiMsh-3Lk76HH_KqHBhh_c9-R6XhE3BcEzrQn6rsnJinNSL9sg1QTZday"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center px-6 pb-24">
+<!-- Empty State Container -->
+<div class="w-full max-w-sm flex flex-col items-center text-center">
+<!-- Visual Anchor: Asymmetric Background Element -->
+<div class="relative w-48 h-48 mb-8 flex items-center justify-center">
+<div class="absolute inset-0 bg-primary/5 rounded-full scale-110 animate-pulse"></div>
+<div class="absolute inset-4 bg-primary/10 rounded-full"></div>
+<!-- Main Icon -->
+<div class="relative z-10 w-24 h-24 bg-surface-container-lowest rounded-3xl shadow-sm border border-outline-variant/30 flex items-center justify-center transform -rotate-3 hover:rotate-0 transition-transform duration-500">
+<span class="material-symbols-outlined text-primary text-[48px] leading-none" data-icon="video_chat">video_chat</span>
+</div>
+<!-- Secondary Decorative Icon -->
+<div class="absolute top-0 right-0 w-12 h-12 bg-surface-container-low rounded-2xl border border-outline-variant/30 flex items-center justify-center transform rotate-12 translate-x-2 -translate-y-2 shadow-sm">
+<span class="material-symbols-outlined text-primary/40 text-[24px]" data-icon="description">description</span>
+</div>
+</div>
+<!-- Empty State Text -->
+<div class="space-y-3">
+<h2 class="font-headline-md text-headline-md text-on-background font-semibold">No meetings yet</h2>
+<p class="font-body-md text-on-surface-variant max-w-[280px] mx-auto leading-relaxed">
+                    Add notes and let AI summarize them.
+                </p>
+</div>
+<!-- Action Button -->
+<button class="mt-8 group relative w-full max-w-[200px] py-4 bg-primary text-on-primary font-label-md text-label-md rounded-xl shadow-lg shadow-primary/20 overflow-hidden transition-all active:scale-95">
+<div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+<span>Add meeting</span>
+</div>
+</button>
+<!-- Secondary Prompt -->
+<p class="mt-6 font-label-sm text-label-sm text-outline cursor-pointer hover:text-primary transition-colors">
+                View meeting guidelines
+            </p>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Shell Anchor) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface dark:bg-inverse-surface border-t border-outline-variant shadow-lg flex justify-around items-center px-4 py-2 pb-safe">
+<!-- Briefing -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-label-sm text-[10px] mt-1">Briefing</span>
+</a>
+<!-- Chat -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-sm text-[10px] mt-1">Chat</span>
+</a>
+<!-- Meetings (ACTIVE) -->
+<a class="flex flex-col items-center justify-center text-primary bg-primary-container/10 rounded-full px-5 py-1 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="video_chat" style="font-variation-settings: 'FILL' 1;">video_chat</span>
+<span class="font-label-sm text-[10px] mt-1 font-bold">Meetings</span>
+</a>
+<!-- Email -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-label-sm text-[10px] mt-1">Email</span>
+</a>
+<!-- Docs -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-sm text-[10px] mt-1">Docs</span>
+</a>
+</nav>
+<!-- Decorative Subtle Glow -->
+<div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[80px] pointer-events-none -z-10"></div>
+<script>
+        // Micro-interactions for the empty state
+        document.querySelector('main').addEventListener('touchstart', () => {
+            const iconCard = document.querySelector('.transform.-rotate-3');
+            if (iconCard) {
+                iconCard.style.transform = 'rotate(0deg) scale(1.05)';
+            }
+        });
+
+        document.querySelector('main').addEventListener('touchend', () => {
+            const iconCard = document.querySelector('.transform.-rotate-3');
+            if (iconCard) {
+                iconCard.style.transform = 'rotate(-3deg) scale(1)';
+            }
+        });
+    </script>
+</body></html>

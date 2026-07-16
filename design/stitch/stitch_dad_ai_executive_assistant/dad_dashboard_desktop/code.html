@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - AI Executive Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "surface-variant": "#e3e1ec",
+                  "inverse-surface": "#2f3038",
+                  "background": "#fbf8ff",
+                  "surface-bright": "#fbf8ff",
+                  "on-secondary-container": "#fffbff",
+                  "primary-fixed-dim": "#c3c0ff",
+                  "surface-container-high": "#e8e7f1",
+                  "primary-fixed": "#e2dfff",
+                  "primary": "#3525cd",
+                  "on-secondary": "#ffffff",
+                  "on-secondary-fixed": "#07006c",
+                  "secondary-fixed": "#e1e0ff",
+                  "outline-variant": "#c7c4d8",
+                  "inverse-primary": "#c3c0ff",
+                  "surface-container-highest": "#e3e1ec",
+                  "primary-container": "#4f46e5",
+                  "on-primary-fixed": "#0f0069",
+                  "error-container": "#ffdad6",
+                  "surface": "#fbf8ff",
+                  "on-surface": "#1a1b22",
+                  "tertiary-container": "#a44100",
+                  "surface-container": "#eeedf7",
+                  "on-tertiary-fixed-variant": "#7b2f00",
+                  "on-primary-fixed-variant": "#3323cc",
+                  "surface-container-low": "#f4f2fd",
+                  "on-tertiary-container": "#ffd2be",
+                  "on-secondary-fixed-variant": "#2f2ebe",
+                  "surface-tint": "#4d44e3",
+                  "secondary-fixed-dim": "#c0c1ff",
+                  "secondary-container": "#6063ee",
+                  "on-primary": "#ffffff",
+                  "on-tertiary": "#ffffff",
+                  "surface-dim": "#dad9e3",
+                  "inverse-on-surface": "#f1effa",
+                  "surface-container-lowest": "#ffffff",
+                  "on-surface-variant": "#464555",
+                  "tertiary-fixed": "#ffdbcc",
+                  "outline": "#777587",
+                  "error": "#ba1a1a",
+                  "tertiary": "#7e3000",
+                  "on-error": "#ffffff",
+                  "on-error-container": "#93000a",
+                  "secondary": "#4648d4",
+                  "on-background": "#1a1b22",
+                  "on-primary-container": "#dad7ff",
+                  "on-tertiary-fixed": "#351000",
+                  "tertiary-fixed-dim": "#ffb695"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "unit": "4px",
+                  "card-padding": "20px",
+                  "margin-page": "40px",
+                  "container-max": "1440px",
+                  "gutter": "24px"
+          },
+          "fontFamily": {
+                  "headline-xl": ["Inter"],
+                  "label-md": ["Inter"],
+                  "label-sm": ["Inter"],
+                  "body-md": ["Inter"],
+                  "headline-md": ["Inter"],
+                  "body-lg": ["Inter"],
+                  "headline-lg": ["Inter"]
+          },
+          "fontSize": {
+                  "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                  "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                  "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                  "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                  "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                  "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .active-nav-indicator {
+      position: absolute;
+      left: -16px;
+      width: 4px;
+      height: 24px;
+      background-color: #3525cd;
+      border-radius: 0 4px 4px 0;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar Component -->
+<aside class="w-[260px] h-full fixed left-0 top-0 bg-surface dark:bg-surface-dim border-r border-outline-variant dark:border-outline flex flex-col py-6 px-4 z-50">
+<div class="mb-8 px-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Dad</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">AI Executive Assistant</p>
+</div>
+</div>
+</div>
+<nav class="flex-grow flex flex-col gap-1 overflow-y-auto custom-scrollbar">
+<!-- Dashboard (Active) -->
+<a class="relative flex items-center gap-3 px-3 py-2.5 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container rounded-lg font-bold transition-transform duration-200 active:scale-[0.98]" href="#">
+<div class="active-nav-indicator"></div>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<!-- Daily briefing -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span>Daily briefing</span>
+</a>
+<!-- Assistant -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span>Assistant</span>
+</a>
+<!-- Documents -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Documents</span>
+</a>
+<!-- Presentations -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">present_to_all</span>
+<span>Presentations</span>
+</a>
+<!-- Email -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span>Email</span>
+</a>
+<!-- Meetings -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span>Meetings</span>
+</a>
+<!-- Calendar -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span>Calendar</span>
+</a>
+<!-- Approvals -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span>Approvals</span>
+</a>
+<!-- Admin -->
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-lg font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Admin</span>
+</a>
+</nav>
+<!-- Footer Profile Section -->
+<div class="mt-auto pt-6 border-t border-outline-variant dark:border-outline">
+<div class="flex items-center gap-3 px-2 mb-4">
+<img class="w-10 h-10 rounded-full border border-outline-variant object-cover" data-alt="A professional headshot of an executive male in his 50s, wearing a tailored navy blazer and a crisp white shirt. The background is a blurred high-end corporate office with soft natural lighting from large windows. The overall aesthetic is refined, authoritative, and trustworthy, fitting a modern corporate executive assistant app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9JLrrchUxU2sczgTZGKa7GuIGo9YIcfeS-kzST-d4RoJhC2bEnQkTfPOF-gRZH8OkquaMXje49rBxSZ_tGss3ZpqJbWn-zFor19-G2DeggQxdloWsNtvnb8s7TzILg5qG4YOS2QB1oOxU3FvwIwK8cmpSKVojthjcXZ-skzgjr3Mg8dXomjg9bh_oovIYqn-htzH-gX1nkSZDlrqYT2hh4IQt0yKwImIHxpIrA--og8D2l8Y2cU4W"/>
+<div class="overflow-hidden">
+<p class="font-label-md text-label-md font-bold truncate">John Doe</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">Executive VP</p>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-2 py-2 text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant rounded-lg transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span>Log out</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="ml-[260px] min-h-screen flex flex-col bg-[#FAFAFA]">
+<!-- TopAppBar Component -->
+<header class="sticky top-0 z-40 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md flex justify-end items-center h-16 px-gutter w-full shadow-sm">
+<div class="flex items-center gap-4">
+<!-- Search Bar (Hidden as per requirement) -->
+<div class="hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant w-64 group focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant group-focus-within:text-primary">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-full ml-2" placeholder="Search insights..." type="text"/>
+</div>
+<button class="relative p-2 text-on-surface-variant hover:text-primary transition-colors active:opacity-70">
+<span class="material-symbols-outlined">notifications</span>
+<!-- Red unread badge -->
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<button class="p-1 rounded-full hover:ring-2 ring-primary ring-offset-2 transition-all">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A small profile thumbnail of an executive user, captured in a warm, low-contrast studio environment. The lighting is soft and golden, highlighting a sophisticated and clean aesthetic. The user has a calm and focused expression, perfectly suited for a high-end AI dashboard profile image." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs7bm6mxarioci6cher_87C8gH-D-teAsTeM-vq3kp8r6olpVnPfZFgIg2-AReI_0sntKXW4-iDKUL91CMv8TrAMxbut8ZhwrCDS0Q12W_yYTOt8qieOYtD0pL2r--CqC5IwKmFxtbuftBGeOiw04WrxpGOWR6tGL4RT7YDb7kGeRFEBRze7YZSSdfl2yoFC5HNpY025x154q9V5Yoz7U8mC9NUyHI53-yZCDV4rNE-2Pscei7dy_x"/>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow p-gutter max-w-container-max mx-auto w-full">
+<!-- Welcome Section -->
+<section class="mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-1">Good morning, Dad.</h2>
+<div class="flex items-center gap-2 text-primary font-medium">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">info</span>
+<p class="font-body-md text-body-md">You have 3 urgent items to review today.</p>
+</div>
+</section>
+<!-- Bento Grid Dashboard Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Primary Action Card (Urgent) -->
+<div class="col-span-12 lg:col-span-8 p-card-padding bg-surface rounded-xl border border-outline-variant shadow-sm flex flex-col gap-4 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+<div class="flex justify-between items-start z-10">
+<div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-error-container text-on-error-container font-label-md text-label-md mb-3">
+<span class="material-symbols-outlined text-[14px]">priority_high</span>
+                Urgent Action
+              </span>
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">Review Quarterly Financial Briefing</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mt-2 max-w-lg">
+                I've synthesized the 42-page report into 4 key strategic pivots for your 2 PM meeting with the Board.
+              </p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-md text-label-md font-semibold hover:bg-secondary transition-all shadow-sm">
+              Open Analysis
+            </button>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant flex gap-6 z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">timer</span>
+<span class="text-on-surface-variant font-label-md text-label-md">5 min read</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">attachment</span>
+<span class="text-on-surface-variant font-label-md text-label-md">2 source documents</span>
+</div>
+</div>
+</div>
+<!-- AI Status Chip / Secondary Info -->
+<div class="col-span-12 lg:col-span-4 p-card-padding bg-surface rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-label-md text-label-md font-bold text-on-surface-variant uppercase tracking-wider">Assistant Status</h3>
+<div class="flex items-center gap-1.5 text-secondary-container">
+<span class="w-2 h-2 bg-secondary-container rounded-full animate-pulse"></span>
+<span class="font-label-sm text-label-sm">Active</span>
+</div>
+</div>
+<p class="text-on-surface font-body-md text-body-md leading-relaxed">
+              Monitoring your inbox and calendar. I've rescheduled two low-priority syncs to clear your morning for deep work.
+            </p>
+</div>
+<div class="mt-6 flex flex-wrap gap-2">
+<span class="px-3 py-1 rounded-full bg-primary/5 text-primary font-label-sm text-label-sm border border-primary/10">Calendar Optimized</span>
+<span class="px-3 py-1 rounded-full bg-primary/5 text-primary font-label-sm text-label-sm border border-primary/10">3 Filters Applied</span>
+</div>
+</div>
+<!-- Upcoming Meeting Card -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 p-card-padding bg-surface rounded-xl border border-outline-variant shadow-sm hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[28px]">videocam</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Next Meeting • 11:30 AM</p>
+<h4 class="font-label-md text-label-md font-bold text-on-surface">Product Strategy Sync</h4>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<img class="w-6 h-6 rounded-full" data-alt="A portrait of a young female product manager in a clean, minimalist office setting with soft studio lighting. She wears a professional neutral-toned sweater and has a friendly, engaged expression. The image color palette consists of soft grays, whites, and subtle indigo accents to match the executive assistant app's UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC85TsGZ5_SMeXkyMBZAYTrXYafzEVpeKpqhj5JykEns392mP_ayJ2yClDK3k6RcfzFkEzmtvP-VCITo27_U6otTGyz2h-f5Qv2x4GoZ8qhi7VMQPMyThDCn7DcO2KXL2Dd17OpGeiQ9KvZ0gE0uDbsrN1xYuIr6yAL5rKcB5XCv6oiI6TTP1uof7wADUzp4Aq96jW2Cshr1xKDydDP_DpfuW6D928KZTLPG65d5OMqEJD1kXF_-QJ5"/>
+<span class="text-body-md text-on-surface-variant">Sarah Chen + 4 others</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg border border-outline-variant/30 italic text-on-surface-variant text-body-md">
+              "Briefing doc sent to your iPad."
+            </div>
+</div>
+</div>
+<!-- Empty State Visual Placeholder -->
+<div class="col-span-12 md:col-span-6 lg:col-span-8 p-card-padding bg-surface rounded-xl border border-outline-variant shadow-sm border-dashed flex flex-col items-center justify-center text-center min-h-[240px]">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center mb-4 text-outline">
+<span class="material-symbols-outlined text-[32px]">analytics</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface-variant">No pending approvals</h4>
+<p class="text-on-surface-variant font-body-md text-body-md mt-1 max-w-xs">
+            Your workflow is clear. I'll notify you if any document requires your signature or review.
+          </p>
+</div>
+</div>
+<!-- Footer Floating Help/Assistant -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform group">
+<span class="material-symbols-outlined text-[28px] group-hover:hidden">chat_bubble</span>
+<span class="material-symbols-outlined text-[28px] hidden group-hover:block">smart_toy</span>
+</button>
+</div>
+</main>
+</div>
+<script>
+    // Simple micro-interaction for nav hover states and active button simulation
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        if (this.getAttribute('href') === '#') e.preventDefault();
+        
+        // Visual feedback for non-active links
+        if (!this.classList.contains('bg-primary')) {
+          this.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            this.style.transform = 'scale(1)';
+          }, 100);
+        }
+      });
+    });
+
+    // Handle profile dropdown or notifications
+    document.querySelector('button .material-symbols-outlined[data-icon="notifications"]')?.closest('button').addEventListener('click', function() {
+      // Toggle logic would go here
+      const badge = this.querySelector('.bg-error');
+      if (badge) badge.classList.add('hidden');
+    });
+  </script>
+</body></html>

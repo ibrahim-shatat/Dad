@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - Daily Briefing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Shared Component Theme Config -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-secondary-fixed-variant": "#2f2ebe",
+                  "inverse-on-surface": "#f1effa",
+                  "background": "#fbf8ff",
+                  "on-error-container": "#93000a",
+                  "error": "#ba1a1a",
+                  "secondary-container": "#6063ee",
+                  "surface-dim": "#dad9e3",
+                  "surface-container-high": "#e8e7f1",
+                  "inverse-surface": "#2f3038",
+                  "inverse-primary": "#c3c0ff",
+                  "on-tertiary-fixed-variant": "#7b2f00",
+                  "on-primary-fixed": "#0f0069",
+                  "surface-bright": "#fbf8ff",
+                  "surface-container-highest": "#e3e1ec",
+                  "on-surface-variant": "#464555",
+                  "on-secondary": "#ffffff",
+                  "on-primary-container": "#dad7ff",
+                  "primary-fixed": "#e2dfff",
+                  "surface-variant": "#e3e1ec",
+                  "secondary": "#4648d4",
+                  "primary": "#3525cd",
+                  "on-background": "#1a1b22",
+                  "surface-container-low": "#f4f2fd",
+                  "on-secondary-container": "#fffbff",
+                  "on-primary": "#ffffff",
+                  "surface-container-lowest": "#ffffff",
+                  "error-container": "#ffdad6",
+                  "secondary-fixed": "#e1e0ff",
+                  "tertiary": "#7e3000",
+                  "on-primary-fixed-variant": "#3323cc",
+                  "tertiary-fixed-dim": "#ffb695",
+                  "outline": "#777587",
+                  "surface-tint": "#4d44e3",
+                  "primary-fixed-dim": "#c3c0ff",
+                  "on-tertiary-container": "#ffd2be",
+                  "on-surface": "#1a1b22",
+                  "on-secondary-fixed": "#07006c",
+                  "surface-container": "#eeedf7",
+                  "surface": "#fbf8ff",
+                  "tertiary-container": "#a44100",
+                  "on-tertiary": "#ffffff",
+                  "outline-variant": "#c7c4d8",
+                  "tertiary-fixed": "#ffdbcc",
+                  "on-tertiary-fixed": "#351000",
+                  "secondary-fixed-dim": "#c0c1ff",
+                  "primary-container": "#4f46e5",
+                  "on-error": "#ffffff"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "margin-page": "40px",
+                  "container-max": "1440px",
+                  "unit": "4px",
+                  "gutter": "24px",
+                  "card-padding": "20px"
+          },
+          "fontFamily": {
+                  "headline-lg": ["Inter"],
+                  "label-sm": ["Inter"],
+                  "body-md": ["Inter"],
+                  "headline-xl": ["Inter"],
+                  "label-md": ["Inter"],
+                  "body-lg": ["Inter"],
+                  "headline-md": ["Inter"]
+          },
+          "fontSize": {
+                  "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                  "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                  "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                  "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                  "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                  "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .tap-active:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col pb-20">
+<!-- TopAppBar (JSON Mapping) -->
+<header class="lg:hidden flex justify-between items-center px-4 h-16 w-full sticky top-0 z-40 bg-background border-b border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 flex items-center justify-center bg-primary-container rounded-lg">
+<span class="material-symbols-outlined text-on-primary-container">menu</span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Dashboard</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a high-level executive with graying hair and a kind expression, wearing a navy blue blazer and white shirt. The background is a soft-focus minimalist office with clean white walls and subtle indigo accents. The lighting is bright and warm, conveying a sense of calm competence and reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4Ju_DUyPYgX-B5PsUdUmEjPY7dw7h3PORVKBixLtfoG8_wUDvGYPMdN8YaqYfQcZrc6q_tkCG660l-ax2rUOdss4ZGkbSFPbGUj4ty-TZw5FqeIYT1oKxr_1MeADchwqQ5SqM10bZabEPVmWmwd3cmSvUcFVIC1Znjoj2lHK1VTMRZPlEgyB8ySbSt_1eNu4jpmkgUFFZnMj-8Dm0-8mGvAbKyQr5PeY4z7kMEES2_rNWBGwkMdSk"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-md mx-auto px-4 py-6 space-y-8">
+<!-- Header Section -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 flex items-center justify-center bg-primary rounded-xl shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-on-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">light_mode</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Daily briefing</h2>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Friday, Oct 25</p>
+</div>
+</div>
+<button class="tap-active w-full py-4 bg-primary text-on-primary rounded-xl font-headline-md text-headline-md flex items-center justify-center gap-2 transition-transform shadow-md shadow-primary/25">
+<span class="material-symbols-outlined">auto_awesome</span>
+        Generate briefing
+      </button>
+</section>
+<!-- AI Summary Empty State Card -->
+<section class="relative group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary-fixed/20 to-secondary-fixed/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all opacity-70"></div>
+<div class="relative glass-card border border-white/40 p-6 rounded-2xl shadow-sm space-y-4">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">spark</span>
+<p class="font-body-lg text-body-lg italic text-on-surface-variant">No summary yet — tap Generate briefing</p>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="font-label-md text-label-md text-on-surface-variant">Daily Progress</span>
+<span class="font-headline-md text-headline-md text-primary">0<span class="text-on-surface-variant text-body-md font-normal">/7 handled</span></span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-0 h-full bg-primary transition-all duration-1000 ease-out"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Grouped Sections -->
+<section class="space-y-6">
+<!-- Urgent Emails -->
+<div class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-label-md text-label-md font-bold text-on-surface-variant flex items-center gap-2">
+            URGENT EMAILS <span class="bg-error text-on-error w-5 h-5 rounded-full flex items-center justify-center text-[10px]">2</span>
+</h3>
+<button class="text-primary font-label-md text-label-md">View all</button>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant divide-y divide-outline-variant overflow-hidden">
+<!-- Row 1 -->
+<div class="flex items-center p-4 gap-4 tap-active">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex-shrink-0 cursor-pointer"></div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<h4 class="font-body-lg text-body-lg font-semibold truncate">Urgent: Board Meeting Update</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Alex • 5m ago</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center p-4 gap-4 tap-active">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex-shrink-0 cursor-pointer"></div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<h4 class="font-body-lg text-body-lg font-semibold truncate">Q4 Budget Review</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Finance • 22m ago</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Meetings Today -->
+<div class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-label-md text-label-md font-bold text-on-surface-variant flex items-center gap-2">
+            MEETINGS TODAY <span class="bg-primary/10 text-primary w-5 h-5 rounded-full flex items-center justify-center text-[10px]">3</span>
+</h3>
+<button class="text-primary font-label-md text-label-md">Calendar</button>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant divide-y divide-outline-variant overflow-hidden">
+<div class="flex items-center p-4 gap-4 tap-active">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex-shrink-0 cursor-pointer"></div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<h4 class="font-body-lg text-body-lg font-semibold truncate">Product Strategy Sync</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">10:00 AM • Zoom</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Action Items -->
+<div class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-label-md text-label-md font-bold text-on-surface-variant flex items-center gap-2">
+            ACTION ITEMS DUE <span class="bg-error/10 text-error w-5 h-5 rounded-full flex items-center justify-center text-[10px]">2</span>
+</h3>
+<button class="text-primary font-label-md text-label-md">Manage</button>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant divide-y divide-outline-variant overflow-hidden">
+<div class="flex items-center p-4 gap-4 tap-active">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex-shrink-0 cursor-pointer"></div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<h4 class="font-body-lg text-body-lg font-semibold truncate">Sign Employment Contract</h4>
+</div>
+<p class="font-label-md text-label-md text-error font-bold uppercase tracking-tight">OVERDUE</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">signature</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (JSON Mapping) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface border-t border-outline-variant shadow-sm">
+<div class="flex flex-col items-center gap-1 text-on-surface-variant tap-active">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary font-bold tap-active">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">today</span>
+<span class="font-label-sm text-label-sm">Brief</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant tap-active">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm">Chat</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant tap-active">
+<span class="material-symbols-outlined">folder</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant tap-active">
+<span class="material-symbols-outlined">more_horiz</span>
+<span class="font-label-sm text-label-sm">More</span>
+</div>
+</nav>
+<script>
+    // Simple micro-interaction for checkboxes
+    document.querySelectorAll('.flex-shrink-0.cursor-pointer').forEach(checkbox => {
+      checkbox.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.classList.toggle('bg-primary');
+        this.classList.toggle('border-primary');
+        this.innerHTML = this.classList.contains('bg-primary') 
+          ? '<span class="material-symbols-outlined text-on-primary text-[16px]">check</span>' 
+          : '';
+        
+        // Update progress bar logic could go here
+      });
+    });
+
+    // Tap behavior for rows
+    document.querySelectorAll('.tap-active').forEach(row => {
+      row.addEventListener('click', function() {
+        console.log('Navigating to detail view...');
+      });
+    });
+  </script>
+</body></html>

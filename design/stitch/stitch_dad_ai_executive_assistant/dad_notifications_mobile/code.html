@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad AI Executive Assistant - Notifications</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#6063ee",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-error": "#ffffff",
+                    "on-background": "#1a1b22",
+                    "background": "#fbf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#e1e0ff",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#eeedf7",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#dad7ff",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "primary-fixed": "#e2dfff",
+                    "inverse-on-surface": "#f1effa",
+                    "on-secondary-container": "#fffbff",
+                    "on-surface-variant": "#464555",
+                    "tertiary": "#7e3000",
+                    "surface-dim": "#dad9e3",
+                    "on-tertiary-fixed": "#351000",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container-high": "#e8e7f1",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#777587",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "on-tertiary-container": "#ffd2be",
+                    "surface-variant": "#e3e1ec",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#fbf8ff",
+                    "surface": "#fbf8ff",
+                    "surface-container-low": "#f4f2fd",
+                    "surface-tint": "#4d44e3",
+                    "surface-container-highest": "#e3e1ec",
+                    "on-secondary-fixed": "#07006c",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "inverse-surface": "#2f3038",
+                    "secondary": "#4648d4",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "outline-variant": "#c7c4d8",
+                    "primary-container": "#4f46e5",
+                    "on-surface": "#1a1b22",
+                    "on-primary-fixed": "#0f0069",
+                    "tertiary-container": "#a44100",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#c3c0ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "8px",
+                    "lg": "8px",
+                    "xl": "12px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "unit": "4px",
+                    "container-max": "1440px",
+                    "card-padding": "20px",
+                    "margin-page": "40px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .notification-backdrop {
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(4px);
+        }
+        .unread-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #3525cd;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center">
+<!-- Mobile Screen Container -->
+<div class="w-full max-w-md bg-surface min-h-screen relative shadow-2xl overflow-hidden flex flex-col">
+<!-- TopAppBar (From Shared Components) -->
+<header class="w-full sticky top-0 z-50 bg-surface border-b border-outline-variant shadow-sm flex items-center justify-between px-gutter py-4">
+<div class="cursor-pointer active:scale-95 duration-200 transition-colors hover:bg-surface-container-low p-1 rounded-full">
+<span class="material-symbols-outlined text-primary text-[24px]">menu</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">Dad</h1>
+<div class="relative cursor-pointer active:scale-95 duration-200 transition-colors hover:bg-surface-container-low p-1 rounded-full">
+<span class="material-symbols-outlined text-primary text-[24px]">notifications</span>
+<!-- Badge -->
+<span class="absolute top-0 right-0 bg-error text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full border-2 border-surface">3</span>
+</div>
+</header>
+<!-- Main Content Area (Blurred for notification panel) -->
+<main class="flex-grow p-gutter space-y-6 opacity-40">
+<!-- Mock Background Content -->
+<div class="space-y-4">
+<div class="h-40 w-full bg-surface-container-low rounded-xl animate-pulse"></div>
+<div class="grid grid-cols-2 gap-4">
+<div class="h-32 bg-surface-container-low rounded-xl animate-pulse"></div>
+<div class="h-32 bg-surface-container-low rounded-xl animate-pulse"></div>
+</div>
+<div class="h-64 w-full bg-surface-container-low rounded-xl animate-pulse"></div>
+</div>
+</main>
+<!-- Notification Panel Overlay -->
+<div class="absolute inset-0 z-[60] flex flex-col pt-16 px-4 pointer-events-none">
+<div class="pointer-events-auto bg-surface-container-lowest border border-outline-variant rounded-xl shadow-xl flex flex-col max-h-[85vh]">
+<!-- Panel Header -->
+<div class="flex items-center justify-between px-card-padding py-4 border-b border-outline-variant">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Notifications</h2>
+<button class="font-label-md text-label-md text-primary font-semibold hover:underline">Mark all read</button>
+</div>
+<!-- Notification List -->
+<div class="overflow-y-auto flex-grow">
+<!-- Item 1: Urgent Email (Unread) -->
+<div class="bg-surface-container-low px-card-padding py-4 border-b border-outline-variant flex gap-4 transition-colors">
+<div class="flex-grow space-y-1">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Urgent Email</span>
+<span class="font-label-sm text-label-sm text-outline">Just now</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface">Urgent: Board Meeting Update</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">The board has requested an earlier start for tomorrow's sync.</p>
+</div>
+<div class="mt-2">
+<div class="unread-indicator"></div>
+</div>
+</div>
+<!-- Item 2: Approval Pending (Unread) -->
+<div class="bg-surface-container-low px-card-padding py-4 border-b border-outline-variant flex gap-4 transition-colors">
+<div class="flex-grow space-y-1">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Approval Pending</span>
+<span class="font-label-sm text-label-sm text-outline">2m ago</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold text-on-surface">Approval Request: Q4 Budget</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Marketing is requesting a 15% increase for the upcoming campaign.</p>
+</div>
+<div class="mt-2">
+<div class="unread-indicator"></div>
+</div>
+</div>
+<!-- Item 3: Document Reviewed (Read) -->
+<div class="bg-surface px-card-padding py-4 border-b border-outline-variant flex gap-4 opacity-80">
+<div class="flex-grow space-y-1">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-outline uppercase font-bold tracking-wider">Document Reviewed</span>
+<span class="font-label-sm text-label-sm text-outline">3h ago</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Document Synthesized</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Your 42-page financial briefing is ready for review.</p>
+</div>
+</div>
+<!-- Item 4: Approval Approved (Read) -->
+<div class="bg-surface px-card-padding py-4 border-b border-outline-variant flex gap-4 opacity-80">
+<div class="flex-grow space-y-1">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-outline uppercase font-bold tracking-wider">Approval Approved</span>
+<span class="font-label-sm text-label-sm text-outline">1d ago</span>
+</div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Expense Approved</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Flight to NYC for the strategy summit has been confirmed.</p>
+</div>
+</div>
+</div>
+<!-- Panel Footer -->
+<div class="p-card-padding border-t border-outline-variant bg-surface-container-lowest">
+<button class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg border border-outline text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-outline text-[20px]">notifications</span>
+<span>Phone push on — tap to turn off</span>
+</button>
+</div>
+</div>
+</div>
+<!-- NavigationDrawer (Suppressed on this task-focused notification view, but keeping structure for shell context if needed) -->
+<!-- Since instruction says "notification panel open" on mobile, we prioritize the panel -->
+</div>
+<!-- Micro-interaction for closing panel (dummy) -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Dad Executive Dashboard Initialized');
+            // Adding a small visual feedback for list items
+            const items = document.querySelectorAll('.notification-list-item');
+            items.forEach(item => {
+                item.addEventListener('touchstart', () => {
+                    item.classList.add('bg-surface-container-high');
+                });
+                item.addEventListener('touchend', () => {
+                    item.classList.remove('bg-surface-container-high');
+                });
+            });
+        });
+    </script>
+</body></html>

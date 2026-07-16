@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - Q4 Strategy Review</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-container-high": "#e8e7f1",
+                      "surface-dim": "#dad9e3",
+                      "secondary-fixed-dim": "#c0c1ff",
+                      "tertiary-fixed-dim": "#ffb695",
+                      "on-secondary-fixed-variant": "#2f2ebe",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#e3e1ec",
+                      "outline": "#777587",
+                      "primary-fixed": "#e2dfff",
+                      "outline-variant": "#c7c4d8",
+                      "on-error-container": "#93000a",
+                      "primary": "#3525cd",
+                      "on-primary-container": "#dad7ff",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "error": "#ba1a1a",
+                      "surface-variant": "#e3e1ec",
+                      "surface-container-low": "#f4f2fd",
+                      "tertiary-container": "#a44100",
+                      "surface-container": "#eeedf7",
+                      "secondary": "#4648d4",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#464555",
+                      "on-primary-fixed": "#0f0069",
+                      "on-tertiary-fixed": "#351000",
+                      "tertiary-fixed": "#ffdbcc",
+                      "secondary-fixed": "#e1e0ff",
+                      "on-tertiary-fixed-variant": "#7b2f00",
+                      "surface": "#fbf8ff",
+                      "on-secondary-fixed": "#07006c",
+                      "secondary-container": "#6063ee",
+                      "inverse-primary": "#c3c0ff",
+                      "on-tertiary-container": "#ffd2be",
+                      "background": "#fbf8ff",
+                      "tertiary": "#7e3000",
+                      "surface-bright": "#fbf8ff",
+                      "primary-container": "#4f46e5",
+                      "inverse-on-surface": "#f1effa",
+                      "surface-tint": "#4d44e3",
+                      "inverse-surface": "#2f3038",
+                      "on-background": "#1a1b22",
+                      "on-surface": "#1a1b22",
+                      "on-secondary-container": "#fffbff",
+                      "on-primary-fixed-variant": "#3323cc"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-page": "40px",
+                      "gutter": "24px",
+                      "unit": "4px",
+                      "container-max": "1440px",
+                      "card-padding": "20px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .slide-shadow {
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md transition-colors duration-300">
+<!-- Top Navigation Anchor (Manual for Details Screen Context) -->
+<header class="sticky top-0 z-40 flex items-center justify-between px-4 h-16 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<button class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-surface-container" onclick="history.back()">
+<span class="material-symbols-outlined text-on-surface">arrow_back</span>
+</button>
+<h1 class="text-headline-md font-headline-md text-on-surface">Presentations</h1>
+</div>
+<div class="w-11 h-11 flex items-center justify-center rounded-full bg-primary-fixed overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A sophisticated corporate portrait of a high-level executive with a confident smile, wearing a tailored charcoal suit against a minimalist light grey studio background. The lighting is soft and professional, emphasizing a modern corporate aesthetic of leadership and competence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcRdtAFgM__whh5viVwLr8TFVwrVTYAN7n73ispghXxrJlZ8NXLx9v0aYLl0URUKPa3Ph_QGIPjhZbOSU_bbyci5ThZsVkL72n4HqQ1F1FNZ3yzYZhzfN3hBqDZXgP4agzcby4lZbfVLZf_3woexIeQXh-Dgr2AKgqGVKaO605C5Rk24aThQSQgErK_7fQWij7wv940bMrxOh5su2mvza3HsywDToVcmLsBGvFocJqB8RpuPCP59dU"/>
+</div>
+</header>
+<main class="pb-24 max-w-container-max mx-auto">
+<!-- Presentation Hero Section -->
+<section class="px-4 pt-6 pb-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-label-md font-label-md">Ready</span>
+</div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface mb-6">Q4 Strategy Review</h2>
+<!-- Actions -->
+<div class="flex flex-col gap-3">
+<button class="flex items-center justify-center gap-2 h-[48px] bg-primary-container text-on-primary rounded-xl font-semibold active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">download</span>
+<span>Download .pptx</span>
+</button>
+<button class="flex items-center justify-center gap-2 h-[48px] border border-outline text-primary font-semibold rounded-xl active:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">send</span>
+<span>Send to approval</span>
+</button>
+</div>
+</section>
+<!-- Slide List -->
+<section class="px-4 space-y-6 mt-4">
+<!-- Slide 1: Section Header -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden slide-shadow">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">Slide 1</span>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-md text-label-sm">Section header</span>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+<div class="aspect-video bg-surface-container-high flex items-center justify-center p-8 text-center">
+<h3 class="text-headline-md font-headline-md text-primary leading-tight">2024 Market Outlook</h3>
+</div>
+<button class="w-full flex items-center justify-between p-4 text-on-surface-variant" onclick="toggleNotes('notes-1')">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">speaker_notes</span>
+<span class="text-label-md font-label-md">Speaker Notes</span>
+</div>
+<span class="material-symbols-outlined transition-transform" id="icon-notes-1">expand_more</span>
+</button>
+<div class="hidden px-4 pb-4 text-body-md text-on-surface-variant italic border-t border-outline-variant pt-3 mx-4" id="notes-1">
+                    Wait for everyone to settle before starting the outlook.
+                </div>
+</div>
+<!-- Slide 2: Bullets (Notes Expanded) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden slide-shadow">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">Slide 2</span>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-md text-label-sm">Bullets</span>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+<div class="aspect-video bg-surface-container-high p-6">
+<h4 class="text-body-lg font-bold text-on-surface mb-3 border-b border-outline-variant pb-2">Key Growth Pillars</h4>
+<ul class="space-y-2">
+<li class="flex items-start gap-2 text-body-md text-on-surface">
+<span class="text-primary mt-1">•</span>
+                            Global Expansion
+                        </li>
+<li class="flex items-start gap-2 text-body-md text-on-surface">
+<span class="text-primary mt-1">•</span>
+                            Operational Efficiency
+                        </li>
+<li class="flex items-start gap-2 text-body-md text-on-surface">
+<span class="text-primary mt-1">•</span>
+                            AI Integration
+                        </li>
+</ul>
+</div>
+<div class="px-4 py-4 bg-primary-fixed/20 border-t border-outline-variant">
+<div class="flex items-center gap-2 mb-2 text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">speaker_notes</span>
+<span class="text-label-md font-label-md">Speaker Notes</span>
+</div>
+<p class="text-body-md text-on-surface italic">"Emphasize the 15% efficiency gain."</p>
+</div>
+</div>
+<!-- Slide 3: Chart -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden slide-shadow">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">Slide 3</span>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-md text-label-sm">Chart</span>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+<div class="aspect-video bg-surface-container-high p-6 flex flex-col">
+<h4 class="text-body-lg font-bold text-on-surface mb-4">Q3 Performance</h4>
+<div class="flex-1 flex items-end gap-3 px-4">
+<div class="flex-1 bg-primary/40 rounded-t-sm h-[40%] transition-all hover:bg-primary/60"></div>
+<div class="flex-1 bg-primary/60 rounded-t-sm h-[65%] transition-all hover:bg-primary/80"></div>
+<div class="flex-1 bg-primary rounded-t-sm h-[90%] transition-all hover:bg-primary-container"></div>
+<div class="flex-1 bg-primary/30 rounded-t-sm h-[50%] transition-all hover:bg-primary/50"></div>
+<div class="flex-1 bg-primary/50 rounded-t-sm h-[75%] transition-all hover:bg-primary/70"></div>
+</div>
+<div class="h-[1px] bg-outline-variant w-full mt-1"></div>
+</div>
+<button class="w-full flex items-center justify-between p-4 text-on-surface-variant" onclick="toggleNotes('notes-3')">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">speaker_notes</span>
+<span class="text-label-md font-label-md">Speaker Notes</span>
+</div>
+<span class="material-symbols-outlined transition-transform" id="icon-notes-3">expand_more</span>
+</button>
+<div class="hidden px-4 pb-4 text-body-md text-on-surface-variant italic border-t border-outline-variant pt-3 mx-4" id="notes-3">
+                    Call out the outlier in the third month.
+                </div>
+</div>
+<!-- Slide 4: Two-column -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden slide-shadow">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">Slide 4</span>
+<span class="bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-md text-label-sm">Two-column</span>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+<div class="aspect-video bg-surface-container-high p-6">
+<h4 class="text-body-lg font-bold text-on-surface mb-4">Regional Breakdown</h4>
+<div class="grid grid-cols-2 gap-4">
+<ul class="space-y-1">
+<li class="text-label-md font-bold text-primary border-b border-primary/20 mb-1">North America</li>
+<li class="text-[11px] text-on-surface-variant">• Revenue: +12%</li>
+<li class="text-[11px] text-on-surface-variant">• Churn: -2%</li>
+</ul>
+<ul class="space-y-1">
+<li class="text-label-md font-bold text-primary border-b border-primary/20 mb-1">Europe & Asia</li>
+<li class="text-[11px] text-on-surface-variant">• Revenue: +8%</li>
+<li class="text-[11px] text-on-surface-variant">• New Markets: 4</li>
+</ul>
+</div>
+</div>
+<button class="w-full flex items-center justify-between p-4 text-on-surface-variant" onclick="toggleNotes('notes-4')">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">speaker_notes</span>
+<span class="text-label-md font-label-md">Speaker Notes</span>
+</div>
+<span class="material-symbols-outlined transition-transform" id="icon-notes-4">expand_more</span>
+</button>
+<div class="hidden px-4 pb-4 text-body-md text-on-surface-variant italic border-t border-outline-variant pt-3 mx-4" id="notes-4">
+                    Prepare for questions regarding Asia's slower growth.
+                </div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-16 px-4 pb-safe bg-surface border-t border-outline-variant z-50">
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-all">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-all">
+<span class="material-symbols-outlined">event_note</span>
+<span class="text-label-sm font-label-sm">Briefing</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-all">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="text-label-sm font-label-sm">Ask AI</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed font-semibold active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">present_to_all</span>
+<span class="text-label-sm font-label-sm">Presentations</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-all">
+<span class="material-symbols-outlined">more_horiz</span>
+<span class="text-label-sm font-label-sm">More</span>
+</button>
+</nav>
+<script>
+        function toggleNotes(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                el.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Simple light/dark mode persistence simulation
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // document.documentElement.classList.add('dark'); // Uncomment to enable system-level dark mode
+        }
+    </script>
+</body></html>

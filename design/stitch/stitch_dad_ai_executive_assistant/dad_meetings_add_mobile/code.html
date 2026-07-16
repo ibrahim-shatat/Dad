@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#3525cd",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#6063ee",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-error": "#ffffff",
+                    "on-background": "#1a1b22",
+                    "background": "#fbf8ff",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#e1e0ff",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "primary-fixed": "#e2dfff",
+                    "inverse-on-surface": "#f1effa",
+                    "on-secondary-container": "#fffbff",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#dad7ff",
+                    "surface-container": "#eeedf7",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container-high": "#e8e7f1",
+                    "surface-dim": "#dad9e3",
+                    "on-tertiary-fixed": "#351000",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#464555",
+                    "tertiary": "#7e3000",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#ffd2be",
+                    "surface-variant": "#e3e1ec",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "outline": "#777587",
+                    "surface-tint": "#4d44e3",
+                    "surface-container-highest": "#e3e1ec",
+                    "surface-container-low": "#f4f2fd",
+                    "surface": "#fbf8ff",
+                    "surface-bright": "#fbf8ff",
+                    "secondary": "#4648d4",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "inverse-surface": "#2f3038",
+                    "on-secondary-fixed": "#07006c",
+                    "on-primary-fixed": "#0f0069",
+                    "tertiary-container": "#a44100",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#c3c0ff",
+                    "on-surface": "#1a1b22",
+                    "primary-container": "#4f46e5",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "outline-variant": "#c7c4d8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "card-padding": "20px",
+                    "margin-page": "40px",
+                    "gutter": "24px",
+                    "container-max": "1440px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-xl": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            user-select: none;
+        }
+        .bottom-sheet-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-full-screen {
+                height: 100dvh;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-hidden">
+<!-- Main Navigation (Hidden on task-focused screens as per mandate) -->
+<!-- We suppress global nav because this is a focused task/modal view -->
+<!-- Desktop Sidebar (Hidden on mobile) -->
+<aside class="hidden md:flex flex-col h-full w-[260px] fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant py-8 z-10">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md text-primary font-bold">Executive Workspace</h1>
+</div>
+<nav class="flex-1">
+<div class="flex items-center gap-4 px-6 py-3 cursor-pointer text-on-surface-variant font-medium hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</div>
+<div class="flex items-center gap-4 px-6 py-3 cursor-pointer text-primary font-bold border-l-4 border-primary bg-primary-container/10 transition-all">
+<span class="material-symbols-outlined" data-icon="video_chat">video_chat</span>
+<span class="font-label-md text-label-md">Meetings</span>
+</div>
+<div class="flex items-center gap-4 px-6 py-3 cursor-pointer text-on-surface-variant font-medium hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Documents</span>
+</div>
+</nav>
+</aside>
+<!-- Main Content Area (Background Dashboard Context) -->
+<main class="md:pl-[260px] h-screen w-full flex flex-col">
+<header class="w-full top-0 sticky bg-background border-b border-outline-variant flex justify-between items-center px-margin-page py-4 z-20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="smart_toy">smart_toy</span>
+<span class="font-headline-lg text-headline-lg font-semibold text-primary">Dad</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a high-level executive woman with a confident expression, wearing a tailored navy blazer. The lighting is soft and directional, typical of a corporate headshot, with a clean minimalist background in light gray tones. The image exudes competence, authority, and reliability, perfectly matching a premium light-mode UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6uhQ2eWLlwKB-QiOVQSb3faFCV1eJ9efwmcb2Dp10bf7KLrBAQr_4WJFbXpGgubeU1b1MK1Fx1zNUaQokn5wIVlT2JzmVtbxeJK3W1W7_mcCtBytaaJlI9qPEPytVZBbELWdDHTuDdPm3IgTmoTIt4_Mst_w00c6EpU6OKkH5bLoPacuXAQuGUT5Qi_33AuhA06oKR5-W3dy7I5M0yXTNxEP4UuJRM_fTm_0Z05cEM26LfugWojN7"/>
+</div>
+</header>
+<!-- Dummy Background Content to Show Context -->
+<div class="p-margin-page overflow-y-auto scrollbar-hide">
+<div class="max-w-container-max mx-auto space-y-gutter">
+<div class="flex justify-between items-center">
+<h2 class="font-headline-xl text-headline-xl">Meeting Repository</h2>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-medium flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                        Add Meeting
+                    </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant p-card-padding rounded-xl shadow-sm opacity-50">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-primary-fixed text-on-primary-fixed-variant px-3 py-1 rounded-full text-label-sm font-label-sm">Strategy</span>
+<span class="text-on-surface-variant text-label-sm">2 hours ago</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Q4 Product Roadmap</h3>
+<p class="text-on-surface-variant text-body-md line-clamp-3">Discussing the alignment of engineering resources with the upcoming launch of the generative AI suite...</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-card-padding rounded-xl shadow-sm opacity-50">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-label-sm font-label-sm">Budget</span>
+<span class="text-on-surface-variant text-label-sm">Yesterday</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Annual Financial Review</h3>
+<p class="text-on-surface-variant text-body-md line-clamp-3">Full transcript processing complete. Key takeaway: OpEx reduction targets achieved for Q3...</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Modal Backdrop -->
+<div class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-sm z-40 transition-opacity duration-300" id="modalBackdrop"></div>
+<!-- Bottom Sheet / Modal Interface -->
+<div class="fixed inset-x-0 bottom-0 md:inset-x-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-50 w-full md:max-w-2xl bg-surface-container-lowest rounded-t-[32px] md:rounded-3xl shadow-2xl bottom-sheet-transition md:transition-none mobile-full-screen border border-outline-variant overflow-hidden flex flex-col" id="meetingSheet">
+<!-- Drag Handle (Mobile only) -->
+<div class="md:hidden w-full flex justify-center py-4">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full"></div>
+</div>
+<!-- Header -->
+<div class="px-8 pb-4 md:pt-8 flex justify-between items-center border-b border-outline-variant/30">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Add Meeting</h2>
+<p class="text-on-surface-variant text-body-md">Ingest new session data for executive processing.</p>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant" id="closeSheet">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Form Scrollable Area -->
+<div class="flex-1 overflow-y-auto px-8 py-6 scrollbar-hide">
+<div class="space-y-6">
+<!-- Title Field -->
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant block">TITLE</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-outline" placeholder="e.g. Stakeholder Alignment Workshop" type="text"/>
+</div>
+<!-- Date Field -->
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant block">DATE</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" type="date"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline pointer-events-none" data-icon="calendar_today">calendar_today</span>
+</div>
+</div>
+<!-- Notes / Transcript Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface-variant block">NOTES / TRANSCRIPT</label>
+<button class="flex items-center gap-1 text-primary text-label-md font-label-md hover:underline">
+<span class="material-symbols-outlined text-[16px]" data-icon="upload_file">upload_file</span>
+                            Upload File
+                        </button>
+</div>
+<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none placeholder:text-outline" placeholder="Paste your raw meeting transcript or detailed notes here..." rows="8"></textarea>
+</div>
+<!-- Instructions Field -->
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant block">INSTRUCTIONS</label>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-bold">OPTIONAL</span>
+</div>
+<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-body-md focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none placeholder:text-outline" placeholder="Direct the AI: 'Focus on action items' or 'Format as a memo'..." rows="3"></textarea>
+</div>
+<!-- Visual Cue (Asymmetric Decoration) -->
+<div class="pt-4 flex items-start gap-4 p-4 rounded-xl bg-primary-container/5 border border-primary-container/10">
+<span class="material-symbols-outlined text-primary" data-icon="info">info</span>
+<p class="text-label-md text-on-surface-variant">Our AI engine will automatically identify participants, extract action items, and synthesize a high-level summary from your transcript.</p>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="px-8 py-6 border-t border-outline-variant/30 bg-surface-container-low flex flex-col md:flex-row gap-4">
+<button class="flex-1 md:flex-none md:px-8 py-3 rounded-lg border border-outline text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors" id="cancelBtn">
+                Cancel
+            </button>
+<button class="flex-1 bg-primary-container text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all" id="processBtn">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                Process Meeting
+            </button>
+</div>
+</div>
+<!-- Notification Toast (Hidden initially) -->
+<div class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[60] transform translate-y-32 opacity-0 transition-all duration-500" id="toast">
+<div class="bg-inverse-surface text-inverse-on-surface px-6 py-3 rounded-full flex items-center gap-3 shadow-xl">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="check_circle">check_circle</span>
+<span class="font-label-md">Meeting data successfully queued for analysis.</span>
+</div>
+</div>
+<script>
+        const sheet = document.getElementById('meetingSheet');
+        const backdrop = document.getElementById('modalBackdrop');
+        const closeBtn = document.getElementById('closeSheet');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const processBtn = document.getElementById('processBtn');
+        const toast = document.getElementById('toast');
+
+        function toggleModal(show) {
+            if (show) {
+                backdrop.classList.remove('hidden');
+                sheet.classList.remove('translate-y-full');
+                setTimeout(() => {
+                    backdrop.classList.add('opacity-100');
+                    backdrop.classList.remove('opacity-0');
+                }, 10);
+            } else {
+                backdrop.classList.add('opacity-0');
+                backdrop.classList.remove('opacity-100');
+                sheet.classList.add('translate-y-full');
+                setTimeout(() => {
+                    backdrop.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        closeBtn.addEventListener('click', () => toggleModal(false));
+        cancelBtn.addEventListener('click', () => toggleModal(false));
+        backdrop.addEventListener('click', () => toggleModal(false));
+
+        processBtn.addEventListener('click', () => {
+            processBtn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+            `;
+            processBtn.classList.add('opacity-70', 'cursor-not-allowed');
+            
+            setTimeout(() => {
+                toggleModal(false);
+                showToast();
+                // Reset button after closure
+                setTimeout(() => {
+                    processBtn.innerHTML = `<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>Process Meeting`;
+                    processBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                }, 500);
+            }, 1500);
+        });
+
+        function showToast() {
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-32', 'opacity-0');
+            }, 3000);
+        }
+
+        // Handle ESC key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') toggleModal(false);
+        });
+    </script>
+</body></html>

@@ -270,6 +270,7 @@ export interface EmailMessageItem {
   snippet: string
   received_at: string
   is_unread: boolean
+  is_hidden: boolean
   ai_urgency: EmailUrgency | null
   ai_summary: string | null
 }

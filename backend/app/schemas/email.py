@@ -28,6 +28,7 @@ class EmailMessageRead(BaseModel):
     snippet: str
     received_at: datetime
     is_unread: bool
+    is_hidden: bool
     ai_urgency: EmailUrgency | None
     ai_summary: str | None
 

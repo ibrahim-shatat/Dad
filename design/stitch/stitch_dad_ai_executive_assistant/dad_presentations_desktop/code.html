@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - Presentations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#a44100",
+                    "surface-container": "#eeedf7",
+                    "on-surface": "#1a1b22",
+                    "surface": "#fbf8ff",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed": "#0f0069",
+                    "primary-container": "#4f46e5",
+                    "surface-container-highest": "#e3e1ec",
+                    "inverse-primary": "#c3c0ff",
+                    "outline-variant": "#c7c4d8",
+                    "secondary-fixed": "#e1e0ff",
+                    "on-secondary-fixed": "#07006c",
+                    "primary": "#3525cd",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e8e7f1",
+                    "primary-fixed": "#e2dfff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-secondary-container": "#fffbff",
+                    "surface-bright": "#fbf8ff",
+                    "background": "#fbf8ff",
+                    "surface-variant": "#e3e1ec",
+                    "inverse-surface": "#2f3038",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "on-tertiary-fixed": "#351000",
+                    "on-primary-container": "#dad7ff",
+                    "on-background": "#1a1b22",
+                    "secondary": "#4648d4",
+                    "on-error-container": "#93000a",
+                    "on-error": "#ffffff",
+                    "tertiary": "#7e3000",
+                    "outline": "#777587",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface-variant": "#464555",
+                    "inverse-on-surface": "#f1effa",
+                    "surface-dim": "#dad9e3",
+                    "secondary-container": "#6063ee",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-tint": "#4d44e3",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "on-secondary-fixed-variant": "#2f2ebe",
+                    "on-tertiary-container": "#ffd2be",
+                    "surface-container-low": "#f4f2fd",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "on-tertiary-fixed-variant": "#7b2f00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "margin-page": "40px",
+                    "container-max": "1440px",
+                    "card-padding": "20px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex">
+<!-- NavigationDrawer (Shared Component) -->
+<aside class="hidden lg:flex flex-col py-margin-page bg-surface dark:bg-inverse-surface w-[260px] h-screen fixed left-0 top-0 border-r border-outline-variant dark:border-outline z-50">
+<div class="px-6 mb-10">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">Dad</h1>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+<!-- Labels & Icons from JSON mapping -->
+<a class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-on-surface-variant font-medium hover:bg-surface-container-low hover:text-primary" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-on-surface-variant font-medium hover:bg-surface-container-low hover:text-primary" href="#">
+<span class="material-symbols-outlined mr-3">event_note</span>
+<span class="font-label-md text-label-md">Daily briefing</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-on-surface-variant font-medium hover:bg-surface-container-low hover:text-primary" href="#">
+<span class="material-symbols-outlined mr-3">smart_toy</span>
+<span class="font-label-md text-label-md">Assistant</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-on-surface-variant font-medium hover:bg-surface-container-low hover:text-primary" href="#">
+<span class="material-symbols-outlined mr-3">description</span>
+<span class="font-label-md text-label-md">Documents</span>
+</a>
+<!-- Active State: Presentations -->
+<a class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-primary font-bold bg-primary-fixed-dim/20 border-l-[3px] border-primary" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 1;">present_to_all</span>
+<span class="font-label-md text-label-md">Presentations</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-on-surface-variant font-medium hover:bg-surface-container-low hover:text-primary" href="#">
+<span class="material-symbols-outlined mr-3">mail</span>
+<span class="font-label-md text-label-md">Email</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-on-surface-variant font-medium hover:bg-surface-container-low hover:text-primary" href="#">
+<span class="material-symbols-outlined mr-3">groups</span>
+<span class="font-label-md text-label-md">Meetings</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-on-surface-variant font-medium hover:bg-surface-container-low hover:text-primary" href="#">
+<span class="material-symbols-outlined mr-3">calendar_today</span>
+<span class="font-label-md text-label-md">Calendar</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-on-surface-variant font-medium hover:bg-surface-container-low hover:text-primary" href="#">
+<span class="material-symbols-outlined mr-3">fact_check</span>
+<span class="font-label-md text-label-md">Approvals</span>
+</a>
+<a class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-on-surface-variant font-medium hover:bg-surface-container-low hover:text-primary" href="#">
+<span class="material-symbols-outlined mr-3">admin_panel_settings</span>
+<span class="font-label-md text-label-md">Admin</span>
+</a>
+</nav>
+<div class="mt-auto px-6 pt-6 border-t border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-white font-bold text-xs">JD</div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">John Doe</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">Executive</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 lg:ml-[260px] min-h-screen">
+<!-- Top Header Area -->
+<header class="flex justify-between items-center px-margin-page h-20 bg-surface/80 backdrop-blur-sm sticky top-0 z-40">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Presentations</h2>
+<p class="font-body-md text-on-surface-variant">Manage your high-impact decks and AI-generated briefings.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md hover:shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                New presentation
+            </button>
+</header>
+<!-- Bento Grid Content -->
+<div class="px-margin-page pb-margin-page mt-4">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Card: Generating State (Pulse) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden group hover:shadow-md transition-all">
+<div class="p-card-padding">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-primary-fixed-dim/30 text-on-primary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold flex items-center gap-1.5 uppercase tracking-widest animate-pulse-slow">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                Generating
+                            </span>
+<span class="text-on-surface-variant text-[11px]">Today, 10:45 AM</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2 line-clamp-2">Q4 Strategic Growth &amp; Market Expansion Analysis</h3>
+<p class="font-body-md text-on-surface-variant mb-4 line-clamp-2">Aggregating global sales data and competitor intelligence for the executive committee review.</p>
+<div class="h-40 bg-surface-container rounded-lg flex items-center justify-center relative overflow-hidden">
+
+<div class="z-10 flex flex-col items-center">
+<span class="material-symbols-outlined text-primary-container text-4xl animate-spin-slow">rebase_edit</span>
+<span class="font-label-sm text-on-surface-variant mt-2">Synthesizing layouts...</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card: Ready State -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden group hover:shadow-md transition-all cursor-pointer">
+<div class="p-card-padding">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                                Ready
+                            </span>
+<span class="text-on-surface-variant text-[11px]">Yesterday</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2 line-clamp-2">Annual Stakeholder Keynote 2024</h3>
+<p class="font-body-md text-on-surface-variant mb-4 line-clamp-2">Visionary deck focusing on sustainable innovation and future technology pipelines.</p>
+<div class="relative aspect-video rounded-lg overflow-hidden border border-outline-variant group-hover:scale-[1.02] transition-transform">
+<img class="w-full h-full object-cover" data-alt="A premium, professional presentation slide preview featuring minimalist data visualizations, elegant typography, and a sophisticated color palette of deep indigo and soft grays. The design is modern corporate with generous white space and high-end photographic textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXYAhp3nZYOhKurhFLTs4VMc_F1xudlp6Yjn1S2-gfGPYV0z3bRQt0ATcZrjSyONasGrKQVWgyZStNmIKFj5RamdyzyDkHiTsNJkCNL7vBamsHXojJOYMY_98o084wDEKj1bYTGRxEXAfe1MSyy8i-WGAYZVMtpVTmt-PJ54LSNVASDyfm78HFArSvDuvhvGq-lgUF5w0br0u2osHMeIUAs1jEmBZcoyvMhzUm2yX-YCrnIN-JW8lZ"/>
+<div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
+</div>
+</div>
+</div>
+<!-- Card: Approved State -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden group hover:shadow-md transition-all">
+<div class="p-card-padding">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">verified</span>
+                                Approved
+                            </span>
+<span class="text-on-surface-variant text-[11px]">Oct 12, 2023</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2 line-clamp-2">Internal Operations Efficiency Report</h3>
+<p class="font-body-md text-on-surface-variant mb-4 line-clamp-2">Workflow optimization results and cost-saving measures across regional offices.</p>
+<div class="relative aspect-video rounded-lg overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="A clean business report presentation slide showing a professional bar chart and clear, legible headers. The layout is structured on a grid, using light mode colors like soft white and cool blue. The aesthetic reflects executive clarity and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATE5hsYd5ZitiFWu4QnELt2FJLkV4VfZJdHFjMyKKTc9Fmo2s8V0g1ZqAzFwSMOx_daFgvZvSrCSQRjUlbi3_qWcaL0MUgNDXs5yr8t41TG7mjV1PMiomElCLZBnbd-qbdy-FQB8frOmsj8ws1tfRI2-jwQV-LOTavHlURouCbtWw2s6s6z3UrL2ZpX6YHgTJfwBT-YxHkJovgtrC3cO3NmwDdtNgN0IBPbH6UTQJ6qe54E7cUx6Ws"/>
+<div class="absolute top-2 right-2 bg-white/90 p-1 rounded shadow-sm">
+<span class="material-symbols-outlined text-green-600 text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card: Draft State -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden group hover:shadow-md transition-all">
+<div class="p-card-padding">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                                Draft
+                            </span>
+<span class="text-on-surface-variant text-[11px]">Oct 10, 2023</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2 line-clamp-2">Project Phoenix: Product Roadmap</h3>
+<p class="font-body-md text-on-surface-variant mb-4 line-clamp-2">Initial sketches and outline for the upcoming high-priority secret project launch.</p>
+<div class="h-24 border-2 border-dashed border-outline-variant rounded-lg flex flex-col items-center justify-center text-on-surface-variant bg-surface-container-low/50">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-label-sm mt-1 text-[10px]">Outline only</span>
+</div>
+</div>
+</div>
+<!-- Card: Failed State -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden group hover:shadow-md transition-all">
+<div class="p-card-padding">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                                Failed
+                            </span>
+<span class="text-on-surface-variant text-[11px]">Oct 08, 2023</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2 line-clamp-2">2023 Compliance &amp; Risk Audit</h3>
+<p class="font-body-md text-on-surface-variant mb-4 line-clamp-2">Generation halted due to incomplete data sources from the EMEA branch servers.</p>
+<div class="bg-error-container/20 border border-error/20 p-3 rounded-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-error text-[18px]">error</span>
+<div>
+<p class="text-error font-label-md text-[11px]">DataSourceError: Access Denied</p>
+<button class="mt-2 text-primary font-bold text-[10px] uppercase hover:underline">Retry with manual upload</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card: Ready State (Another one) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden group hover:shadow-md transition-all cursor-pointer">
+<div class="p-card-padding">
+<div class="flex justify-between items-start mb-4">
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                                Ready
+                            </span>
+<span class="text-on-surface-variant text-[11px]">Sep 29, 2023</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2 line-clamp-2">HR Talent Retention Strategy</h3>
+<p class="font-body-md text-on-surface-variant mb-4 line-clamp-2">Comprehensive plan to improve employee engagement and reduce churn in technical departments.</p>
+<div class="relative aspect-video rounded-lg overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A warm, engaging presentation slide showing high-quality portraits of diverse employees overlaid with soft graphic circles. The lighting is natural and bright, suggesting a human-centric corporate culture. Professional design tokens align with an Indigo and Pearl palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmDFElydJLKsk-3MQIRx53AT8jURAHw9PNqvb9XcM0b2N-4pBwtvSggDlQOiKCr7PRstGgfpnL7_VaoWbvsiTCHRTdYLthaGAr4F8Pb4CblcE-6Y70-kb3HnwB-GG0kokvHO1xY5d6-1-QIi3W2SEgWasa_Ovn_JVUiS-8xAv7OoZ1PZVQBoAuutcBvhEsqAFgyV_GNBeQZ7uVtzNMovHp4GMLAtsDl-igq7uqRxzo2NFy2ejQWAM4"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Navigation (Shared Component) -->
+<nav class="lg:hidden flex justify-around items-center pt-2 pb-safe px-4 fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/90 backdrop-blur-md border-t border-outline-variant shadow-lg">
+<a class="flex flex-col items-center text-on-surface-variant py-2" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center text-on-surface-variant py-2" href="#">
+<span class="material-symbols-outlined">event_note</span>
+<span class="font-label-sm text-label-sm">Briefing</span>
+</a>
+<a class="flex flex-col items-center text-on-surface-variant py-2" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-sm text-label-sm">Assistant</span>
+</a>
+<a class="flex flex-col items-center text-primary font-bold py-2" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">present_to_all</span>
+<span class="font-label-sm text-label-sm">Docs</span>
+</a>
+<a class="flex flex-col items-center text-on-surface-variant py-2" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-sm text-label-sm">Cal</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions and Dark Mode toggle support
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.cursor-pointer');
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.add('scale-95');
+                    setTimeout(() => card.classList.remove('scale-95'), 150);
+                });
+            });
+
+            // Toggle Dark Mode with 'd' key for demo
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'd') {
+                    document.documentElement.classList.toggle('dark');
+                }
+            });
+        });
+    </script>
+</body></html>

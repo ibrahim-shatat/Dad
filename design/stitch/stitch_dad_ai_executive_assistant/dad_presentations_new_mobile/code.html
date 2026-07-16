@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Dad - New Presentation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#a44100",
+                        "surface-container": "#eeedf7",
+                        "on-surface": "#1a1b22",
+                        "surface": "#fbf8ff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#0f0069",
+                        "primary-container": "#4f46e5",
+                        "surface-container-highest": "#e3e1ec",
+                        "inverse-primary": "#c3c0ff",
+                        "outline-variant": "#c7c4d8",
+                        "secondary-fixed": "#e1e0ff",
+                        "on-secondary-fixed": "#07006c",
+                        "primary": "#3525cd",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e7f1",
+                        "primary-fixed": "#e2dfff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-secondary-container": "#fffbff",
+                        "surface-bright": "#fbf8ff",
+                        "background": "#fbf8ff",
+                        "surface-variant": "#e3e1ec",
+                        "inverse-surface": "#2f3038",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "on-tertiary-fixed": "#351000",
+                        "on-primary-container": "#dad7ff",
+                        "on-background": "#1a1b22",
+                        "secondary": "#4648d4",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "tertiary": "#7e3000",
+                        "outline": "#777587",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#464555",
+                        "inverse-on-surface": "#f1effa",
+                        "surface-dim": "#dad9e3",
+                        "secondary-container": "#6063ee",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#4d44e3",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-container-low": "#f4f2fd",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-tertiary-fixed-variant": "#7b2f00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-page": "40px",
+                        "container-max": "1440px",
+                        "card-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bottom-sheet {
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        .bottom-sheet.active {
+            transform: translateY(0);
+        }
+        .scrim {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .scrim.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen overflow-hidden">
+<!-- Main Content Background (Mocking the Dashboard) -->
+<div class="relative w-full h-screen overflow-y-auto pb-20">
+<!-- TopAppBar (From JSON) -->
+<header class="bg-surface dark:bg-inverse-surface text-primary dark:text-inverse-primary w-full top-0 border-b border-outline-variant dark:border-outline shadow-sm flex justify-between items-center px-gutter h-16 w-full z-10">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined cursor-pointer active:scale-95 text-on-surface-variant" data-icon="menu">menu</span>
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-inverse-primary">Dad</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-[10px] uppercase">
+                JD
+            </div>
+</header>
+<!-- Mock Dashboard Content -->
+<main class="p-margin-page space-y-6">
+<div class="space-y-2">
+<h1 class="font-headline-xl text-headline-xl text-on-surface">Good morning, John.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Here is your daily executive summary.</p>
+</div>
+<!-- Bento Grid Mockup -->
+<div class="grid grid-cols-1 gap-4">
+<div class="p-card-padding bg-surface-container-low rounded-xl border border-outline-variant shadow-sm space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-primary uppercase tracking-wider">Upcoming Meeting</span>
+<span class="material-symbols-outlined text-primary" data-icon="event">event</span>
+</div>
+<p class="font-headline-md text-headline-md">Q4 Strategic Review</p>
+<p class="font-body-md text-body-md text-on-surface-variant">10:30 AM • Boardroom A</p>
+</div>
+<div class="p-card-padding bg-surface-container-low rounded-xl border border-outline-variant shadow-sm space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-tertiary uppercase tracking-wider">Recent Documents</span>
+<span class="material-symbols-outlined text-tertiary" data-icon="description">description</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-3 py-2 border-b border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="article">article</span>
+<span class="font-body-md text-body-md">Market Analysis v2.pdf</span>
+</div>
+<div class="flex items-center gap-3 py-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="article">article</span>
+<span class="font-body-md text-body-md">Product Roadmap FY25</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (From JSON) -->
+<nav class="lg:hidden flex justify-around items-center pt-2 pb-safe px-4 fixed bottom-0 w-full z-40 rounded-t-xl border-t border-outline-variant bg-surface/90 backdrop-blur-md shadow-lg h-16">
+<div class="flex flex-col items-center text-on-surface-variant active:bg-surface-container transition-transform duration-150 active:scale-90">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant active:bg-surface-container transition-transform duration-150 active:scale-90">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-label-sm text-label-sm">Briefing</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant active:bg-surface-container transition-transform duration-150 active:scale-90">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-sm text-label-sm">Assistant</span>
+</div>
+<!-- Active State for Presentations -->
+<div class="flex flex-col items-center text-primary font-bold active:bg-surface-container transition-transform duration-150 active:scale-90">
+<span class="material-symbols-outlined" data-icon="present_to_all">present_to_all</span>
+<span class="font-label-sm text-label-sm">Present</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant active:bg-surface-container transition-transform duration-150 active:scale-90">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm">Cal</span>
+</div>
+</nav>
+</div>
+<!-- Scrim Backdrop -->
+<div class="scrim active fixed inset-0 bg-on-surface/40 z-[60] backdrop-blur-sm" id="scrim"></div>
+<!-- Presentation Bottom Sheet (The Core Task) -->
+<div class="bottom-sheet active fixed bottom-0 left-0 right-0 bg-surface z-[70] rounded-t-[32px] shadow-2xl flex flex-col max-h-[90vh]" id="presentationSheet">
+<!-- Drag Handle -->
+<div class="flex justify-center pt-3 pb-2">
+<div class="w-10 h-1 bg-outline-variant rounded-full"></div>
+</div>
+<!-- Header -->
+<header class="flex items-center justify-between px-gutter py-4 border-b border-outline-variant/30">
+<h2 class="font-headline-md text-headline-md text-on-surface">New presentation</h2>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-90" id="closeSheet">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="close">close</span>
+</button>
+</header>
+<!-- Body Content -->
+<div class="flex-1 overflow-y-auto px-gutter py-6 space-y-8">
+<!-- Source Selector: Segmented Control -->
+<section class="space-y-4">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider block">Content Source
+<div class="bg-surface-container-low p-1 rounded-xl flex gap-1 border border-outline-variant/50">
+<button class="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg bg-surface shadow-sm text-primary font-bold transition-all duration-200" id="btnExisting">
+<span class="material-symbols-outlined text-[18px]" data-icon="folder_open">folder_open</span>
+<span class="font-body-md text-body-md">Existing document</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all duration-200" id="btnPaste">
+<span class="material-symbols-outlined text-[18px]" data-icon="content_paste">content_paste</span>
+<span class="font-body-md text-body-md">Paste notes</span>
+</button>
+</div>
+</label></section>
+<!-- Document Picker View (Default) -->
+<div class="space-y-4" id="sourceDocument">
+<div class="p-card-padding border border-dashed border-primary/40 bg-primary-fixed/5 rounded-2xl flex flex-col items-center justify-center gap-3 min-h-[140px] text-center cursor-pointer hover:bg-primary-fixed/10 transition-colors">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-semibold text-primary">Tap to select a document</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">PDF, DOCX, or TXT up to 20MB</p>
+</div>
+</div>
+<div class="space-y-3">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Recent files</p>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-3 rounded-xl border border-outline-variant hover:border-primary transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="article">article</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-medium">Q3_Earnings_Report.pdf</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Modified 2 days ago</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Paste Notes View (Hidden initially) -->
+<div class="hidden space-y-4" id="sourcePaste">
+<div class="relative">
+<textarea class="w-full min-h-[160px] p-4 bg-surface-container-low border border-outline-variant rounded-xl text-body-md focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none transition-all placeholder:text-on-surface-variant/50" placeholder="Paste your presentation notes, outline, or transcript here..."></textarea>
+</div>
+</div>
+<!-- Instructions -->
+<section class="space-y-4">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider block">Instructions (optional)</label>
+<div class="relative group">
+<textarea class="w-full min-h-[100px] p-4 bg-surface-container-low border border-outline-variant rounded-xl text-body-md focus:ring-2 focus:ring-primary focus:border-primary focus:outline-none transition-all placeholder:text-on-surface-variant/50" placeholder="e.g., Make it professional and data-driven, focus on growth metrics for the executive board."></textarea>
+<div class="absolute right-3 bottom-3 flex gap-2 opacity-60">
+<span class="material-symbols-outlined text-[20px] cursor-pointer hover:text-primary transition-colors" data-icon="mic">mic</span>
+<span class="material-symbols-outlined text-[20px] cursor-pointer hover:text-primary transition-colors" data-icon="magic_button">magic_button</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="p-gutter pb-8 border-t border-outline-variant/30 bg-surface-container-lowest rounded-b-[32px]">
+<button class="w-full bg-primary text-on-primary py-4 rounded-xl font-bold font-body-lg text-body-lg flex items-center justify-center gap-3 shadow-lg shadow-primary/20 active:scale-[0.98] transition-all hover:bg-secondary" id="generateBtn">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                Generate presentation
+            </button>
+<p class="text-center mt-4 font-label-sm text-label-sm text-on-surface-variant px-4">
+                Dad will analyze your content to structure slides, write copy, and suggest layouts.
+            </p>
+</footer>
+</div>
+<!-- Interaction Script -->
+<script>
+        const sheet = document.getElementById('presentationSheet');
+        const scrim = document.getElementById('scrim');
+        const closeBtn = document.getElementById('closeSheet');
+        const generateBtn = document.getElementById('generateBtn');
+
+        const btnExisting = document.getElementById('btnExisting');
+        const btnPaste = document.getElementById('btnPaste');
+        const sourceDocument = document.getElementById('sourceDocument');
+        const sourcePaste = document.getElementById('sourcePaste');
+
+        // Toggle Source View
+        btnExisting.addEventListener('click', () => {
+            sourceDocument.classList.remove('hidden');
+            sourcePaste.classList.add('hidden');
+            btnExisting.classList.add('bg-surface', 'shadow-sm', 'text-primary', 'font-bold');
+            btnExisting.classList.remove('text-on-surface-variant', 'hover:bg-surface-container');
+            btnPaste.classList.remove('bg-surface', 'shadow-sm', 'text-primary', 'font-bold');
+            btnPaste.classList.add('text-on-surface-variant', 'hover:bg-surface-container');
+        });
+
+        btnPaste.addEventListener('click', () => {
+            sourceDocument.classList.add('hidden');
+            sourcePaste.classList.remove('hidden');
+            btnPaste.classList.add('bg-surface', 'shadow-sm', 'text-primary', 'font-bold');
+            btnPaste.classList.remove('text-on-surface-variant', 'hover:bg-surface-container');
+            btnExisting.classList.remove('bg-surface', 'shadow-sm', 'text-primary', 'font-bold');
+            btnExisting.classList.add('text-on-surface-variant', 'hover:bg-surface-container');
+        });
+
+        // Close Sheet Logic
+        const closeSheet = () => {
+            sheet.classList.remove('active');
+            scrim.classList.remove('active');
+            setTimeout(() => {
+                // In a real app, we might navigate away or hide the element
+                alert('Sheet closed. In a production environment, this would navigate back to the dashboard.');
+            }, 400);
+        };
+
+        closeBtn.addEventListener('click', closeSheet);
+        scrim.addEventListener('click', closeSheet);
+
+        // Generate Action
+        generateBtn.addEventListener('click', () => {
+            const originalContent = generateBtn.innerHTML;
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = `
+                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Analyzing sources...</span>
+            `;
+            generateBtn.classList.replace('bg-primary', 'bg-primary-container');
+            
+            setTimeout(() => {
+                alert('Dad is now generating your slides. You will be notified when the presentation is ready for review.');
+                closeSheet();
+                generateBtn.innerHTML = originalContent;
+                generateBtn.disabled = false;
+                generateBtn.classList.replace('bg-primary-container', 'bg-primary');
+            }, 2000);
+        });
+
+        // Subtle parallax effect for the sheet drag indicator
+        let startY = 0;
+        sheet.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].pageY;
+        });
+
+        sheet.addEventListener('touchmove', (e) => {
+            const currentY = e.touches[0].pageY;
+            const diff = currentY - startY;
+            if (diff > 0 && sheet.scrollTop <= 0) {
+                sheet.style.transform = `translateY(${diff}px)`;
+            }
+        });
+
+        sheet.addEventListener('touchend', (e) => {
+            const currentY = e.changedTouches[0].pageY;
+            const diff = currentY - startY;
+            if (diff > 150) {
+                closeSheet();
+            } else {
+                sheet.style.transform = '';
+            }
+        });
+    </script>
+</body></html>

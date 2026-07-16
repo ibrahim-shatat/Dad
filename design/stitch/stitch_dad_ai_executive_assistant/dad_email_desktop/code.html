@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dad - Executive Email Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#ffb695",
+                      "secondary": "#4648d4",
+                      "on-surface": "#1a1b22",
+                      "on-secondary-fixed-variant": "#2f2ebe",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#e3e1ec",
+                      "surface-container-high": "#e8e7f1",
+                      "on-secondary-fixed": "#07006c",
+                      "inverse-primary": "#c3c0ff",
+                      "surface": "#fbf8ff",
+                      "error": "#ba1a1a",
+                      "on-surface-variant": "#464555",
+                      "tertiary": "#7e3000",
+                      "inverse-on-surface": "#f1effa",
+                      "surface-tint": "#4d44e3",
+                      "surface-container": "#eeedf7",
+                      "inverse-surface": "#2f3038",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed": "#e2dfff",
+                      "on-background": "#1a1b22",
+                      "tertiary-container": "#a44100",
+                      "surface-dim": "#dad9e3",
+                      "secondary-container": "#6063ee",
+                      "primary-container": "#4f46e5",
+                      "on-primary-container": "#dad7ff",
+                      "on-tertiary-container": "#ffd2be",
+                      "on-primary-fixed-variant": "#3323cc",
+                      "tertiary-fixed": "#ffdbcc",
+                      "background": "#fbf8ff",
+                      "on-tertiary-fixed": "#351000",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#c0c1ff",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "on-secondary": "#ffffff",
+                      "surface-bright": "#fbf8ff",
+                      "on-error-container": "#93000a",
+                      "surface-container-low": "#f4f2fd",
+                      "secondary-fixed": "#e1e0ff",
+                      "on-tertiary": "#ffffff",
+                      "surface-variant": "#e3e1ec",
+                      "on-tertiary-fixed-variant": "#7b2f00",
+                      "outline": "#777587",
+                      "on-primary-fixed": "#0f0069",
+                      "outline-variant": "#c7c4d8",
+                      "primary": "#3525cd",
+                      "on-secondary-container": "#fffbff",
+                      "on-primary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-page": "40px",
+                      "container-max": "1440px",
+                      "unit": "4px",
+                      "gutter": "24px",
+                      "card-padding": "20px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-active-pill {
+            position: absolute;
+            left: 0;
+            width: 3px;
+            height: 24px;
+            background-color: #3525cd;
+            border-radius: 0 4px 4px 0;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c7c4d8;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex overflow-hidden">
+<!-- Navigation Drawer (Desktop Sidebar) -->
+<aside class="w-[260px] h-screen fixed left-0 top-0 bg-surface dark:bg-on-surface border-r border-outline-variant dark:border-outline hidden md:flex flex-col py-8 z-50">
+<div class="px-6 mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="smart_toy">smart_toy</span>
+<span class="font-headline-md text-headline-md text-primary font-bold tracking-tight">Dad</span>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<div class="px-3 py-2 text-on-surface-variant font-label-md text-label-md uppercase tracking-wider mb-2">Executive Workspace</div>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-lowest hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-lowest hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-label-md text-label-md">Daily Briefing</span>
+</a>
+<a class="relative flex items-center gap-3 px-4 py-3 border-l-[3px] border-primary text-primary font-bold bg-surface-container-low transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="mail" style="font-variation-settings: 'FILL' 1;">mail</span>
+<span class="font-label-md text-label-md">Email</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-lowest hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span class="font-label-md text-label-md">Assistant</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-lowest hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Documents</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-surface-container-lowest hover:text-primary transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-label-md text-label-md">Approvals</span>
+</a>
+</nav>
+<div class="mt-auto px-6 pt-6 border-t border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-white font-bold overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior executive male in a tailored charcoal suit, smiling confidently. High-end studio lighting creates a professional, authoritative mood consistent with a corporate workspace. The background is a soft-focus office environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBItt4aRx5cCdoh_YgiPNOUXQegtc_kneIL6rriZryV-89NnWSJe67gHoCn5Zxgui7a-Jpz0HzMFIG0VCBGCt0WAYIfr-i1cfE0QV0UHFRP_gH968uJpW_Rqiqsh3GB8UfT9lp27OFE_IEAtVbfbm14vaxjPhwRbD2x29ub6_K8CJcFminLILmCMhCuU_i9y_zeVWYwfBXFDEjmYabUqJr2m4Hvxj-gcXzD8ScqcfqMBuPrsGsBF7NS"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-bold">Executive Profile</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Settings &amp; Account</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-[260px] flex flex-col h-screen bg-background">
+<!-- Top App Bar -->
+<header class="h-16 px-margin-page flex justify-between items-center bg-surface border-b border-outline-variant sticky top-0 z-40">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">Email</h1>
+<span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm">3 New Urgent</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors font-label-md text-label-md border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="sync">sync</span>
+                    Sync all accounts
+                </button>
+<div class="w-px h-6 bg-outline-variant"></div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</header>
+<!-- Page Scrollable Content -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-margin-page space-y-gutter">
+<!-- Account Connections Section -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Active Account Card -->
+<div class="bg-surface-container-low p-card-padding rounded-xl border border-outline-variant flex flex-col justify-between h-32 hover:shadow-md transition-shadow group cursor-pointer">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-red-500" data-icon="alternate_email">alternate_email</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold text-on-surface">ceo@luxuryholding.com</p>
+<p class="text-[11px] text-on-surface-variant">Connected via Google Workspace</p>
+</div>
+</div>
+<span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+</div>
+<div class="flex justify-between items-center mt-4">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-surface-container-low bg-surface flex items-center justify-center text-[10px] font-bold">AJ</div>
+<div class="w-6 h-6 rounded-full border-2 border-surface-container-low bg-surface flex items-center justify-center text-[10px] font-bold">SA</div>
+</div>
+<span class="text-[11px] font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">Manage Account →</span>
+</div>
+</div>
+<!-- Connect Account Card -->
+<div class="bg-surface border border-dashed border-outline p-card-padding rounded-xl flex flex-col justify-center items-center h-32 gap-3 hover:bg-surface-container-lowest transition-colors group">
+<p class="font-label-md text-label-md text-on-surface-variant font-medium">Connect a Google or Outlook account</p>
+<div class="flex gap-3">
+<button class="px-3 py-1.5 rounded bg-white border border-outline-variant flex items-center gap-2 hover:bg-gray-50 transition-colors shadow-sm">
+<img alt="Google" class="w-3 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-8g54uxENIU9X0LLjfcnfAE0wjUHZKyRhvKczynd-C5mFaMB6P0TbUGMrVCArF_ifGsA9gsP69q5CYJuHjxg948ejTmYhO6zyaIdRGKvM8CWHSPibHqLrbl12s1yeahi6kycsQf6UWIsx8zbj8pAa8tpRnkJl0_86zbZAbn4kTjmNCY3o7rWlhTYSE4SuyfU1ToLYMNDNtLDI964GPXSwQ_UxI0Jp_nYjyrRekXN0EJuhmnI2qKNk"/>
+<span class="text-[11px] font-semibold text-gray-700">Google</span>
+</button>
+<button class="px-3 py-1.5 rounded bg-white border border-outline-variant flex items-center gap-2 hover:bg-gray-50 transition-colors shadow-sm">
+<img alt="Microsoft" class="w-3 h-3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgRk5ZB77Sn6cnRdxsl_VXK8bd-6OaCc9R90UW9QUQGou2Qrj-ql3gBEv6x6uAocR_foJivWwx7e0WK5mLp4oeEPnEHRlvAeW1fYDwY215jVyWlVyIdle3G5Mbs0nwhBQTxOU_DPEASkiyIf8MlXPImpeyOXbqbGyNLcrFOrtsSOZjdRu3Qp1QldhG1mWh32OEKIoZogr2-TMh8Y9akcz9E7h8Bz2xu4p7s6RIf2xlVmnrjN2c14k2"/>
+<span class="text-[11px] font-semibold text-gray-700">Outlook</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Main Messages Grid/List -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden flex flex-col">
+<!-- List Header -->
+<div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-outline-variant bg-surface-container-low font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">
+<div class="col-span-1 flex items-center gap-3">
+<input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+                        Status
+                    </div>
+<div class="col-span-2">Sender</div>
+<div class="col-span-3">Subject</div>
+<div class="col-span-4">AI Insight</div>
+<div class="col-span-2 text-right">Received</div>
+</div>
+<!-- Message 1: High Urgency -->
+<div class="grid grid-cols-12 gap-4 px-6 py-5 border-b border-outline-variant hover:bg-error-container/10 transition-colors cursor-pointer group relative" onclick="toggleSelection(this)">
+<div class="col-span-1 flex items-center gap-3">
+<input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="material-symbols-outlined text-error text-[20px]" data-icon="priority_high" data-weight="fill">priority_high</span>
+</div>
+<div class="col-span-2 flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-bold text-xs">AJ</div>
+<span class="font-bold text-on-surface">Alex Jordan</span>
+</div>
+<div class="col-span-3">
+<p class="font-bold text-on-surface truncate">Q4 Strategy Revisions</p>
+</div>
+<div class="col-span-4">
+<div class="flex items-start gap-2 bg-primary-fixed/30 px-3 py-2 rounded-lg border border-primary-fixed">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="bolt">bolt</span>
+<p class="text-body-md text-on-primary-fixed-variant leading-tight">Requests feedback on the APAC expansion timeline by EOD.</p>
+</div>
+</div>
+<div class="col-span-2 text-right">
+<span class="text-label-md text-on-surface-variant font-medium">10:42 AM</span>
+</div>
+<!-- Selection Indicator -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary opacity-0 group-[.is-selected]:opacity-100 transition-opacity"></div>
+</div>
+<!-- Message 2: Medium Urgency -->
+<div class="grid grid-cols-12 gap-4 px-6 py-5 border-b border-outline-variant hover:bg-surface-container-low transition-colors cursor-pointer group relative" onclick="toggleSelection(this)">
+<div class="col-span-1 flex items-center gap-3">
+<input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4" type="checkbox"/>
+<span class="material-symbols-outlined text-tertiary text-[20px]" data-icon="fiber_manual_record" data-weight="fill">fiber_manual_record</span>
+</div>
+<div class="col-span-2 flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-white flex items-center justify-center font-bold text-xs">SA</div>
+<span class="font-bold text-on-surface">Sarah Adams</span>
+</div>
+<div class="col-span-3">
+<p class="font-bold text-on-surface truncate">Meeting Recap: Team Allocation</p>
+</div>
+<div class="col-span-4">
+<div class="flex items-start gap-2 bg-surface-container-low px-3 py-2 rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]" data-icon="summarize">summarize</span>
+<p class="text-body-md text-on-surface-variant leading-tight">Summarizes new headcount approvals for the engineering sprint.</p>
+</div>
+</div>
+<div class="col-span-2 text-right">
+<span class="text-label-md text-on-surface-variant font-medium">9:15 AM</span>
+</div>
+<!-- Selection Indicator -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary opacity-0 group-[.is-selected]:opacity-100 transition-opacity"></div>
+</div>
+<!-- Placeholder Empty Rows (Visual Rhythm) -->
+<div class="grid grid-cols-12 gap-4 px-6 py-5 border-b border-outline-variant opacity-40">
+<div class="col-span-1 flex items-center gap-3"><div class="w-4 h-4 bg-outline-variant rounded"></div></div>
+<div class="col-span-2"><div class="w-24 h-4 bg-outline-variant rounded"></div></div>
+<div class="col-span-3"><div class="w-48 h-4 bg-outline-variant rounded"></div></div>
+<div class="col-span-4"><div class="w-full h-4 bg-outline-variant rounded"></div></div>
+<div class="col-span-2"></div>
+</div>
+<div class="grid grid-cols-12 gap-4 px-6 py-5 border-b border-outline-variant opacity-20">
+<div class="col-span-1 flex items-center gap-3"><div class="w-4 h-4 bg-outline-variant rounded"></div></div>
+<div class="col-span-2"><div class="w-24 h-4 bg-outline-variant rounded"></div></div>
+<div class="col-span-3"><div class="w-48 h-4 bg-outline-variant rounded"></div></div>
+<div class="col-span-4"><div class="w-full h-4 bg-outline-variant rounded"></div></div>
+<div class="col-span-2"></div>
+</div>
+</section>
+</div>
+<!-- Floating Action / Contextual Detail Pane (Slide-in Logic) -->
+<div class="fixed right-0 top-16 bottom-0 w-[400px] bg-surface-container shadow-xl border-l border-outline-variant transform translate-x-full transition-transform duration-300 ease-in-out z-30" id="detail-pane">
+<div class="h-full flex flex-col p-6 space-y-6">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Message Detail</h3>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-highest" onclick="hideDetail()">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<div class="p-4 bg-surface rounded-xl border border-outline-variant space-y-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold" id="detail-avatar"></div>
+<div>
+<p class="font-bold text-on-surface" id="detail-name"></p>
+<p class="text-label-sm text-on-surface-variant" id="detail-time"></p>
+</div>
+</div>
+<p class="font-headline-md text-headline-md text-primary font-bold" id="detail-subject"></p>
+</div>
+<div class="space-y-2">
+<p class="font-label-md text-label-md font-bold text-on-surface-variant uppercase">AI Assistant Recommendation</p>
+<div class="bg-primary-fixed text-on-primary-fixed-variant p-4 rounded-xl border border-primary-fixed-dim">
+<p class="text-body-md leading-relaxed">Based on your calendar and previous responses, I recommend acknowledging the revision and proposing a brief sync tomorrow at 9:00 AM.</p>
+</div>
+</div>
+<div class="mt-auto space-y-4">
+<div class="p-3 bg-tertiary-fixed rounded-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary-fixed-variant" data-icon="info">info</span>
+<p class="text-label-md text-on-tertiary-fixed-variant">Reply will be sent to your Approval Queue.</p>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary rounded-xl font-bold flex items-center justify-center gap-3 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                        Draft AI Reply
+                    </button>
+<button class="w-full py-3 bg-transparent border border-primary text-primary rounded-xl font-bold hover:bg-primary/5 transition-colors">
+                        Open Full Thread
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function toggleSelection(element) {
+            // Remove selection from all other rows
+            document.querySelectorAll('.is-selected').forEach(row => {
+                row.classList.remove('is-selected', 'bg-primary-container/10');
+            });
+
+            // Toggle selection on clicked row
+            element.classList.add('is-selected', 'bg-primary-container/10');
+
+            // Show and populate detail pane
+            const pane = document.getElementById('detail-pane');
+            const name = element.querySelector('.col-span-2 span').innerText;
+            const initials = element.querySelector('.col-span-2 .w-8').innerText;
+            const subject = element.querySelector('.col-span-3 p').innerText;
+            const time = element.querySelector('.col-span-2.text-right span').innerText;
+            const avatarBg = element.querySelector('.col-span-2 .w-8').classList.contains('bg-error-container') ? 'bg-error-container text-on-error-container' : 'bg-secondary-container text-white';
+
+            document.getElementById('detail-name').innerText = name;
+            document.getElementById('detail-subject').innerText = subject;
+            document.getElementById('detail-time').innerText = 'Received today at ' + time;
+            document.getElementById('detail-avatar').innerText = initials;
+            document.getElementById('detail-avatar').className = `w-10 h-10 rounded-full flex items-center justify-center font-bold ${avatarBg}`;
+
+            pane.classList.remove('translate-x-full');
+        }
+
+        function hideDetail() {
+            document.getElementById('detail-pane').classList.add('translate-x-full');
+            document.querySelectorAll('.is-selected').forEach(row => {
+                row.classList.remove('is-selected', 'bg-primary-container/10');
+            });
+        }
+    </script>
+</body></html>
