@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { X } from 'lucide-react'
+import { Sparkles, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { getEmailDraft, updateEmailDraft } from '@/api/email'
+
+const fieldLabel = 'text-xs font-medium uppercase tracking-wide text-muted-foreground'
 
 interface Props {
   draftId: string
@@ -81,9 +83,12 @@ export default function EmailDraftEditor({ draftId, onClose }: Props) {
                 </p>
               )}
               <div className="flex flex-col gap-1.5">
-                <Label htmlFor="draft-to">To</Label>
+                <Label htmlFor="draft-to" className={fieldLabel}>
+                  To
+                </Label>
                 <Input
                   id="draft-to"
+                  className="bg-muted/40"
                   value={to}
                   onChange={(e) => setTo(e.target.value)}
                   disabled={!editable}
@@ -91,29 +96,42 @@ export default function EmailDraftEditor({ draftId, onClose }: Props) {
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <Label htmlFor="draft-cc">Cc</Label>
+                <Label htmlFor="draft-cc" className={fieldLabel}>
+                  Cc
+                </Label>
                 <Input
                   id="draft-cc"
+                  className="bg-muted/40"
                   value={cc}
                   onChange={(e) => setCc(e.target.value)}
                   disabled={!editable}
-                  placeholder="optional"
+                  placeholder="Add Cc recipients"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <Label htmlFor="draft-subject">Subject</Label>
+                <Label htmlFor="draft-subject" className={fieldLabel}>
+                  Subject
+                </Label>
                 <Input
                   id="draft-subject"
+                  className="bg-muted/40"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   disabled={!editable}
                 />
               </div>
               <div className="flex flex-col gap-1.5">
-                <Label htmlFor="draft-body">Body</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="draft-body" className={fieldLabel}>
+                    Body
+                  </Label>
+                  <span className="flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary">
+                    <Sparkles className="size-3" /> AI assisted
+                  </span>
+                </div>
                 <Textarea
                   id="draft-body"
-                  className="min-h-48"
+                  className="min-h-48 bg-muted/40"
                   value={body}
                   onChange={(e) => setBody(e.target.value)}
                   disabled={!editable}

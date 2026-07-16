@@ -4,7 +4,16 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Bell, BellRing } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
-import type { Notification } from '@/types'
+import type { Notification, NotificationType } from '@/types'
+
+const TYPE_LABELS: Record<NotificationType, string> = {
+  document_reviewed: 'Document reviewed',
+  meeting_processed: 'Meeting processed',
+  approval_pending: 'Approval pending',
+  approval_approved: 'Approval approved',
+  approval_rejected: 'Approval rejected',
+  urgent_email: 'Urgent email',
+}
 import {
   fetchUnreadCount,
   listNotifications,
@@ -141,20 +150,24 @@ export default function NotificationBell() {
                     !n.is_read && 'bg-primary/5'
                   )}
                 >
-                  <div className="flex items-start gap-2">
-                    {!n.is_read && (
-                      <span className="mt-1.5 size-2 flex-none rounded-full bg-primary" />
-                    )}
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium">{n.title}</p>
-                      {n.body && (
-                        <p className="line-clamp-2 text-xs text-muted-foreground">{n.body}</p>
+                  <div className="flex items-center justify-between gap-2">
+                    <span
+                      className={cn(
+                        'text-[10px] font-bold uppercase tracking-wide',
+                        !n.is_read ? 'text-primary' : 'text-muted-foreground'
                       )}
-                      <p className="mt-0.5 text-[11px] text-muted-foreground">
+                    >
+                      {TYPE_LABELS[n.type]}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] text-muted-foreground">
                         {relativeTime(n.created_at)}
-                      </p>
+                      </span>
+                      {!n.is_read && <span className="size-2 flex-none rounded-full bg-primary" />}
                     </div>
                   </div>
+                  <p className="text-sm font-semibold leading-tight">{n.title}</p>
+                  {n.body && <p className="line-clamp-2 text-xs text-muted-foreground">{n.body}</p>}
                 </button>
               ))
             )}
