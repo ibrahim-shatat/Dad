@@ -131,6 +131,21 @@ class EmailSummary(BaseModel):
     )
 
 
+class ExecutiveBriefing(BaseModel):
+    summary: str = Field(
+        description="A concise executive briefing (3-6 sentences) in a calm, direct voice, "
+        "written for a busy director starting their day. Lead with what matters most, name "
+        "specifics from the provided data, and do not invent anything not present in it. If "
+        "there is genuinely nothing pressing, say so plainly."
+    )
+    top_priorities: list[str] = Field(
+        default_factory=list,
+        description="Up to 3 short, action-oriented priorities for today, most important first. "
+        "Each is a single imperative phrase (e.g. 'Approve the vendor contract email'). Empty "
+        "list if nothing is pressing.",
+    )
+
+
 class EmailReplyDraft(BaseModel):
     subject: str = Field(description="Reply subject line, typically 'Re: ' plus the original subject.")
     body: str = Field(

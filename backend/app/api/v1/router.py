@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from app.api.v1.endpoints import (
     approvals,
     auth,
+    briefing,
     dashboard,
     documents,
     email,
@@ -23,5 +24,6 @@ api_router.include_router(presentations.router, prefix="/presentations", tags=["
 api_router.include_router(meetings.router, prefix="/meetings", tags=["meetings"])
 api_router.include_router(email.router, prefix="/email", tags=["email"])
 api_router.include_router(dashboard.router, prefix="/dashboard", tags=["dashboard"])
+api_router.include_router(briefing.router, prefix="/briefing", tags=["briefing"])
 api_router.include_router(notifications.router, prefix="/notifications", tags=["notifications"])
 api_router.include_router(push.router, prefix="/push", tags=["push"])

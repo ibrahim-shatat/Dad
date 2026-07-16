@@ -25,6 +25,7 @@ from sqlalchemy.ext.asyncio import create_async_engine  # noqa: E402
 from app.core.config import settings  # noqa: E402
 
 _TABLES_TO_TRUNCATE = [
+    "briefings",
     "email_drafts",
     "email_messages",
     "email_accounts",

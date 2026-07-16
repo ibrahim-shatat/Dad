@@ -42,10 +42,10 @@ Wire M2 events to real phone push on the installed PWA.
 - [x] Filters by type / status
 - [x] Clear post-approval behavior per item type (draft locks once actioned)
 
-## M5 — Phase 3: Executive Briefing
-- [ ] Daily briefing page (urgent emails, meetings, action items, approvals, document risks)
-- [ ] Claude-written executive summary
-- [ ] Mark briefing items handled
+## M5 — Phase 3: Executive Briefing  ✅ shipped
+- [x] Daily briefing page (urgent emails, meetings, action items, approvals, document risks)
+- [x] Claude-written executive summary + top priorities
+- [x] Mark briefing items handled (persistent, with progress bar)
 
 ## M6 — Phase 4: Calendar Integration
 - [ ] Google + Outlook calendar OAuth

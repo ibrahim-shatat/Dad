@@ -45,6 +45,32 @@ export interface ApprovalQueueItem {
   created_at: string
 }
 
+export interface BriefingItem {
+  key: string
+  title: string
+  subtitle: string | null
+  detail: string | null
+  link: string | null
+  severity: 'low' | 'medium' | 'high' | null
+  handled: boolean
+}
+
+export interface BriefingSection {
+  id: string
+  label: string
+  items: BriefingItem[]
+}
+
+export interface Briefing {
+  briefing_date: string
+  summary: string | null
+  top_priorities: string[]
+  generated_at: string | null
+  sections: BriefingSection[]
+  total_items: number
+  handled_items: number
+}
+
 export type DocumentStatus =
   | 'uploaded'
   | 'extracting'

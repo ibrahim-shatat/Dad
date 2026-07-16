@@ -6,6 +6,7 @@ import AppShell from '@/components/layout/AppShell'
 import InstallPrompt from '@/components/InstallPrompt'
 import Login from '@/pages/Auth/Login'
 import Dashboard from '@/pages/Dashboard/Dashboard'
+import Briefing from '@/pages/Briefing/Briefing'
 import Documents from '@/pages/Documents/Documents'
 import DocumentDetail from '@/pages/Documents/DocumentDetail'
 import Presentations from '@/pages/Presentations/Presentations'
@@ -77,6 +78,7 @@ export default function App() {
         }
       >
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/briefing" element={<Briefing />} />
         <Route path="/documents" element={<Documents />} />
         <Route path="/documents/:id" element={<DocumentDetail />} />
         <Route path="/presentations" element={<Presentations />} />
