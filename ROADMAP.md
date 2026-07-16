@@ -28,11 +28,12 @@ The foundation everything else surfaces through.
 - [x] API: list, unread count, mark read/all-read
 - [x] Frontend: notification bell + dropdown/center, unread badge, polling
 
-## M3 — Push notifications (mobile)
+## M3 — Push notifications (mobile)  ✅ shipped
 Wire M2 events to real phone push on the installed PWA.
-- [ ] Web Push (VAPID keys, subscribe endpoint, store subscriptions)
-- [ ] Push on high-priority events (pending approval, urgent email)
-- [ ] Per-user notification preferences
+- [x] Web Push (VAPID keys, subscribe/unsubscribe endpoints, store subscriptions)
+- [x] Push on every notification event (best-effort, stale-subscription cleanup)
+- [x] Service worker push + notificationclick handlers; "Enable phone notifications" toggle
+- [ ] Per-user notification preferences (future refinement)
 
 ## M4 — Phase 2: Better Approval Flow
 - [ ] Edit an email draft before approving
