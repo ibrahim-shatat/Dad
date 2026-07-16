@@ -46,14 +46,14 @@ export default function PresentationDetail() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div>
           <h1 className="text-2xl font-semibold">{presentation.title || 'Untitled presentation'}</h1>
           <Badge variant={presentation.status === 'failed' ? 'destructive' : 'muted'} className="mt-2">
             {presentation.status}
           </Badge>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {presentation.status === 'approved' && (
             <Button
               onClick={() =>

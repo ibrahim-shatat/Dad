@@ -118,7 +118,7 @@ export default function MeetingDetail() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div>
           <h1 className="text-2xl font-semibold">{meeting.title}</h1>
           <p className="text-xs text-muted-foreground">{meeting.meeting_date}</p>
@@ -128,6 +128,7 @@ export default function MeetingDetail() {
         </div>
         <Button
           variant="outline"
+          className="self-start"
           disabled={meeting.status === 'processing' || regenerateMutation.isPending}
           onClick={() => regenerateMutation.mutate()}
         >

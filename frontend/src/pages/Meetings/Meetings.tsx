@@ -63,7 +63,7 @@ export default function Meetings() {
           <CardTitle className="text-base">New meeting</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          <div className="flex gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row">
             <div className="flex flex-1 flex-col gap-1.5">
               <Label htmlFor="meeting-title">Title</Label>
               <Input id="meeting-title" value={title} onChange={(e) => setTitle(e.target.value)} />
