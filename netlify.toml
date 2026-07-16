@@ -25,3 +25,14 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Correct MIME for the PWA manifest, and keep the service worker from being cached stale.
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
