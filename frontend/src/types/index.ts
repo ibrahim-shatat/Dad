@@ -9,6 +9,24 @@ export interface User {
   created_at: string
 }
 
+export type NotificationType =
+  | 'document_reviewed'
+  | 'meeting_processed'
+  | 'approval_pending'
+  | 'approval_approved'
+  | 'approval_rejected'
+  | 'urgent_email'
+
+export interface Notification {
+  id: string
+  type: NotificationType
+  title: string
+  body: string | null
+  link: string | null
+  is_read: boolean
+  created_at: string
+}
+
 export type ApprovalItemType = 'email_draft' | 'presentation_export' | 'document_share' | 'dummy'
 export type ApprovalStatus = 'pending' | 'approved' | 'rejected'
 

@@ -14,6 +14,7 @@ import {
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import NotificationBell from '@/components/NotificationBell'
 import { useAuthStore } from '@/store/authStore'
 import { logout as apiLogout } from '@/api/auth'
 
@@ -44,7 +45,7 @@ export default function AppShell() {
   return (
     <div className="flex min-h-svh flex-col md:flex-row">
       {/* Mobile top bar */}
-      <header className="sticky top-0 z-20 flex items-center gap-3 border-b bg-card px-4 py-3 md:hidden">
+      <header className="sticky top-0 z-20 flex items-center gap-3 border-b bg-card px-4 py-2.5 md:hidden">
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -54,6 +55,9 @@ export default function AppShell() {
           <Menu className="size-5" />
         </button>
         <p className="text-sm font-semibold">AI Executive Assistant</p>
+        <div className="ml-auto">
+          <NotificationBell />
+        </div>
       </header>
 
       {/* Backdrop (mobile, when drawer open) */}
@@ -118,9 +122,15 @@ export default function AppShell() {
         </div>
       </aside>
 
-      <main className="min-w-0 flex-1 overflow-y-auto p-4 md:p-6">
-        <Outlet />
-      </main>
+      <div className="flex min-w-0 flex-1 flex-col">
+        {/* Desktop top bar (mobile has its own above) */}
+        <header className="hidden items-center justify-end border-b bg-card px-6 py-2 md:flex">
+          <NotificationBell />
+        </header>
+        <main className="min-w-0 flex-1 overflow-y-auto p-4 md:p-6">
+          <Outlet />
+        </main>
+      </div>
     </div>
   )
 }

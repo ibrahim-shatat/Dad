@@ -5,7 +5,9 @@ from typing import Protocol
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.approval import ApprovalItemType, ApprovalQueueItem, ApprovalStatus
-from app.models.user import User
+from app.models.notification import NotificationType
+from app.models.user import User, UserRole
+from app.services.notifications.service import create_notification, notify_roles
 
 
 class ApprovalHandler(Protocol):
@@ -49,6 +51,17 @@ async def create_approval_item(
     )
     db.add(item)
     await db.flush()
+
+    # Let the approvers (directors/admins) know something is waiting — but not the requester.
+    await notify_roles(
+        db,
+        [UserRole.director, UserRole.admin],
+        type=NotificationType.approval_pending,
+        title="New approval request",
+        body=preview_text,
+        link="/approvals",
+        exclude_user_id=requested_by_id,
+    )
     return item
 
 
@@ -62,6 +75,15 @@ async def approve_item(db: AsyncSession, item: ApprovalQueueItem, reviewer: User
     item.status = ApprovalStatus.approved
     item.reviewed_by_id = reviewer.id
     item.reviewed_at = datetime.now(timezone.utc)
+
+    await create_notification(
+        db,
+        user_id=item.requested_by_id,
+        type=NotificationType.approval_approved,
+        title="Your request was approved",
+        body=item.preview_text,
+        link="/approvals",
+    )
     await db.commit()
     await db.refresh(item)
     return item
@@ -75,6 +97,15 @@ async def reject_item(db: AsyncSession, item: ApprovalQueueItem, reviewer: User)
     item.status = ApprovalStatus.rejected
     item.reviewed_by_id = reviewer.id
     item.reviewed_at = datetime.now(timezone.utc)
+
+    await create_notification(
+        db,
+        user_id=item.requested_by_id,
+        type=NotificationType.approval_rejected,
+        title="Your request was rejected",
+        body=item.preview_text,
+        link="/approvals",
+    )
     await db.commit()
     await db.refresh(item)
     return item

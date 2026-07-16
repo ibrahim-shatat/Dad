@@ -11,6 +11,7 @@ from app.models.approval import ApprovalItemType
 from app.models.document import Document, DocumentReview, DocumentStatus
 from app.models.email import EmailAccount, EmailDraft, EmailMessage
 from app.models.meeting import ActionItem, Decision, DecisionStatus, Meeting, MeetingStatus
+from app.models.notification import NotificationType
 from app.models.presentation import Presentation, PresentationStatus
 from app.services.ai.client import claude_client
 from app.services.ai.prompts import email as email_prompts
@@ -28,6 +29,7 @@ from app.services.approvals.service import create_approval_item
 from app.services.documents.extraction import extract_text
 from app.services.documents.storage import get_storage_backend
 from app.services.email.base import get_connector
+from app.services.notifications.service import create_notification
 from app.services.presentations.builder import build_presentation
 
 _EMAIL_ADDRESS_RE = re.compile(r"[\w.\-+]+@[\w\-]+\.[\w.\-]+")
@@ -98,6 +100,15 @@ async def review_document(ctx: dict[str, Any], document_id: str) -> None:
         )
         db.add(review)
         document.status = DocumentStatus.reviewed
+
+        await create_notification(
+            db,
+            user_id=document.uploaded_by_id,
+            type=NotificationType.document_reviewed,
+            title=f"Document reviewed: {document.filename}",
+            body=result.executive_summary[:200],
+            link=f"/documents/{document.id}",
+        )
         await db.commit()
 
 
@@ -206,6 +217,14 @@ async def process_meeting(ctx: dict[str, Any], meeting_id: str) -> None:
                 )
             )
 
+        await create_notification(
+            db,
+            user_id=meeting.created_by_id,
+            type=NotificationType.meeting_processed,
+            title=f"Meeting processed: {meeting.title}",
+            body=extraction.summary[:200],
+            link=f"/meetings/{meeting.id}",
+        )
         await db.commit()
 
         if extraction.follow_up_email is not None:
@@ -282,6 +301,16 @@ async def sync_email_account(ctx: dict[str, Any], account_id: str) -> None:
                     ai_urgency=ai_urgency,
                 )
             )
+
+            if ai_urgency == "high":
+                await create_notification(
+                    db,
+                    user_id=account.user_id,
+                    type=NotificationType.urgent_email,
+                    title=f"Urgent email: {msg_data.subject}",
+                    body=f"From {msg_data.sender}",
+                    link="/email",
+                )
 
         account.last_synced_at = datetime.now(timezone.utc)
         await db.commit()
