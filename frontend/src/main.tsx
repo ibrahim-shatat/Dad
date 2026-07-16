@@ -11,6 +11,12 @@ const queryClient = new QueryClient({
     queries: {
       retry: 1,
       refetchOnWindowFocus: false,
+      // Treat data as fresh for a minute so navigating back to a page shows the cached
+      // result instantly (with a quiet background refresh) instead of a loading flash.
+      staleTime: 60_000,
+      // Keep unused query data around for 10 minutes before garbage-collecting it.
+      gcTime: 10 * 60_000,
+      refetchOnMount: false,
     },
   },
 })
