@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { CalendarClock, MapPin, RefreshCw, Sparkles, Send, Users } from 'lucide-react'
+import { CalendarClock, Check, MapPin, RefreshCw, Sparkles, Send, Users } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -147,21 +147,33 @@ export default function Calendar() {
         Object.entries(grouped).map(([day, dayEvents]) => (
           <div key={day} className="flex flex-col gap-2">
             <h2 className="text-sm font-semibold text-muted-foreground">{day}</h2>
-            <div className="flex flex-col gap-3">
+            <div className="grid gap-3 lg:grid-cols-2">
               {dayEvents.map((event) => {
                 const isPast = new Date(event.end_time ?? event.start_time).getTime() < now
                 const generating = pendingPrep.has(event.id)
+                const alreadyFollowedUp = followedUp.has(event.id)
                 return (
-                  <Card key={event.id}>
+                  <Card key={event.id} className={cn(isPast && 'bg-muted/20')}>
                     <CardContent className="flex flex-col gap-3 py-4">
                       <div className="flex flex-wrap items-baseline justify-between gap-2">
-                        <p className="font-medium">{event.title}</p>
-                        <span className="text-xs font-medium text-muted-foreground">
-                          {timeLabel(event)}
-                        </span>
+                        <p className={cn('font-semibold', !isPast && 'text-primary')}>
+                          {event.title}
+                        </p>
+                        {isPast && alreadyFollowedUp ? (
+                          <span className="flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold text-primary">
+                            <Check className="size-3" /> Follow-up sent
+                          </span>
+                        ) : (
+                          <span className="text-xs font-medium text-muted-foreground">
+                            {timeLabel(event)}
+                          </span>
+                        )}
                       </div>
 
                       <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                        {isPast && alreadyFollowedUp && (
+                          <span className="flex items-center gap-1">{timeLabel(event)}</span>
+                        )}
                         {event.location && (
                           <span className="flex items-center gap-1">
                             <MapPin className="size-3.5" />
@@ -178,10 +190,10 @@ export default function Calendar() {
                       </div>
 
                       {event.prep_brief && (
-                        <div className="rounded-md border bg-muted/40 p-3">
-                          <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-primary">
+                        <div className="rounded-lg border border-primary/20 bg-primary/5 p-3">
+                          <p className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-primary">
                             <Sparkles className="size-3.5" />
-                            Prep brief
+                            Executive prep brief
                           </p>
                           <p className="whitespace-pre-wrap text-sm leading-relaxed">
                             {event.prep_brief}
@@ -209,17 +221,15 @@ export default function Calendar() {
                                 : 'Generate prep brief'}
                           </Button>
                         )}
-                        {isPast && (
+                        {isPast && !alreadyFollowedUp && (
                           <Button
                             size="sm"
                             variant="outline"
-                            disabled={followUpMutation.isPending || followedUp.has(event.id)}
+                            disabled={followUpMutation.isPending}
                             onClick={() => followUpMutation.mutate(event.id)}
                           >
                             <Send className="size-3.5" />
-                            {followedUp.has(event.id)
-                              ? 'Follow-up sent to approvals'
-                              : 'Draft follow-up email'}
+                            Draft follow-up email
                           </Button>
                         )}
                       </div>
