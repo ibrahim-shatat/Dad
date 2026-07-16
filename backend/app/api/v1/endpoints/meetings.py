@@ -1,14 +1,13 @@
 import uuid
 from datetime import date
 
-from arq import ArqRedis
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from app.core.deps import get_arq_pool, get_current_user
+from app.core.deps import get_current_user
 from app.db.session import get_db
 from app.models.meeting import (
     ActionItem,
@@ -21,6 +20,7 @@ from app.models.meeting import (
 from app.models.user import User
 from app.schemas.meeting import MeetingRead
 from app.services.email import approval as _email_approval  # noqa: F401 — registers the email_draft handler
+from app.tasks.queue import JobEnqueuer, get_job_queue
 
 router = APIRouter()
 
@@ -52,7 +52,7 @@ async def _get_meeting(db: AsyncSession, meeting_id: uuid.UUID) -> Meeting:
 async def create_meeting(
     payload: MeetingCreate,
     db: AsyncSession = Depends(get_db),
-    pool: ArqRedis = Depends(get_arq_pool),
+    queue: JobEnqueuer = Depends(get_job_queue),
     user: User = Depends(get_current_user),
 ) -> Meeting:
     meeting = Meeting(
@@ -65,7 +65,7 @@ async def create_meeting(
     db.add(meeting)
     await db.commit()
 
-    await pool.enqueue_job("process_meeting", str(meeting.id))
+    await queue.enqueue_job("process_meeting", str(meeting.id))
     return await _get_meeting(db, meeting.id)
 
 
@@ -95,7 +95,7 @@ async def get_meeting(
 async def regenerate_meeting(
     meeting_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
-    pool: ArqRedis = Depends(get_arq_pool),
+    queue: JobEnqueuer = Depends(get_job_queue),
     _: User = Depends(get_current_user),
 ) -> Meeting:
     meeting = await _get_meeting(db, meeting_id)
@@ -112,7 +112,7 @@ async def regenerate_meeting(
     meeting.failure_reason = None
     await db.commit()
 
-    await pool.enqueue_job("process_meeting", str(meeting_id))
+    await queue.enqueue_job("process_meeting", str(meeting_id))
     return await _get_meeting(db, meeting_id)
 
 

@@ -2,7 +2,6 @@ import asyncio
 import uuid
 from datetime import datetime, timedelta, timezone
 
-from arq import ArqRedis
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
@@ -10,7 +9,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
-from app.core.deps import get_arq_pool, get_current_user
+from app.core.deps import get_current_user
 from app.db.session import get_db
 from app.models.email import EmailAccount, EmailMessage, EmailProvider
 from app.models.user import User
@@ -28,6 +27,7 @@ from app.services.email.outlook import (
     exchange_outlook_code,
     fetch_outlook_profile_email,
 )
+from app.tasks.queue import JobEnqueuer, get_job_queue
 
 router = APIRouter()
 
@@ -180,7 +180,7 @@ async def outlook_callback(
 @router.post("/accounts/{account_id}/sync", status_code=status.HTTP_202_ACCEPTED)
 async def trigger_sync(
     account_id: uuid.UUID,
-    pool: ArqRedis = Depends(get_arq_pool),
+    queue: JobEnqueuer = Depends(get_job_queue),
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ) -> dict:
@@ -188,7 +188,7 @@ async def trigger_sync(
     if account is None or account.user_id != user.id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Account not found")
 
-    await pool.enqueue_job("sync_email_account", str(account_id))
+    await queue.enqueue_job("sync_email_account", str(account_id))
     return {"status": "queued"}
 
 
@@ -243,10 +243,10 @@ class DraftReplyRequest(BaseModel):
 async def trigger_draft_reply(
     message_id: uuid.UUID,
     payload: DraftReplyRequest,
-    pool: ArqRedis = Depends(get_arq_pool),
+    queue: JobEnqueuer = Depends(get_job_queue),
     db: AsyncSession = Depends(get_db),
     user: User = Depends(get_current_user),
 ) -> dict:
     await _get_owned_message(db, user, message_id)
-    await pool.enqueue_job("draft_email_reply", str(message_id), payload.instructions)
+    await queue.enqueue_job("draft_email_reply", str(message_id), payload.instructions)
     return {"status": "queued"}

@@ -1,17 +1,17 @@
 import uuid
 
-from arq import ArqRedis
 from fastapi import APIRouter, Depends, Form, HTTPException, UploadFile, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from app.core.deps import get_arq_pool, get_current_user
+from app.core.deps import get_current_user
 from app.db.session import get_db
 from app.models.document import Document
 from app.models.user import User
 from app.schemas.document import DocumentRead
 from app.services.documents.storage import get_storage_backend
+from app.tasks.queue import JobEnqueuer, get_job_queue
 
 router = APIRouter()
 
@@ -28,7 +28,7 @@ async def upload_document(
     file: UploadFile,
     instructions: str | None = Form(None),
     db: AsyncSession = Depends(get_db),
-    pool: ArqRedis = Depends(get_arq_pool),
+    queue: JobEnqueuer = Depends(get_job_queue),
     user: User = Depends(get_current_user),
 ) -> Document:
     if file.content_type not in ALLOWED_MIME_TYPES:
@@ -58,7 +58,7 @@ async def upload_document(
     await db.commit()
     await db.refresh(document, attribute_names=["created_at"])
 
-    await pool.enqueue_job("extract_document_text", str(document.id))
+    await queue.enqueue_job("extract_document_text", str(document.id))
     return document
 
 

@@ -10,9 +10,11 @@ from app.tasks.pool import create_arq_pool
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.state.arq_pool = await create_arq_pool()
+    # In "inline" mode there is no Redis/worker — jobs run in-process — so skip the pool.
+    app.state.arq_pool = await create_arq_pool() if settings.job_mode == "arq" else None
     yield
-    await app.state.arq_pool.close()
+    if app.state.arq_pool is not None:
+        await app.state.arq_pool.close()
 
 
 app = FastAPI(title="Dad — AI Executive Assistant", lifespan=lifespan)

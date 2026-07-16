@@ -1,0 +1,27 @@
+# Netlify config for the Dad frontend (Path B).
+# Builds the React app and proxies /api/* to the Render backend so the browser sees a
+# single origin (auth cookies work; no CORS/cross-site issues).
+
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Same-origin API path; the redirect below proxies it to Render.
+  VITE_API_URL = "/api/v1"
+  NODE_VERSION = "20"
+
+# --- Proxy API traffic to the Render backend ---
+# Replace the host below with your real Render service URL, then redeploy.
+[[redirects]]
+  from = "/api/*"
+  to = "https://REPLACE-WITH-RENDER-URL.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# --- SPA client-side routing fallback (must come after the /api rule) ---
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,44 @@
+# Render Blueprint for the Dad backend API (Path B: free, no Docker, no Redis/worker).
+# In Render: New + -> Blueprint -> connect this repo. Render reads this file.
+# Fill the "sync: false" secrets in the dashboard after the service is created.
+services:
+  - type: web
+    name: dad-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    # Installs deps and applies DB migrations against Supabase on every deploy.
+    buildCommand: "pip install . && alembic upgrade head"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.10"
+      # Run jobs in-process (no Redis / no separate worker).
+      - key: JOB_MODE
+        value: inline
+      - key: CLAUDE_MODEL_FAST
+        value: claude-haiku-4-5-20251001
+      - key: CLAUDE_MODEL_SMART
+        value: claude-sonnet-5
+      - key: STORAGE_BACKEND
+        value: local
+      # NOTE: Render's free filesystem is ephemeral — uploaded docs / generated .pptx do
+      # not survive restarts or deploys. Fine for a demo; swap to object storage later.
+      - key: UPLOAD_DIR
+        value: /tmp/uploads
+      - key: JWT_SECRET
+        generateValue: true          # Render generates a strong random value
+      # --- Secrets to paste in the dashboard (Environment tab) ---
+      - key: ANTHROPIC_API_KEY        # rotate the key used in local dev
+        sync: false
+      - key: TOKEN_ENCRYPTION_KEY     # Fernet key: python -c "from cryptography.fernet import Fernet;print(Fernet.generate_key().decode())"
+        sync: false
+      - key: DATABASE_URL             # Supabase, asyncpg form (see DEPLOY_PATHB.md)
+        sync: false
+      - key: CORS_ORIGINS             # your Netlify URL, e.g. https://dad-xyz.netlify.app
+        sync: false
+      - key: FRONTEND_URL             # same Netlify URL
+        sync: false
+      - key: API_BASE_URL             # this service's URL, e.g. https://dad-api.onrender.com
+        sync: false

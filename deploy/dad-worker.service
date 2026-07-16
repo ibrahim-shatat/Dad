@@ -1,0 +1,17 @@
+[Unit]
+Description=Dad background worker (arq)
+After=network.target postgresql.service redis-server.service
+Wants=postgresql.service redis-server.service
+
+[Service]
+Type=simple
+User=dad
+Group=dad
+WorkingDirectory=/opt/dad/backend
+EnvironmentFile=/opt/dad/backend/.env
+ExecStart=/opt/dad/backend/.venv/bin/arq app.tasks.worker.WorkerSettings
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

@@ -1,18 +1,18 @@
 import uuid
 
-from arq import ArqRedis
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from pydantic import BaseModel, model_validator
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.deps import get_arq_pool, get_current_user
+from app.core.deps import get_current_user
 from app.db.session import get_db
 from app.models.presentation import Presentation, PresentationStatus
 from app.models.user import User
 from app.schemas.presentation import PresentationRead
 from app.services.documents.storage import get_storage_backend
 from app.services.presentations import approval as _presentation_approval  # noqa: F401 — registers the approval handler
+from app.tasks.queue import JobEnqueuer, get_job_queue
 
 router = APIRouter()
 
@@ -34,7 +34,7 @@ class PresentationCreate(BaseModel):
 async def create_presentation(
     payload: PresentationCreate,
     db: AsyncSession = Depends(get_db),
-    pool: ArqRedis = Depends(get_arq_pool),
+    queue: JobEnqueuer = Depends(get_job_queue),
     user: User = Depends(get_current_user),
 ) -> Presentation:
     presentation = Presentation(
@@ -48,7 +48,7 @@ async def create_presentation(
     await db.commit()
     await db.refresh(presentation, attribute_names=["created_at"])
 
-    await pool.enqueue_job("generate_presentation", str(presentation.id))
+    await queue.enqueue_job("generate_presentation", str(presentation.id))
     return presentation
 
 
@@ -77,7 +77,7 @@ async def get_presentation(
 async def regenerate_presentation(
     presentation_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
-    pool: ArqRedis = Depends(get_arq_pool),
+    queue: JobEnqueuer = Depends(get_job_queue),
     _: User = Depends(get_current_user),
 ) -> Presentation:
     presentation = await db.get(Presentation, presentation_id)
@@ -90,7 +90,7 @@ async def regenerate_presentation(
     presentation.failure_reason = None
     await db.commit()
 
-    await pool.enqueue_job("generate_presentation", str(presentation.id))
+    await queue.enqueue_job("generate_presentation", str(presentation.id))
     return presentation
 
 

@@ -44,3 +44,12 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["app"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+# Tests must share the same (session) loop as the session-scoped fixtures and the module-level
+# async engine; pytest-asyncio >=1.0 otherwise defaults tests to a per-function loop, which
+# raises "got Future attached to a different loop".
+asyncio_default_test_loop_scope = "session"
+testpaths = ["tests"]

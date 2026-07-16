@@ -24,6 +24,10 @@ class Settings(BaseSettings):
     # Redis / arq
     redis_url: str = "redis://redis:6379/0"
 
+    # Job execution backend: "arq" (Redis + worker) or "inline" (in-process background tasks,
+    # no Redis/worker — used for free/serverless deploys).
+    job_mode: str = "arq"
+
     # Storage
     storage_backend: str = "local"
     upload_dir: str = "/data/uploads"

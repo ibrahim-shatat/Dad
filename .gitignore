@@ -32,5 +32,11 @@ Thumbs.db
 postgres-data/
 redis-data/
 
+# Redis local dump artifact
+*.rdb
+
 # Claude Code local state
 .claude/
+
+# Codex local state
+.codex/
