@@ -20,13 +20,13 @@ Same codebase serves web + Android; installable to the home screen, no app store
 - [~] Mobile-responsive polish pass on key screens
 - [~] Verify install on Android + deploy
 
-## M2 — Notifications (in-app)
+## M2 — Notifications (in-app)  ✅ shipped
 The foundation everything else surfaces through.
-- [ ] `notifications` table + model + migration
-- [ ] Emit events: document reviewed, meeting processed, approval pending/approved/rejected,
+- [x] `notifications` table + model + migration
+- [x] Emit events: document reviewed, meeting processed, approval pending/approved/rejected,
       urgent email arrived
-- [ ] API: list, unread count, mark read/all-read
-- [ ] Frontend: notification bell + dropdown/center, unread badge, polling
+- [x] API: list, unread count, mark read/all-read
+- [x] Frontend: notification bell + dropdown/center, unread badge, polling
 
 ## M3 — Push notifications (mobile)
 Wire M2 events to real phone push on the installed PWA.
