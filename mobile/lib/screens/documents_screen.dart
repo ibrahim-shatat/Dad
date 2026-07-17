@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +30,8 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
     return _api.list(token);
   }
 
+  bool _uploading = false;
+
   Future<void> _refresh() async {
     final next = _load();
     setState(() => _future = next);
@@ -37,10 +40,47 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
     } catch (_) {}
   }
 
+  Future<void> _upload() async {
+    if (_uploading) return;
+    final picked = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: DocumentsApi.allowedExtensions,
+      withData: false,
+    );
+    if (picked == null || picked.files.isEmpty) return;
+    final file = picked.files.first;
+    if (file.path == null) return;
+
+    final token = context.read<AuthState>().token!;
+    setState(() => _uploading = true);
+    try {
+      await _api.upload(filePath: file.path!, filename: file.name, token: token);
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Uploaded — AI review starting. Pull to refresh shortly.')),
+      );
+      await _refresh();
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Upload failed: $e')));
+    } finally {
+      if (mounted) setState(() => _uploading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Documents')),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _uploading ? null : _upload,
+        icon: _uploading
+            ? const SizedBox(
+                height: 18, width: 18, child: CircularProgressIndicator(strokeWidth: 2))
+            : const Icon(Icons.upload_file),
+        label: Text(_uploading ? 'Uploading…' : 'Upload'),
+      ),
       body: RefreshIndicator(
         onRefresh: _refresh,
         child: FutureBuilder<List<Document>>(

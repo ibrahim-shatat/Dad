@@ -7,7 +7,8 @@ import '../models/attention_item.dart';
 /// title/subtitle, a badge chip, and a relative time.
 class AttentionRow extends StatelessWidget {
   final AttentionItem item;
-  const AttentionRow({super.key, required this.item});
+  final VoidCallback? onTap;
+  const AttentionRow({super.key, required this.item, this.onTap});
 
   Color _tone(BuildContext context) {
     switch (item.tone) {
@@ -50,13 +51,17 @@ class AttentionRow extends StatelessWidget {
     final when = _whenLabel();
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: scheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: scheme.outlineVariant.withOpacity(0.5)),
       ),
-      child: Row(
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -119,7 +124,9 @@ class AttentionRow extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
+          ), // Row
+        ), // Padding
+      ), // InkWell
+    ); // Container
   }
 }

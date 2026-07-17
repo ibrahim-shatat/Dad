@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 import '../config.dart';
 
@@ -61,6 +62,29 @@ class ApiClient {
           body: jsonEncode(body),
         )
         .timeout(_timeout);
+    return _decode(resp);
+  }
+
+  /// Multipart upload (a single file plus optional form fields).
+  Future<dynamic> uploadFile(
+    String path, {
+    required String filePath,
+    required String filename,
+    required MediaType contentType,
+    Map<String, String> fields = const {},
+    String? token,
+  }) async {
+    final request = http.MultipartRequest('POST', _uri(path));
+    if (token != null) request.headers['Authorization'] = 'Bearer $token';
+    request.fields.addAll(fields);
+    request.files.add(await http.MultipartFile.fromPath(
+      'file',
+      filePath,
+      filename: filename,
+      contentType: contentType,
+    ));
+    final streamed = await request.send().timeout(const Duration(seconds: 90));
+    final resp = await http.Response.fromStream(streamed);
     return _decode(resp);
   }
 

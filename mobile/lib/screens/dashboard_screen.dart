@@ -6,7 +6,9 @@ import '../api/dashboard_api.dart';
 import '../models/attention_item.dart';
 import '../models/dashboard_summary.dart';
 import '../state/auth_state.dart';
+import '../state/nav_state.dart';
 import '../widgets/attention_row.dart';
+import 'meetings_screen.dart';
 
 /// "Prepare My Day" — the app's home. Shows the priority-ranked attention feed
 /// plus the key counters, pulled live from GET /dashboard.
@@ -116,6 +118,24 @@ class _AttentionCard extends StatelessWidget {
   final List<AttentionItem> items;
   const _AttentionCard({required this.items});
 
+  void _handleTap(BuildContext context, AttentionItem item) {
+    switch (item.kind) {
+      case 'email':
+        context.read<NavState>().go(NavState.email);
+        break;
+      case 'approval':
+        context.read<NavState>().go(NavState.approvals);
+        break;
+      case 'event':
+        context.read<NavState>().go(NavState.calendar);
+        break;
+      case 'deadline':
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => const MeetingsScreen()));
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
@@ -155,7 +175,7 @@ class _AttentionCard extends StatelessWidget {
               style: TextStyle(color: scheme.onSurface, fontSize: 13),
             ),
             const SizedBox(height: 12),
-            ...items.map((i) => AttentionRow(item: i)),
+            ...items.map((i) => AttentionRow(item: i, onTap: () => _handleTap(context, i))),
           ],
         ],
       ),

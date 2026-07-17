@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../state/nav_state.dart';
 import 'approvals_screen.dart';
 import 'calendar_screen.dart';
 import 'dashboard_screen.dart';
@@ -9,15 +11,20 @@ import 'more_screen.dart';
 /// The signed-in app. The five daily-driver sections live on the bottom bar;
 /// deeper sections (Meetings, Documents, Briefing, Assistant) sit under "More".
 /// Tabs are kept alive in an IndexedStack so switching doesn't refetch.
-class HomeShell extends StatefulWidget {
+class HomeShell extends StatelessWidget {
   const HomeShell({super.key});
 
   @override
-  State<HomeShell> createState() => _HomeShellState();
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => NavState(),
+      child: const _HomeShellBody(),
+    );
+  }
 }
 
-class _HomeShellState extends State<HomeShell> {
-  int _index = 0;
+class _HomeShellBody extends StatelessWidget {
+  const _HomeShellBody();
 
   static const _pages = [
     DashboardScreen(),
@@ -29,11 +36,12 @@ class _HomeShellState extends State<HomeShell> {
 
   @override
   Widget build(BuildContext context) {
+    final index = context.watch<NavState>().index;
     return Scaffold(
-      body: IndexedStack(index: _index, children: _pages),
+      body: IndexedStack(index: index, children: _pages),
       bottomNavigationBar: NavigationBar(
-        selectedIndex: _index,
-        onDestinationSelected: (i) => setState(() => _index = i),
+        selectedIndex: index,
+        onDestinationSelected: (i) => context.read<NavState>().go(i),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.dashboard_outlined),
