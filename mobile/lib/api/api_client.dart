@@ -46,6 +46,15 @@ class ApiClient {
     return _decode(resp);
   }
 
+  Future<dynamic> postJson(String path, Object? body, {String? token}) async {
+    final resp = await _http.post(
+      _uri(path),
+      headers: _headers(token, extra: {'Content-Type': 'application/json'}),
+      body: jsonEncode(body),
+    );
+    return _decode(resp);
+  }
+
   dynamic _decode(http.Response resp) {
     final ok = resp.statusCode >= 200 && resp.statusCode < 300;
     dynamic data;

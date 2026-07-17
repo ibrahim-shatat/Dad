@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'api/api_client.dart';
-import 'screens/dashboard_screen.dart';
+import 'screens/home_shell.dart';
 import 'screens/login_screen.dart';
 import 'state/auth_state.dart';
 import 'theme.dart';
@@ -43,7 +43,7 @@ class _Root extends StatelessWidget {
       case AuthStatus.unknown:
         return const Scaffold(body: Center(child: CircularProgressIndicator()));
       case AuthStatus.authenticated:
-        return const DashboardScreen();
+        return const HomeShell();
       case AuthStatus.unauthenticated:
         return const LoginScreen();
     }
