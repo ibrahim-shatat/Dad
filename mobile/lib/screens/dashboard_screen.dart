@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
 import '../api/dashboard_api.dart';
+import '../models/attention_item.dart';
 import '../models/dashboard_summary.dart';
 import '../state/auth_state.dart';
 import '../widgets/attention_row.dart';
