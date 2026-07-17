@@ -38,6 +38,16 @@ jobs:
       - name: Restore app code
         run: git checkout -- lib pubspec.yaml
 
+      # `flutter create` only adds INTERNET permission to the debug/profile manifests,
+      # so release APKs can't make network calls. Add it to the main manifest.
+      - name: Ensure INTERNET permission (release manifest)
+        run: |
+          MANIFEST=android/app/src/main/AndroidManifest.xml
+          grep -q 'android.permission.INTERNET' "$MANIFEST" || \
+            sed -i '/<manifest/a\    <uses-permission android:name="android.permission.INTERNET"/>' "$MANIFEST"
+          echo "--- manifest head ---"
+          head -n 5 "$MANIFEST"
+
       - name: Install dependencies
         run: flutter pub get
 
