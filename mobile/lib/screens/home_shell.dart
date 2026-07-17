@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'approvals_screen.dart';
 import 'dashboard_screen.dart';
+import 'documents_screen.dart';
 import 'email_screen.dart';
+import 'meetings_screen.dart';
 
-/// The signed-in app: three tabs kept alive in an IndexedStack so switching
+/// The signed-in app: five tabs kept alive in an IndexedStack so switching
 /// between them doesn't refetch (each has its own pull-to-refresh).
 class HomeShell extends StatefulWidget {
   const HomeShell({super.key});
@@ -20,6 +22,8 @@ class _HomeShellState extends State<HomeShell> {
     DashboardScreen(),
     EmailScreen(),
     ApprovalsScreen(),
+    MeetingsScreen(),
+    DocumentsScreen(),
   ];
 
   @override
@@ -44,6 +48,16 @@ class _HomeShellState extends State<HomeShell> {
             icon: Icon(Icons.task_alt_outlined),
             selectedIcon: Icon(Icons.task_alt),
             label: 'Approvals',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.groups_outlined),
+            selectedIcon: Icon(Icons.groups),
+            label: 'Meetings',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.folder_outlined),
+            selectedIcon: Icon(Icons.folder),
+            label: 'Docs',
           ),
         ],
       ),
