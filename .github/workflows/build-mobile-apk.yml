@@ -48,6 +48,18 @@ jobs:
           echo "--- manifest head ---"
           head -n 5 "$MANIFEST"
 
+      # file_picker's newest transitive deps require compileSdk 36; the Flutter
+      # template targets 34. Force 36 in the app Gradle file (Groovy or Kotlin DSL).
+      - name: Bump compileSdk to 36
+        run: |
+          for f in android/app/build.gradle android/app/build.gradle.kts; do
+            if [ -f "$f" ]; then
+              sed -i 's/flutter\.compileSdkVersion/36/g' "$f"
+              echo "--- $f (compileSdk lines) ---"
+              grep -n "compileSdk" "$f" || true
+            fi
+          done
+
       - name: Install dependencies
         run: flutter pub get
 
