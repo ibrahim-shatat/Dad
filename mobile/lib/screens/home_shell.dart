@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'approvals_screen.dart';
+import 'calendar_screen.dart';
 import 'dashboard_screen.dart';
-import 'documents_screen.dart';
 import 'email_screen.dart';
-import 'meetings_screen.dart';
+import 'more_screen.dart';
 
-/// The signed-in app: five tabs kept alive in an IndexedStack so switching
-/// between them doesn't refetch (each has its own pull-to-refresh).
+/// The signed-in app. The five daily-driver sections live on the bottom bar;
+/// deeper sections (Meetings, Documents, Briefing, Assistant) sit under "More".
+/// Tabs are kept alive in an IndexedStack so switching doesn't refetch.
 class HomeShell extends StatefulWidget {
   const HomeShell({super.key});
 
@@ -22,8 +23,8 @@ class _HomeShellState extends State<HomeShell> {
     DashboardScreen(),
     EmailScreen(),
     ApprovalsScreen(),
-    MeetingsScreen(),
-    DocumentsScreen(),
+    CalendarScreen(),
+    MoreScreen(),
   ];
 
   @override
@@ -50,14 +51,14 @@ class _HomeShellState extends State<HomeShell> {
             label: 'Approvals',
           ),
           NavigationDestination(
-            icon: Icon(Icons.groups_outlined),
-            selectedIcon: Icon(Icons.groups),
-            label: 'Meetings',
+            icon: Icon(Icons.calendar_today_outlined),
+            selectedIcon: Icon(Icons.calendar_today),
+            label: 'Calendar',
           ),
           NavigationDestination(
-            icon: Icon(Icons.folder_outlined),
-            selectedIcon: Icon(Icons.folder),
-            label: 'Docs',
+            icon: Icon(Icons.menu),
+            selectedIcon: Icon(Icons.menu),
+            label: 'More',
           ),
         ],
       ),
