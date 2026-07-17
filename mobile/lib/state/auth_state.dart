@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -56,8 +58,12 @@ class AuthState extends ChangeNotifier {
       return true;
     } on ApiException catch (e) {
       error = e.statusCode == 401 ? 'Incorrect email or password.' : e.message;
-    } catch (_) {
-      error = 'Could not reach the server. Check your connection and try again.';
+    } on TimeoutException {
+      error =
+          'The server is waking up (free hosting). Give it up to a minute, then try again.';
+    } catch (e) {
+      // Show the real error so connection problems can be diagnosed precisely.
+      error = 'Network error: $e';
     }
     busy = false;
     notifyListeners();

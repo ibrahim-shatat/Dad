@@ -17,6 +17,10 @@ class ApiException implements Exception {
 class ApiClient {
   final http.Client _http = http.Client();
 
+  // The API is on Render's free tier, which cold-starts (~30-60s) after idle.
+  // Give requests room to wait for that instead of failing as "no connection".
+  static const Duration _timeout = Duration(seconds: 75);
+
   Uri _uri(String path) => Uri.parse('${AppConfig.apiBaseUrl}$path');
 
   Map<String, String> _headers(String? token, {Map<String, String>? extra}) => {
@@ -26,7 +30,8 @@ class ApiClient {
       };
 
   Future<dynamic> get(String path, {String? token}) async {
-    final resp = await _http.get(_uri(path), headers: _headers(token));
+    final resp =
+        await _http.get(_uri(path), headers: _headers(token)).timeout(_timeout);
     return _decode(resp);
   }
 
@@ -35,23 +40,27 @@ class ApiClient {
     Map<String, String> fields, {
     String? token,
   }) async {
-    final resp = await _http.post(
-      _uri(path),
-      headers: _headers(
-        token,
-        extra: {'Content-Type': 'application/x-www-form-urlencoded'},
-      ),
-      body: fields,
-    );
+    final resp = await _http
+        .post(
+          _uri(path),
+          headers: _headers(
+            token,
+            extra: {'Content-Type': 'application/x-www-form-urlencoded'},
+          ),
+          body: fields,
+        )
+        .timeout(_timeout);
     return _decode(resp);
   }
 
   Future<dynamic> postJson(String path, Object? body, {String? token}) async {
-    final resp = await _http.post(
-      _uri(path),
-      headers: _headers(token, extra: {'Content-Type': 'application/json'}),
-      body: jsonEncode(body),
-    );
+    final resp = await _http
+        .post(
+          _uri(path),
+          headers: _headers(token, extra: {'Content-Type': 'application/json'}),
+          body: jsonEncode(body),
+        )
+        .timeout(_timeout);
     return _decode(resp);
   }
 
