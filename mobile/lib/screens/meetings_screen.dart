@@ -7,6 +7,7 @@ import '../api/meetings_api.dart';
 import '../models/meeting.dart';
 import '../state/auth_state.dart';
 import 'meeting_detail_screen.dart';
+import 'new_meeting_screen.dart';
 
 class MeetingsScreen extends StatefulWidget {
   const MeetingsScreen({super.key});
@@ -38,10 +39,29 @@ class _MeetingsScreenState extends State<MeetingsScreen> {
     } catch (_) {}
   }
 
+  Future<void> _openNew() async {
+    final created = await Navigator.of(context).push<bool>(
+      MaterialPageRoute(builder: (_) => const NewMeetingScreen()),
+    );
+    if (created == true) {
+      await _refresh();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Meeting created — analyzing. Pull to refresh shortly.')),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Meetings')),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _openNew,
+        icon: const Icon(Icons.add),
+        label: const Text('New'),
+      ),
       body: RefreshIndicator(
         onRefresh: _refresh,
         child: FutureBuilder<List<Meeting>>(
