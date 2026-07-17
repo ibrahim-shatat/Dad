@@ -12,7 +12,7 @@ from msal import ConfidentialClientApplication
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
-from app.models.email import EmailAccount
+from app.models.email import EmailAccount, EmailMessage
 from app.services.email.base import EmailConnector, EmailMessageData
 from app.services.email.oauth import decrypt_token, encrypt_token
 
@@ -148,9 +148,27 @@ class OutlookConnector(EmailConnector):
         cc: list[str],
         subject: str,
         body: str,
-        thread_id: str | None = None,
+        reply_to: EmailMessage | None = None,
     ) -> None:
         access_token = await self._ensure_fresh_token(db, account)
+
+        # Reply drafts thread into the original conversation via Graph's reply action, which keeps
+        # the conversationId and the "RE:" subject. Recipients can still be overridden.
+        if reply_to is not None and reply_to.provider_message_id:
+            recipients: dict = {
+                "toRecipients": [{"emailAddress": {"address": addr}} for addr in to]
+            }
+            if cc:
+                recipients["ccRecipients"] = [{"emailAddress": {"address": addr}} for addr in cc]
+            async with httpx.AsyncClient() as client:
+                resp = await client.post(
+                    f"{GRAPH_BASE}/me/messages/{reply_to.provider_message_id}/reply",
+                    headers={"Authorization": f"Bearer {access_token}"},
+                    json={"message": recipients, "comment": body},
+                )
+                resp.raise_for_status()
+            return
+
         message = {
             "subject": subject,
             "body": {"contentType": "text", "content": body},

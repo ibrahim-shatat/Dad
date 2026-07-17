@@ -1,10 +1,24 @@
 import uuid
-from datetime import date
+from datetime import date, datetime
 from typing import Literal
 
 from pydantic import BaseModel
 
 from app.schemas.approval import ApprovalQueueItemRead
+
+
+class AttentionItem(BaseModel):
+    """One prioritized thing the director should look at now. The backend ranks and orders these
+    across emails, approvals, deadlines, and meetings so the dashboard can render a single
+    'here's what needs you' feed without the client re-deriving priority."""
+
+    kind: Literal["email", "approval", "deadline", "event"]
+    title: str
+    subtitle: str
+    badge: str
+    tone: Literal["urgent", "warning", "default"]
+    link: str
+    when: datetime | None = None
 
 
 class UpcomingDeadlineRead(BaseModel):
@@ -24,3 +38,4 @@ class DashboardSummary(BaseModel):
     open_action_items: int = 0
     upcoming_deadlines: list[UpcomingDeadlineRead] = []
     unread_urgent_emails: int = 0
+    needs_attention: list[AttentionItem] = []

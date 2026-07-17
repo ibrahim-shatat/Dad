@@ -299,6 +299,16 @@ export interface UpcomingDeadline {
   meeting_title: string
 }
 
+export interface AttentionItem {
+  kind: 'email' | 'approval' | 'deadline' | 'event'
+  title: string
+  subtitle: string
+  badge: string
+  tone: 'urgent' | 'warning' | 'default'
+  link: string
+  when: string | null
+}
+
 export interface DashboardSummary {
   pending_approvals: ApprovalQueueItem[]
   documents_awaiting_review: number
@@ -306,4 +316,5 @@ export interface DashboardSummary {
   open_action_items: number
   upcoming_deadlines: UpcomingDeadline[]
   unread_urgent_emails: number
+  needs_attention: AttentionItem[]
 }

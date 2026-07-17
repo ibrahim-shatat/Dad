@@ -1,22 +1,27 @@
+from datetime import date, datetime, timedelta, timezone
+
 from fastapi import APIRouter, Depends
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.deps import get_current_user
 from app.db.session import get_db
-from app.models.approval import ApprovalQueueItem, ApprovalStatus
+from app.models.approval import ApprovalItemType, ApprovalQueueItem, ApprovalStatus
+from app.models.calendar import CalendarEvent
 from app.models.document import Document, DocumentStatus
-from app.models.email import EmailAccount, EmailMessage, EmailUrgency
+from app.models.email import EmailAccount, EmailMessage, EmailProvider, EmailUrgency
 from app.models.meeting import ActionItem, ActionItemStatus, Decision, DecisionStatus, Meeting
 from app.models.presentation import Presentation, PresentationStatus
 from app.models.user import User
-from app.schemas.dashboard import DashboardSummary, UpcomingDeadlineRead
+from app.schemas.dashboard import AttentionItem, DashboardSummary, UpcomingDeadlineRead
 
 router = APIRouter()
 
 _DOCUMENTS_DONE_STATUSES = (DocumentStatus.reviewed, DocumentStatus.failed)
 _PRESENTATIONS_IN_PROGRESS_STATUSES = (PresentationStatus.draft, PresentationStatus.generating)
 _UPCOMING_DEADLINES_LIMIT = 5
+_ATTENTION_LIMIT = 7
+_PROVIDER_LABELS = {EmailProvider.gmail: "Gmail", EmailProvider.outlook: "Outlook"}
 
 
 @router.get("", response_model=DashboardSummary)
@@ -86,15 +91,41 @@ async def get_dashboard(
     upcoming_deadlines.sort(key=lambda d: d.due_date)
     upcoming_deadlines = upcoming_deadlines[:_UPCOMING_DEADLINES_LIMIT]
 
-    unread_urgent_emails = await db.scalar(
-        select(func.count())
-        .select_from(EmailMessage)
-        .join(EmailAccount, EmailMessage.account_id == EmailAccount.id)
-        .where(
-            EmailAccount.user_id == user.id,
-            EmailMessage.is_unread.is_(True),
-            EmailMessage.ai_urgency == EmailUrgency.high,
+    urgent_email_rows = (
+        await db.execute(
+            select(EmailMessage, EmailAccount.provider)
+            .join(EmailAccount, EmailMessage.account_id == EmailAccount.id)
+            .where(
+                EmailAccount.user_id == user.id,
+                EmailMessage.is_unread.is_(True),
+                EmailMessage.is_hidden.is_(False),
+                EmailMessage.ai_urgency == EmailUrgency.high,
+            )
+            .order_by(EmailMessage.received_at.desc())
         )
+    ).all()
+    unread_urgent_emails = len(urgent_email_rows)
+
+    now = datetime.now(timezone.utc)
+    todays_event_rows = (
+        await db.execute(
+            select(CalendarEvent)
+            .join(EmailAccount, CalendarEvent.account_id == EmailAccount.id)
+            .where(
+                EmailAccount.user_id == user.id,
+                CalendarEvent.start_time >= now,
+                CalendarEvent.start_time <= now + timedelta(hours=24),
+            )
+            .order_by(CalendarEvent.start_time.asc())
+        )
+    ).scalars().all()
+
+    needs_attention = _build_needs_attention(
+        pending=pending,
+        urgent_emails=urgent_email_rows,
+        deadlines=upcoming_deadlines,
+        events=todays_event_rows,
+        today=now.date(),
     )
 
     return DashboardSummary(
@@ -103,5 +134,104 @@ async def get_dashboard(
         presentations_in_progress=presentations_in_progress or 0,
         open_action_items=open_action_items or 0,
         upcoming_deadlines=upcoming_deadlines,
-        unread_urgent_emails=unread_urgent_emails or 0,
+        unread_urgent_emails=unread_urgent_emails,
+        needs_attention=needs_attention,
     )
+
+
+def _truncate(text: str, limit: int = 90) -> str:
+    text = " ".join(text.split())
+    return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
+
+
+def _build_needs_attention(
+    *,
+    pending: list[ApprovalQueueItem],
+    urgent_emails: list,
+    deadlines: list[UpcomingDeadlineRead],
+    events: list[CalendarEvent],
+    today: date,
+) -> list[AttentionItem]:
+    """Merge the pressing items across surfaces into one priority-ranked feed. Priority (higher =
+    more urgent): overdue deadline > urgent email > pending approval > deadline due today >
+    meeting in the next 24h."""
+    scored: list[tuple[int, AttentionItem]] = []
+
+    for message, provider in urgent_emails:
+        scored.append(
+            (
+                90,
+                AttentionItem(
+                    kind="email",
+                    title=message.sender,
+                    subtitle=_truncate(message.subject),
+                    badge=f"Urgent · {_PROVIDER_LABELS.get(provider, 'Email')}",
+                    tone="urgent",
+                    link="/email",
+                    when=message.received_at,
+                ),
+            )
+        )
+
+    for item in pending:
+        label = "Email to send" if item.item_type == ApprovalItemType.email_draft else "To approve"
+        by = f" · {item.requested_by_name}" if item.requested_by_name else ""
+        scored.append(
+            (
+                80,
+                AttentionItem(
+                    kind="approval",
+                    title=_truncate(item.preview_text),
+                    subtitle=f"Waiting on your approval{by}",
+                    badge=label,
+                    tone="warning",
+                    link="/approvals",
+                    when=item.created_at,
+                ),
+            )
+        )
+
+    for d in deadlines:
+        if d.due_date < today:
+            priority, badge, tone = 100, "Overdue", "urgent"
+        elif d.due_date == today:
+            priority, badge, tone = 75, "Due today", "warning"
+        else:
+            continue
+        scored.append(
+            (
+                priority,
+                AttentionItem(
+                    kind="deadline",
+                    title=d.description,
+                    subtitle=f"{d.owner} · {d.meeting_title}",
+                    badge=badge,
+                    tone=tone,
+                    link=f"/meetings/{d.meeting_id}",
+                    when=None,
+                ),
+            )
+        )
+
+    for event in events:
+        detail = event.location or event.organizer or (
+            f"{len(event.attendees)} attendees" if event.attendees else "On your calendar"
+        )
+        scored.append(
+            (
+                60,
+                AttentionItem(
+                    kind="event",
+                    title=event.title,
+                    subtitle=detail,
+                    badge="Upcoming",
+                    tone="default",
+                    link="/calendar",
+                    when=event.start_time,
+                ),
+            )
+        )
+
+    # Highest priority first; within a tier keep the query order (recent / soonest already sorted).
+    scored.sort(key=lambda pair: pair[0], reverse=True)
+    return [item for _, item in scored[:_ATTENTION_LIMIT]]

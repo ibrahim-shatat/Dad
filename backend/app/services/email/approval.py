@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.approval import ApprovalItemType
-from app.models.email import EmailAccount, EmailDraft, EmailDraftStatus
+from app.models.email import EmailAccount, EmailDraft, EmailDraftStatus, EmailMessage
 from app.services.approvals.service import register_handler
 from app.services.email.base import get_connector
 
@@ -32,6 +32,14 @@ class EmailDraftApprovalHandler:
         if account is None:
             raise ValueError("Email account not found for this draft")
 
+        # Reply drafts carry the inbound message they answer — thread the send into that
+        # conversation. Meeting-sourced drafts have no source message and go out as new mail.
+        reply_to = (
+            await db.get(EmailMessage, draft.source_message_id)
+            if draft.source_message_id is not None
+            else None
+        )
+
         connector = get_connector(account.provider)
         await connector.send_message(
             db,
@@ -40,6 +48,7 @@ class EmailDraftApprovalHandler:
             cc=draft.cc_addresses,
             subject=draft.subject,
             body=draft.body,
+            reply_to=reply_to,
         )
         draft.status = EmailDraftStatus.sent
         draft.sent_at = datetime.now(timezone.utc)

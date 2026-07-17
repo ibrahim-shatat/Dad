@@ -22,10 +22,16 @@ class FakeEmailConnector(EmailConnector):
         raise ValueError(f"No fake message with id {provider_message_id}")
 
     async def send_message(
-        self, db, account, *, to, cc, subject, body, thread_id=None
+        self, db, account, *, to, cc, subject, body, reply_to=None
     ) -> None:
         self.sent_messages.append(
-            {"to": to, "cc": cc, "subject": subject, "body": body, "thread_id": thread_id}
+            {
+                "to": to,
+                "cc": cc,
+                "subject": subject,
+                "body": body,
+                "reply_to": reply_to.provider_message_id if reply_to is not None else None,
+            }
         )
 
 

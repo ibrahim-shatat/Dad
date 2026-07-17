@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   ArrowRight,
+  Calendar,
   FileText,
   ListChecks,
   Mail,
@@ -16,6 +17,28 @@ import { Card, CardContent } from '@/components/ui/card'
 import ApprovalQueueList from '@/components/ApprovalQueue/ApprovalQueueList'
 import { fetchDashboard } from '@/api/dashboard'
 import { useAuthStore } from '@/store/authStore'
+import type { AttentionItem } from '@/types'
+
+const TONE_STYLE: Record<AttentionItem['tone'], string> = {
+  urgent: 'bg-red-500/10 text-red-600 dark:text-red-400',
+  warning: 'bg-amber-500/10 text-amber-600 dark:text-amber-500',
+  default: 'bg-primary/10 text-primary',
+}
+
+const KIND_ICON: Record<AttentionItem['kind'], typeof Mail> = {
+  email: Mail,
+  approval: Send,
+  deadline: ListChecks,
+  event: Calendar,
+}
+
+function formatWhen(iso: string): string {
+  const d = new Date(iso)
+  const sameDay = d.toDateString() === new Date().toDateString()
+  return sameDay
+    ? d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    : d.toLocaleDateString([], { month: 'short', day: 'numeric' })
+}
 
 const STAT_CARDS = [
   { key: 'documents_awaiting_review', label: 'Documents awaiting review', icon: FileText, to: '/documents', urgent: false },
@@ -43,10 +66,7 @@ export default function Dashboard() {
     day: 'numeric',
   })
 
-  const pending = data?.pending_approvals.length ?? 0
-  const urgentEmails = data?.unread_urgent_emails ?? 0
-  const deadlines = data?.upcoming_deadlines.length ?? 0
-  const attention = pending + urgentEmails + deadlines
+  const attentionItems = data?.needs_attention ?? []
 
   return (
     <div className="flex flex-col gap-6">
@@ -58,36 +78,41 @@ export default function Dashboard() {
         <p className="text-sm text-muted-foreground">Here's your executive summary for {today}.</p>
       </div>
 
-      {/* Daily briefing hero */}
+      {/* What needs your attention — one ranked feed across emails, approvals, deadlines, meetings */}
       <Card className="border-primary/20 bg-primary/5">
         <CardContent className="flex flex-col gap-4 p-5 sm:p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-primary">
               <Sparkles className="size-5" />
-              <span className="text-lg font-semibold">Daily briefing</span>
+              <span className="text-lg font-semibold">What needs your attention</span>
             </div>
             <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-primary">
               AI
             </span>
           </div>
-          <p className="text-sm leading-relaxed text-foreground/90">
-            {attention > 0
-              ? `You have ${attention} item${attention > 1 ? 's' : ''} that may need your attention today — across approvals, deadlines, and urgent email.`
-              : "You're all caught up. Nothing is pressing right now."}
-          </p>
-          {urgentEmails > 0 && (
-            <div className="flex items-start gap-2 rounded-lg bg-background/70 px-3 py-2.5">
-              <span className="mt-1 size-2 flex-none rounded-full bg-red-500" />
-              <p className="text-sm">
-                <span className="font-medium">
-                  {urgentEmails} urgent email{urgentEmails > 1 ? 's' : ''}
-                </span>{' '}
-                <span className="text-muted-foreground">flagged and unread.</span>
+
+          {attentionItems.length === 0 ? (
+            <p className="text-sm leading-relaxed text-foreground/90">
+              {data
+                ? "You're all caught up. Nothing is pressing right now."
+                : 'Gathering your priorities…'}
+            </p>
+          ) : (
+            <>
+              <p className="text-sm leading-relaxed text-foreground/90">
+                {attentionItems.length} thing{attentionItems.length > 1 ? 's' : ''} may need you
+                today — ranked by urgency.
               </p>
-            </div>
+              <div className="flex flex-col gap-2">
+                {attentionItems.map((item, i) => (
+                  <AttentionRow key={i} item={item} onClick={() => navigate(item.link)} />
+                ))}
+              </div>
+            </>
           )}
+
           <Button className="self-start" onClick={() => navigate('/briefing')}>
-            Open briefing <ArrowRight className="size-4" />
+            Open full briefing <ArrowRight className="size-4" />
           </Button>
         </CardContent>
       </Card>
@@ -184,5 +209,42 @@ export default function Dashboard() {
         </CardContent>
       </Card>
     </div>
+  )
+}
+
+function AttentionRow({ item, onClick }: { item: AttentionItem; onClick: () => void }) {
+  const Icon = KIND_ICON[item.kind]
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex items-center gap-3 rounded-lg bg-background/70 px-3 py-2.5 text-left transition-colors hover:bg-background"
+    >
+      <span
+        className={cn(
+          'flex size-8 flex-none items-center justify-center rounded-lg',
+          TONE_STYLE[item.tone]
+        )}
+      >
+        <Icon className="size-4" />
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm font-medium">{item.title}</p>
+        <p className="truncate text-xs text-muted-foreground">{item.subtitle}</p>
+      </div>
+      <div className="flex flex-none flex-col items-end gap-1">
+        <span
+          className={cn(
+            'rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide',
+            TONE_STYLE[item.tone]
+          )}
+        >
+          {item.badge}
+        </span>
+        {item.when && (
+          <span className="text-[10px] text-muted-foreground">{formatWhen(item.when)}</span>
+        )}
+      </div>
+    </button>
   )
 }

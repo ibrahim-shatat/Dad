@@ -94,6 +94,85 @@ async def test_approving_email_draft_with_account_sends_via_connector(
     assert draft.sent_at is not None
 
 
+async def test_approving_reply_draft_threads_into_source_message(
+    db_session, make_user, fake_connector
+):
+    """A reply draft (has source_message_id) sends threaded into that conversation, so the
+    connector receives the originating message as reply_to."""
+    from app.models.email import EmailMessage
+
+    user = await make_user()
+    account = await _make_account(db_session, user)
+    source = EmailMessage(
+        account_id=account.id,
+        provider_message_id="orig-123",
+        thread_id="thread-9",
+        sender="someone@example.com",
+        subject="Original",
+        snippet="hello",
+        received_at=datetime.now(timezone.utc),
+    )
+    db_session.add(source)
+    await db_session.commit()
+    await db_session.refresh(source)
+
+    draft = EmailDraft(
+        created_by_id=user.id,
+        account_id=account.id,
+        source_message_id=source.id,
+        to_addresses=["someone@example.com"],
+        subject="Re: Original",
+        body="Reply body",
+    )
+    db_session.add(draft)
+    await db_session.commit()
+    await db_session.refresh(draft, attribute_names=["created_at"])
+
+    item = await create_approval_item(
+        db_session,
+        item_type=ApprovalItemType.email_draft,
+        reference_id=draft.id,
+        preview_text="Re: Original",
+        requested_by_id=user.id,
+    )
+    await db_session.commit()
+
+    await approve_item(db_session, item, user)
+
+    assert len(fake_connector.sent_messages) == 1
+    # Threaded: the connector was handed the originating message to reply within its conversation.
+    assert fake_connector.sent_messages[0]["reply_to"] == "orig-123"
+
+
+async def test_approving_non_reply_draft_sends_as_new_mail(db_session, make_user, fake_connector):
+    """A draft with no source message (e.g. meeting-sourced) sends fresh, not threaded."""
+    user = await make_user()
+    account = await _make_account(db_session, user)
+    draft = EmailDraft(
+        created_by_id=user.id,
+        account_id=account.id,
+        to_addresses=["someone@example.com"],
+        subject="Hi",
+        body="Body",
+    )
+    db_session.add(draft)
+    await db_session.commit()
+    await db_session.refresh(draft, attribute_names=["created_at"])
+
+    item = await create_approval_item(
+        db_session,
+        item_type=ApprovalItemType.email_draft,
+        reference_id=draft.id,
+        preview_text="Hi",
+        requested_by_id=user.id,
+    )
+    await db_session.commit()
+
+    await approve_item(db_session, item, user)
+
+    assert fake_connector.sent_messages[0]["reply_to"] is None
+
+
 async def test_approving_email_draft_without_account_does_not_send(
     db_session, make_user, fake_connector
 ):

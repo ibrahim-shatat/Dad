@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models.email import EmailAccount
+from app.models.email import EmailAccount, EmailMessage
 
 if TYPE_CHECKING:
     from app.models.email import EmailProvider
@@ -52,8 +52,11 @@ class EmailConnector(ABC):
         cc: list[str],
         subject: str,
         body: str,
-        thread_id: str | None = None,
-    ) -> None: ...
+        reply_to: EmailMessage | None = None,
+    ) -> None:
+        """Send an email. When `reply_to` is the inbound message this draft answers, the send is
+        threaded into that conversation (In-Reply-To/References for Gmail; the Graph reply action
+        for Outlook) instead of going out as a brand-new message."""
 
 
 def get_connector(provider: "EmailProvider") -> EmailConnector:

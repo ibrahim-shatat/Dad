@@ -15,7 +15,7 @@ from googleapiclient.discovery import build
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
-from app.models.email import EmailAccount
+from app.models.email import EmailAccount, EmailMessage
 from app.services.email.base import EmailConnector, EmailMessageData
 from app.services.email.oauth import decrypt_token, encrypt_token
 
@@ -173,10 +173,39 @@ class GmailConnector(EmailConnector):
         cc: list[str],
         subject: str,
         body: str,
-        thread_id: str | None = None,
+        reply_to: EmailMessage | None = None,
     ) -> None:
         creds = await self._ensure_fresh_credentials(db, account)
-        await asyncio.to_thread(self._send_message_sync, creds, to, cc, subject, body, thread_id)
+        thread_id = reply_to.thread_id if reply_to is not None else None
+        # The RFC822 Message-ID header is what mail clients thread on. We only stored the Gmail
+        # threadId at sync time, so fetch the original's Message-ID now (metadata-only call).
+        in_reply_to = None
+        if reply_to is not None:
+            in_reply_to = await asyncio.to_thread(
+                self._fetch_rfc822_message_id, creds, reply_to.provider_message_id
+            )
+        await asyncio.to_thread(
+            self._send_message_sync, creds, to, cc, subject, body, thread_id, in_reply_to
+        )
+
+    def _fetch_rfc822_message_id(self, creds: Credentials, provider_message_id: str) -> str | None:
+        service = build("gmail", "v1", credentials=creds, cache_discovery=False)
+        try:
+            msg = (
+                service.users()
+                .messages()
+                .get(
+                    userId="me",
+                    id=provider_message_id,
+                    format="metadata",
+                    metadataHeaders=["Message-ID"],
+                )
+                .execute()
+            )
+        except Exception:
+            return None
+        headers = {h["name"].lower(): h["value"] for h in msg.get("payload", {}).get("headers", [])}
+        return headers.get("message-id")
 
     def _send_message_sync(
         self,
@@ -186,6 +215,7 @@ class GmailConnector(EmailConnector):
         subject: str,
         body: str,
         thread_id: str | None,
+        in_reply_to: str | None = None,
     ) -> None:
         service = build("gmail", "v1", credentials=creds, cache_discovery=False)
         message = MIMEText(body)
@@ -193,6 +223,10 @@ class GmailConnector(EmailConnector):
         if cc:
             message["cc"] = ", ".join(cc)
         message["subject"] = subject
+        if in_reply_to:
+            # In-Reply-To + References make the recipient's client nest this under the original.
+            message["In-Reply-To"] = in_reply_to
+            message["References"] = in_reply_to
         raw = base64.urlsafe_b64encode(message.as_bytes()).decode()
         payload: dict = {"raw": raw}
         if thread_id:
