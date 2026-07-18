@@ -67,6 +67,17 @@ export async function getEmailMessage(id: string): Promise<EmailMessageItem> {
   return response.data
 }
 
+export interface EmailMessageBody {
+  sender: string
+  subject: string
+  body: string
+}
+
+export async function getEmailMessageBody(id: string): Promise<EmailMessageBody> {
+  const response = await apiClient.get<EmailMessageBody>(`/email/messages/${id}/body`)
+  return response.data
+}
+
 export async function draftReply(messageId: string, instructions?: string): Promise<void> {
   await apiClient.post(`/email/messages/${messageId}/draft-reply`, { instructions })
 }

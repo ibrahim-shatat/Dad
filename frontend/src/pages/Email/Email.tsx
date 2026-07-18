@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea'
 import {
   disconnectAccount,
   draftReply,
+  getEmailMessageBody,
   getGmailAuthorizationUrl,
   getOutlookAuthorizationUrl,
   hideMessage,
@@ -344,6 +345,12 @@ function MessageCard({
   onUnhide,
 }: MessageCardProps) {
   const high = message.ai_urgency === 'high'
+  const [expanded, setExpanded] = useState(false)
+  const { data: fullBody, isLoading: bodyLoading } = useQuery({
+    queryKey: ['email-body', message.id],
+    queryFn: () => getEmailMessageBody(message.id),
+    enabled: expanded,
+  })
   return (
     <Card className={cn('p-4', high && 'border-red-500/30 bg-red-500/5', message.is_hidden && 'opacity-70')}>
       <div className="flex items-start justify-between gap-2">
@@ -393,6 +400,19 @@ function MessageCard({
       <p className="mt-2 font-semibold leading-tight">{message.sender}</p>
       <p className="font-medium">{message.subject}</p>
       <p className="mt-1 text-sm text-muted-foreground">{message.ai_summary ?? message.snippet}</p>
+
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        className="mt-2 text-xs font-medium text-primary hover:underline"
+      >
+        {expanded ? 'Hide full email' : 'Read full email'}
+      </button>
+      {expanded && (
+        <div className="mt-2 max-h-96 overflow-y-auto whitespace-pre-wrap rounded-lg border bg-muted/30 p-3 text-sm leading-relaxed">
+          {bodyLoading ? 'Loading…' : fullBody?.body?.trim() || '(This message has no text body.)'}
+        </div>
+      )}
 
       <div className="mt-3">
         {isReplying ? (

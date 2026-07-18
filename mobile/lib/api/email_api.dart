@@ -14,12 +14,25 @@ class EmailApi {
         .toList();
   }
 
-  Future<List<EmailMessage>> messages(String token) async {
-    final data = await _client.get('/email/messages', token: token);
+  Future<List<EmailMessage>> messages(String token, {bool includeHidden = false}) async {
+    final path =
+        includeHidden ? '/email/messages?include_hidden=true' : '/email/messages';
+    final data = await _client.get(path, token: token);
     return (data as List)
         .map((e) => EmailMessage.fromJson(e as Map<String, dynamic>))
         .toList();
   }
+
+  Future<EmailBody> messageBody(String messageId, String token) async {
+    final data = await _client.get('/email/messages/$messageId/body', token: token);
+    return EmailBody.fromJson(data as Map<String, dynamic>);
+  }
+
+  Future<void> hide(String messageId, String token) =>
+      _client.postJson('/email/messages/$messageId/hide', {}, token: token);
+
+  Future<void> unhide(String messageId, String token) =>
+      _client.postJson('/email/messages/$messageId/unhide', {}, token: token);
 
   Future<EmailDraft> draft(String draftId, String token) async {
     final data = await _client.get('/email/drafts/$draftId', token: token);

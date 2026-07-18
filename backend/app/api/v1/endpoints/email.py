@@ -16,6 +16,7 @@ from app.models.email import EmailAccount, EmailDraft, EmailDraftStatus, EmailMe
 from app.models.user import User, UserRole
 from app.schemas.email import EmailAccountRead, EmailDraftRead, EmailDraftUpdate, EmailMessageRead
 from app.services.email import approval as _email_approval  # noqa: F401 — registers the send-on-approve handler
+from app.services.email.base import get_connector
 from app.services.email.gmail import (
     GMAIL_SCOPES,
     build_gmail_flow,
@@ -289,6 +290,40 @@ async def get_message(
     user: User = Depends(get_current_user),
 ) -> EmailMessage:
     return await _get_owned_message(db, user, message_id)
+
+
+class MessageBody(BaseModel):
+    sender: str
+    subject: str
+    body: str
+
+
+@router.get("/messages/{message_id}/body", response_model=MessageBody)
+async def get_message_body(
+    message_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    user: User = Depends(get_current_user),
+) -> MessageBody:
+    """Fetch the full message body live from the provider (only a snippet is stored at rest).
+    Also marks the message read in our synced view."""
+    message = await _get_owned_message(db, user, message_id)
+    account = await db.get(EmailAccount, message.account_id)
+    if account is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Account not found")
+
+    connector = get_connector(account.provider)
+    try:
+        data = await connector.get_message(db, account, message.provider_message_id)
+    except Exception as exc:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail=f"Could not load the message from {account.provider.value}: {exc}",
+        )
+
+    if message.is_unread:
+        message.is_unread = False
+    await db.commit()  # persist read state + any refreshed OAuth token
+    return MessageBody(sender=data.sender, subject=data.subject, body=data.body)
 
 
 # --- Drafts (viewed / edited from the approval queue before approval) ---
