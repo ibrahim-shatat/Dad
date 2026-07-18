@@ -48,19 +48,6 @@ jobs:
           echo "--- manifest head ---"
           head -n 5 "$MANIFEST"
 
-      # file_picker needs compileSdk 36; firebase needs minSdk 23. The Flutter template
-      # targets 34/lower. Force both in the app Gradle file (Groovy or Kotlin DSL).
-      - name: Set Android SDK levels
-        run: |
-          for f in android/app/build.gradle android/app/build.gradle.kts; do
-            if [ -f "$f" ]; then
-              sed -i 's/flutter\.compileSdkVersion/36/g' "$f"
-              sed -i 's/flutter\.minSdkVersion/23/g' "$f"
-              echo "--- $f (sdk lines) ---"
-              grep -nE "compileSdk|minSdk" "$f" || true
-            fi
-          done
-
       - name: Install dependencies
         run: flutter pub get
 
@@ -70,9 +57,11 @@ jobs:
         continue-on-error: true
 
       # This is the real gate: a genuine compile error fails here.
-      # If the GOOGLE_SERVICES_JSON secret is set, extract the Firebase config values
-      # and pass them to the app so push notifications work. If not, build without them
-      # (push stays disabled — the app is otherwise identical).
+      # Firebase config comes from the GOOGLE_SERVICES_JSON secret (if set); without it the
+      # app builds identically with push disabled. compileSdk 36 (file_picker) and minSdk 23
+      # (firebase) must be forced — but Flutter's one-time "Upgrading build.gradle.kts"
+      # migration runs during the first build and resets them, so we build once to let that
+      # happen, re-apply the SDK levels, then build for real.
       - name: Build release APK
         env:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
@@ -89,6 +78,20 @@ jobs:
           else
             echo "Firebase config: not set — building with push disabled"
           fi
+
+          patch_sdks() {
+            local f=android/app/build.gradle.kts
+            [ -f "$f" ] || f=android/app/build.gradle
+            sed -i -e 's/flutter\.compileSdkVersion/36/g' -e 's/flutter\.minSdkVersion/23/g' "$f"
+            echo "--- $f SDK lines ---"; grep -nE "compileSdk|minSdk" "$f" || true
+          }
+
+          patch_sdks
+          echo "::group::First build pass (lets Flutter migrate build.gradle.kts)"
+          flutter build apk --release $DEFINES || echo "First pass failed (expected if migration reset the SDK levels) — retrying."
+          echo "::endgroup::"
+
+          patch_sdks
           flutter build apk --release $DEFINES
 
       - uses: actions/upload-artifact@v4
