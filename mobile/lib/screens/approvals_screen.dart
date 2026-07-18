@@ -6,6 +6,7 @@ import '../api/api_client.dart';
 import '../api/approvals_api.dart';
 import '../models/approval_item.dart';
 import '../state/auth_state.dart';
+import 'approval_detail_screen.dart';
 
 class ApprovalsScreen extends StatefulWidget {
   const ApprovalsScreen({super.key});
@@ -73,6 +74,13 @@ class _ApprovalsScreenState extends State<ApprovalsScreen> {
     }
   }
 
+  Future<void> _openDetail(ApprovalItem item) async {
+    final actioned = await Navigator.of(context).push<bool>(
+      MaterialPageRoute(builder: (_) => ApprovalDetailScreen(item: item)),
+    );
+    if (actioned == true) await _refresh();
+  }
+
   Future<String?> _askReason() {
     final controller = TextEditingController();
     return showDialog<String>(
@@ -132,6 +140,7 @@ class _ApprovalsScreenState extends State<ApprovalsScreen> {
                 busy: _busy.contains(items[i].id),
                 onApprove: () => _approve(items[i]),
                 onReject: () => _reject(items[i]),
+                onOpen: items[i].isEmailDraft ? () => _openDetail(items[i]) : null,
               ),
             );
           },
@@ -160,12 +169,14 @@ class _ApprovalCard extends StatelessWidget {
   final bool busy;
   final VoidCallback onApprove;
   final VoidCallback onReject;
+  final VoidCallback? onOpen;
 
   const _ApprovalCard({
     required this.item,
     required this.busy,
     required this.onApprove,
     required this.onReject,
+    this.onOpen,
   });
 
   @override
@@ -213,6 +224,23 @@ class _ApprovalCard extends StatelessWidget {
             const SizedBox(height: 6),
             Text('Requested by ${item.requestedByName}',
                 style: TextStyle(fontSize: 12, color: scheme.onSurfaceVariant)),
+          ],
+          if (onOpen != null) ...[
+            const SizedBox(height: 8),
+            InkWell(
+              onTap: onOpen,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Review full email',
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: scheme.primary)),
+                  Icon(Icons.chevron_right, size: 18, color: scheme.primary),
+                ],
+              ),
+            ),
           ],
           const SizedBox(height: 12),
           if (busy)
