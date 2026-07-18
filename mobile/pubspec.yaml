@@ -22,5 +22,11 @@ dependencies:
 dev_dependencies:
   flutter_lints: ^4.0.0
 
+# file_picker pulls the newest flutter_plugin_android_lifecycle, which demands every module
+# compile against Android SDK 36 (Flutter builds plugins against 34). Pin it to a version that
+# doesn't, so the Android build works without SDK-level hacks.
+dependency_overrides:
+  flutter_plugin_android_lifecycle: 2.0.17
+
 flutter:
   uses-material-design: true
