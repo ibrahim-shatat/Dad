@@ -1,0 +1,19 @@
+// Groovy fallback (appended to android/build.gradle if the project uses Groovy DSL).
+// See force_android_sdk.gradle.kts for what this does.
+subprojects {
+    def forceSdk = { proj ->
+        if (proj.hasProperty("android")) {
+            proj.android {
+                compileSdkVersion 36
+                defaultConfig {
+                    minSdkVersion 23
+                }
+            }
+        }
+    }
+    if (state.executed) {
+        forceSdk(project)
+    } else {
+        afterEvaluate { forceSdk(project) }
+    }
+}

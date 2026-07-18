@@ -48,14 +48,20 @@ jobs:
           echo "--- manifest head ---"
           head -n 5 "$MANIFEST"
 
-      # Firebase requires min SDK 23. Set it on the app module (compileSdk left at Flutter's
-      # default, which is fine now that the file_picker plugin no longer demands 36).
-      - name: Set min SDK for Firebase
+      # Force every Android module (app + plugins) to compileSdk 36 (file_picker's
+      # flutter_plugin_android_lifecycle needs it) and minSdk 23 (firebase). The app module
+      # is also patched directly since it's force-evaluated early.
+      - name: Force Android SDK levels
         run: |
-          f=android/app/build.gradle.kts
-          [ -f "$f" ] || f=android/app/build.gradle
-          sed -i 's/flutter\.minSdkVersion/23/g' "$f"
-          echo "--- $f minSdk ---"; grep -nE "minSdk" "$f" || true
+          app=android/app/build.gradle.kts
+          [ -f "$app" ] || app=android/app/build.gradle
+          sed -i -e 's/flutter\.compileSdkVersion/36/g' -e 's/flutter\.minSdkVersion/23/g' "$app"
+          if [ -f android/build.gradle.kts ]; then
+            cat ci/force_android_sdk.gradle.kts >> android/build.gradle.kts
+          else
+            cat ci/force_android_sdk.gradle >> android/build.gradle
+          fi
+          echo "Applied SDK overrides."
 
       - name: Install dependencies
         run: flutter pub get
