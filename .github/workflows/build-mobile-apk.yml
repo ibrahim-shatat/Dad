@@ -48,15 +48,16 @@ jobs:
           echo "--- manifest head ---"
           head -n 5 "$MANIFEST"
 
-      # file_picker's newest transitive deps require compileSdk 36; the Flutter
-      # template targets 34. Force 36 in the app Gradle file (Groovy or Kotlin DSL).
-      - name: Bump compileSdk to 36
+      # file_picker needs compileSdk 36; firebase needs minSdk 23. The Flutter template
+      # targets 34/lower. Force both in the app Gradle file (Groovy or Kotlin DSL).
+      - name: Set Android SDK levels
         run: |
           for f in android/app/build.gradle android/app/build.gradle.kts; do
             if [ -f "$f" ]; then
               sed -i 's/flutter\.compileSdkVersion/36/g' "$f"
-              echo "--- $f (compileSdk lines) ---"
-              grep -n "compileSdk" "$f" || true
+              sed -i 's/flutter\.minSdkVersion/23/g' "$f"
+              echo "--- $f (sdk lines) ---"
+              grep -nE "compileSdk|minSdk" "$f" || true
             fi
           done
 
@@ -69,8 +70,26 @@ jobs:
         continue-on-error: true
 
       # This is the real gate: a genuine compile error fails here.
+      # If the GOOGLE_SERVICES_JSON secret is set, extract the Firebase config values
+      # and pass them to the app so push notifications work. If not, build without them
+      # (push stays disabled — the app is otherwise identical).
       - name: Build release APK
-        run: flutter build apk --release
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          DEFINES=""
+          if [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            echo "$GOOGLE_SERVICES_JSON" > /tmp/gs.json
+            API_KEY=$(jq -r '.client[0].api_key[0].current_key' /tmp/gs.json)
+            APP_ID=$(jq -r '.client[0].client_info.mobilesdk_app_id' /tmp/gs.json)
+            SENDER_ID=$(jq -r '.project_info.project_number' /tmp/gs.json)
+            PROJECT_ID=$(jq -r '.project_info.project_id' /tmp/gs.json)
+            DEFINES="--dart-define=FIREBASE_API_KEY=$API_KEY --dart-define=FIREBASE_APP_ID=$APP_ID --dart-define=FIREBASE_SENDER_ID=$SENDER_ID --dart-define=FIREBASE_PROJECT_ID=$PROJECT_ID"
+            echo "Firebase config: ENABLED (project $PROJECT_ID)"
+          else
+            echo "Firebase config: not set — building with push disabled"
+          fi
+          flutter build apk --release $DEFINES
 
       - uses: actions/upload-artifact@v4
         with:

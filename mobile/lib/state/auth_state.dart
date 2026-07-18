@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../api/api_client.dart';
 import '../api/auth_api.dart';
 import '../models/user.dart';
+import '../push_service.dart';
 
 enum AuthStatus { unknown, authenticated, unauthenticated }
 
@@ -36,6 +37,7 @@ class AuthState extends ChangeNotifier {
       user = await _authApi.me(saved);
       token = saved;
       status = AuthStatus.authenticated;
+      unawaited(PushService.instance.registerForUser(saved));
     } catch (_) {
       await _storage.delete(key: _tokenKey);
       status = AuthStatus.unauthenticated;
@@ -53,6 +55,7 @@ class AuthState extends ChangeNotifier {
       token = t;
       await _storage.write(key: _tokenKey, value: t);
       status = AuthStatus.authenticated;
+      unawaited(PushService.instance.registerForUser(t));
       busy = false;
       notifyListeners();
       return true;
