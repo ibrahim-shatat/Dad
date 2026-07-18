@@ -1,3 +1,4 @@
+import asyncio
 import re
 import uuid
 from datetime import datetime, timedelta, timezone
@@ -75,7 +76,12 @@ async def extract_document_text(ctx: dict[str, Any], document_id: str) -> None:
 
         try:
             data = await storage.read(document.storage_key)
-            text = extract_text(data, document.mime_type, document.filename)
+            # extract_text is synchronous CPU-bound parsing (pdfplumber/python-docx/openpyxl);
+            # run it off the event loop so it can't freeze the web server (inline job mode runs
+            # this in the same process, and a blocked loop fails Render's health check).
+            text = await asyncio.to_thread(
+                extract_text, data, document.mime_type, document.filename
+            )
         except Exception as exc:
             document.status = DocumentStatus.failed
             document.failure_reason = f"Text extraction failed: {exc}"
@@ -173,7 +179,9 @@ async def generate_presentation(ctx: dict[str, Any], presentation_id: str) -> No
         presentation.structured_content = outline.model_dump()
 
         try:
-            pptx_bytes = build_presentation(outline)
+            # build_presentation (python-pptx) is synchronous CPU work — offload it so it
+            # doesn't block the event loop / web server in inline job mode.
+            pptx_bytes = await asyncio.to_thread(build_presentation, outline)
             storage = get_storage_backend()
             storage_key = await storage.save(pptx_bytes, f"{presentation.title}.pptx")
         except Exception as exc:
