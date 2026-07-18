@@ -44,6 +44,12 @@ class Settings(BaseSettings):
     vapid_private_key: str = ""
     vapid_subject: str = "mailto:admin@dad.app"
 
+    # Firebase Cloud Messaging (native mobile push). Empty = disabled (no-op).
+    # fcm_credentials_json holds the service-account JSON (as a string); fcm_project_id is the
+    # Firebase project id. Both come from the Firebase console (Project settings → Service accounts).
+    fcm_project_id: str = ""
+    fcm_credentials_json: str = ""
+
     # Email OAuth (Phase 4)
     gmail_client_id: str = ""
     gmail_client_secret: str = ""
