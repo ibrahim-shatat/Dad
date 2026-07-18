@@ -28,9 +28,14 @@ class AttentionRow extends StatelessWidget {
       case 'approval':
         return Icons.send_outlined;
       case 'deadline':
+      case 'task':
         return Icons.checklist_outlined;
       case 'event':
         return Icons.event_outlined;
+      case 'document':
+        return Icons.description_outlined;
+      case 'presentation':
+        return Icons.slideshow_outlined;
       default:
         return Icons.auto_awesome_outlined;
     }

@@ -3,12 +3,14 @@ import 'package:provider/provider.dart';
 
 import '../api/api_client.dart';
 import '../api/dashboard_api.dart';
+import '../api/meetings_api.dart';
 import '../models/attention_item.dart';
 import '../models/dashboard_summary.dart';
 import '../state/auth_state.dart';
 import '../state/nav_state.dart';
 import '../widgets/attention_row.dart';
-import 'meetings_screen.dart';
+import 'documents_screen.dart';
+import 'meeting_detail_screen.dart';
 
 /// "Prepare My Day" — the app's home. Shows the priority-ranked attention feed
 /// plus the key counters, pulled live from GET /dashboard.
@@ -103,6 +105,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 const SizedBox(height: 20),
                 _AttentionCard(items: data.needsAttention),
+                if (data.needsWork.isNotEmpty) ...[
+                  const SizedBox(height: 20),
+                  _WorkCard(items: data.needsWork),
+                ],
                 const SizedBox(height: 20),
                 _StatGrid(data: data),
               ],
@@ -114,27 +120,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 }
 
+/// Routes a tapped attention/work item to the right place. Items whose link points at a
+/// specific meeting open that meeting directly; others switch to the relevant tab.
+Future<void> openAttentionItem(BuildContext context, AttentionItem item) async {
+  final link = item.link;
+  if (link.startsWith('/meetings/')) {
+    final id = link.substring('/meetings/'.length);
+    final token = context.read<AuthState>().token!;
+    try {
+      final meeting = await MeetingsApi(ApiClient()).get(id, token);
+      if (context.mounted) {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => MeetingDetailScreen(meeting: meeting)),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Could not open meeting: $e')));
+      }
+    }
+    return;
+  }
+  switch (item.kind) {
+    case 'email':
+      context.read<NavState>().go(NavState.email);
+      break;
+    case 'approval':
+      context.read<NavState>().go(NavState.approvals);
+      break;
+    case 'event':
+      context.read<NavState>().go(NavState.calendar);
+      break;
+    case 'document':
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => const DocumentsScreen()));
+      break;
+  }
+}
+
 class _AttentionCard extends StatelessWidget {
   final List<AttentionItem> items;
   const _AttentionCard({required this.items});
-
-  void _handleTap(BuildContext context, AttentionItem item) {
-    switch (item.kind) {
-      case 'email':
-        context.read<NavState>().go(NavState.email);
-        break;
-      case 'approval':
-        context.read<NavState>().go(NavState.approvals);
-        break;
-      case 'event':
-        context.read<NavState>().go(NavState.calendar);
-        break;
-      case 'deadline':
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (_) => const MeetingsScreen()));
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -175,8 +202,45 @@ class _AttentionCard extends StatelessWidget {
               style: TextStyle(color: scheme.onSurface, fontSize: 13),
             ),
             const SizedBox(height: 12),
-            ...items.map((i) => AttentionRow(item: i, onTap: () => _handleTap(context, i))),
+            ...items.map((i) => AttentionRow(item: i, onTap: () => openAttentionItem(context, i))),
           ],
+        ],
+      ),
+    );
+  }
+}
+
+class _WorkCard extends StatelessWidget {
+  final List<AttentionItem> items;
+  const _WorkCard({required this.items});
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: scheme.surface,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: scheme.outlineVariant.withOpacity(0.5)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.checklist_rounded, size: 18, color: scheme.primary),
+              const SizedBox(width: 8),
+              Text('What needs work',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 15, color: scheme.onSurface)),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text('Tasks, documents, and presentations in progress.',
+              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12.5)),
+          const SizedBox(height: 12),
+          ...items.map((i) => AttentionRow(item: i, onTap: () => openAttentionItem(context, i))),
         ],
       ),
     );

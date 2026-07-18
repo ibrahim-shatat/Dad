@@ -12,7 +12,9 @@ class AttentionItem(BaseModel):
     across emails, approvals, deadlines, and meetings so the dashboard can render a single
     'here's what needs you' feed without the client re-deriving priority."""
 
-    kind: Literal["email", "approval", "deadline", "event"]
+    kind: Literal[
+        "email", "approval", "deadline", "event", "task", "document", "presentation"
+    ]
     title: str
     subtitle: str
     badge: str
@@ -39,3 +41,4 @@ class DashboardSummary(BaseModel):
     upcoming_deadlines: list[UpcomingDeadlineRead] = []
     unread_urgent_emails: int = 0
     needs_attention: list[AttentionItem] = []
+    needs_work: list[AttentionItem] = []

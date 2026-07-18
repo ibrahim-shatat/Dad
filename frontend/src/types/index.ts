@@ -300,7 +300,7 @@ export interface UpcomingDeadline {
 }
 
 export interface AttentionItem {
-  kind: 'email' | 'approval' | 'deadline' | 'event'
+  kind: 'email' | 'approval' | 'deadline' | 'event' | 'task' | 'document' | 'presentation'
   title: string
   subtitle: string
   badge: string
@@ -317,4 +317,5 @@ export interface DashboardSummary {
   upcoming_deadlines: UpcomingDeadline[]
   unread_urgent_emails: number
   needs_attention: AttentionItem[]
+  needs_work: AttentionItem[]
 }

@@ -7,6 +7,7 @@ class DashboardSummary {
   final int unreadUrgentEmails;
   final int pendingApprovals;
   final List<AttentionItem> needsAttention;
+  final List<AttentionItem> needsWork;
 
   DashboardSummary({
     required this.documentsAwaitingReview,
@@ -15,12 +16,14 @@ class DashboardSummary {
     required this.unreadUrgentEmails,
     required this.pendingApprovals,
     required this.needsAttention,
+    required this.needsWork,
   });
 
   factory DashboardSummary.fromJson(Map<String, dynamic> json) {
-    final attention = (json['needs_attention'] as List<dynamic>? ?? const [])
-        .map((e) => AttentionItem.fromJson(e as Map<String, dynamic>))
-        .toList();
+    List<AttentionItem> parse(String key) =>
+        (json[key] as List<dynamic>? ?? const [])
+            .map((e) => AttentionItem.fromJson(e as Map<String, dynamic>))
+            .toList();
     final pending = (json['pending_approvals'] as List<dynamic>? ?? const []).length;
     return DashboardSummary(
       documentsAwaitingReview: (json['documents_awaiting_review'] ?? 0) as int,
@@ -28,7 +31,8 @@ class DashboardSummary {
       openActionItems: (json['open_action_items'] ?? 0) as int,
       unreadUrgentEmails: (json['unread_urgent_emails'] ?? 0) as int,
       pendingApprovals: pending,
-      needsAttention: attention,
+      needsAttention: parse('needs_attention'),
+      needsWork: parse('needs_work'),
     );
   }
 }

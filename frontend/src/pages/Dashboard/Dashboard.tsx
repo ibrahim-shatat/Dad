@@ -30,6 +30,9 @@ const KIND_ICON: Record<AttentionItem['kind'], typeof Mail> = {
   approval: Send,
   deadline: ListChecks,
   event: Calendar,
+  task: ListChecks,
+  document: FileText,
+  presentation: Presentation,
 }
 
 function formatWhen(iso: string): string {
@@ -67,6 +70,7 @@ export default function Dashboard() {
   })
 
   const attentionItems = data?.needs_attention ?? []
+  const workItems = data?.needs_work ?? []
 
   return (
     <div className="flex flex-col gap-6">
@@ -116,6 +120,26 @@ export default function Dashboard() {
           </Button>
         </CardContent>
       </Card>
+
+      {/* What needs work — the director's own in-progress queue */}
+      {workItems.length > 0 && (
+        <Card>
+          <CardContent className="flex flex-col gap-3 p-5">
+            <div className="flex items-center gap-2">
+              <ListChecks className="size-5 text-primary" />
+              <span className="text-base font-semibold">What needs work</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Tasks, documents, and presentations in progress.
+            </p>
+            <div className="flex flex-col gap-2">
+              {workItems.map((item, i) => (
+                <AttentionRow key={i} item={item} onClick={() => navigate(item.link)} />
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">

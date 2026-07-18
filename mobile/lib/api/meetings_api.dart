@@ -12,6 +12,11 @@ class MeetingsApi {
         .toList();
   }
 
+  Future<Meeting> get(String meetingId, String token) async {
+    final data = await _client.get('/meetings/$meetingId', token: token);
+    return Meeting.fromJson(data as Map<String, dynamic>);
+  }
+
   /// Creates a meeting from notes; the backend queues AI processing (summary,
   /// action items, decisions) which appears once the job runs.
   Future<void> create({

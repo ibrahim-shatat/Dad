@@ -1,7 +1,7 @@
 from datetime import date, datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends
-from sqlalchemy import func, select
+from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.deps import get_current_user
@@ -21,6 +21,7 @@ _DOCUMENTS_DONE_STATUSES = (DocumentStatus.reviewed, DocumentStatus.failed)
 _PRESENTATIONS_IN_PROGRESS_STATUSES = (PresentationStatus.draft, PresentationStatus.generating)
 _UPCOMING_DEADLINES_LIMIT = 5
 _ATTENTION_LIMIT = 7
+_NEEDS_WORK_LIMIT = 8
 _PROVIDER_LABELS = {EmailProvider.gmail: "Gmail", EmailProvider.outlook: "Outlook"}
 
 
@@ -128,6 +129,40 @@ async def get_dashboard(
         today=now.date(),
     )
 
+    # "What needs work" — the director's own in-progress queue (distinct from the time-sensitive
+    # attention feed): documents being reviewed, presentations being built, and open tasks that
+    # aren't already surfaced as overdue/today deadlines.
+    docs_in_progress = (
+        await db.execute(
+            select(Document)
+            .where(Document.status.notin_(_DOCUMENTS_DONE_STATUSES))
+            .order_by(Document.created_at.desc())
+            .limit(_NEEDS_WORK_LIMIT)
+        )
+    ).scalars().all()
+    pres_in_progress = (
+        await db.execute(
+            select(Presentation)
+            .where(Presentation.status.in_(_PRESENTATIONS_IN_PROGRESS_STATUSES))
+            .order_by(Presentation.created_at.desc())
+            .limit(_NEEDS_WORK_LIMIT)
+        )
+    ).scalars().all()
+    open_tasks = (
+        await db.execute(
+            select(ActionItem, Meeting.title)
+            .join(Meeting, ActionItem.meeting_id == Meeting.id)
+            .where(
+                ActionItem.status != ActionItemStatus.done,
+                or_(ActionItem.due_date.is_(None), ActionItem.due_date > now.date()),
+            )
+            .order_by(ActionItem.created_at.desc())
+            .limit(_NEEDS_WORK_LIMIT)
+        )
+    ).all()
+
+    needs_work = _build_needs_work(docs_in_progress, pres_in_progress, open_tasks)
+
     return DashboardSummary(
         pending_approvals=pending,
         documents_awaiting_review=documents_awaiting_review or 0,
@@ -136,7 +171,50 @@ async def get_dashboard(
         upcoming_deadlines=upcoming_deadlines,
         unread_urgent_emails=unread_urgent_emails,
         needs_attention=needs_attention,
+        needs_work=needs_work,
     )
+
+
+def _build_needs_work(documents, presentations, tasks) -> list[AttentionItem]:
+    items: list[AttentionItem] = []
+    for item, meeting_title in tasks:
+        subtitle = f"{item.owner} · {meeting_title}" if item.owner else meeting_title
+        items.append(
+            AttentionItem(
+                kind="task",
+                title=item.description,
+                subtitle=subtitle,
+                badge="To do",
+                tone="default",
+                link=f"/meetings/{item.meeting_id}",
+                when=None,
+            )
+        )
+    for doc in documents:
+        items.append(
+            AttentionItem(
+                kind="document",
+                title=doc.filename,
+                subtitle="AI review in progress",
+                badge="Reviewing",
+                tone="default",
+                link="/documents",
+                when=None,
+            )
+        )
+    for pres in presentations:
+        items.append(
+            AttentionItem(
+                kind="presentation",
+                title=pres.title,
+                subtitle="Being generated",
+                badge="In progress",
+                tone="default",
+                link="/presentations",
+                when=None,
+            )
+        )
+    return items[:_NEEDS_WORK_LIMIT]
 
 
 def _truncate(text: str, limit: int = 90) -> str:
